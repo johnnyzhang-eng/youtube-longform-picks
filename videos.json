@@ -1,126 +1,672 @@
 {
-  "updated": "2026-11-10",
-  "starters": ["n2u8Z1HeKD8", "eMlx5fFNoYc", "zjkBMFhNj_g"],
-  "topics": [
+ "updated": "2026-11-10",
+ "zones": [
+  {
+   "key": "learn",
+   "name": "认真学",
+   "intro": "按顺序看的基础路径。看完不回看视频，用自己的话回答问题，再对照参考要点。没有时间要求，按自己的节奏来。",
+   "topics": [
     {
-      "key": "chen",
-      "name": "从陈广宇出发",
-      "intro": "陈广宇是 Kimi 论文《Attention Residuals》（注意力残差）的并列第一作者。按顺序看下来，你应该能自己讲清楚这个名字里的两个词。",
-      "videos": [
-        {"id": "eMlx5fFNoYc", "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6", "channel": "3Blue1Brown", "seconds": 1569, "date": "2024-04-07",
-         "why": "用动画一步步讲注意力机制：每个词怎么“看”上下文里的其他词。论文名字里的“注意力”就是它。",
-         "ask": "query、key、value 三样东西各自负责什么？"},
-        {"id": "Q1JCrG1bJ-A", "title": "Residual Networks and Skip Connections (DL 15)", "channel": "Professor Bryce", "seconds": 1020, "date": "2022-10-23",
-         "why": "大学课程里的一讲：残差连接（跳跃连接）是什么，为什么它让很深的网络也能训练起来。论文名字里的“残差”就是它。",
-         "ask": "为什么“把输入直接加回输出”能让深层网络更好训练？"},
-        {"id": "iw1VF8HOCrk", "title": "Attention Residuals: Kimi AI's Elegant LLM Architecture Breakthrough", "channel": "bycloud", "seconds": 837, "date": "2026-05-18",
-         "why": "专门讲这篇论文。有了上面两个视频打底，这里能看懂他们改了残差连接的哪一部分、为什么这么改。",
-         "ask": "原来的残差连接有什么问题，这篇论文是怎么解决的？"},
-        {"id": "jYn_1PpRzxI", "title": "How mHC Reinvents Residual Connections", "channel": "Jia-Bin Huang", "seconds": 835, "date": "2026-01-05",
-         "why": "另一种改造残差连接的思路（mHC），作者是一位做讲解视频的大学教授。和上一个对照着看：同一个问题，两种解法。",
-         "ask": "mHC 和注意力残差，改的是同一个地方吗？"}
-      ]
+     "key": "ai",
+     "name": "AI 原理，从零开始",
+     "ordered": true,
+     "intro": "目标：能用自己的话讲清大模型是怎么工作的。从全貌开始，再到神经网络怎么学习，最后到 GPT 内部。",
+     "videos": [
+      {
+       "id": "zjkBMFhNj_g",
+       "title": "[1hr Talk] Intro to Large Language Models",
+       "channel": "Andrej Karpathy",
+       "seconds": 3588,
+       "date": "2023-11-22",
+       "why": "面向普通观众，一小时讲完大模型是什么、怎么训练出来、有哪些安全问题。最好的入门。",
+       "ask": "预训练和微调分别在做什么？",
+       "points": [
+        "预训练：让模型读海量文本，反复练习“预测下一个词”，得到一个什么都懂一点的基础模型，贵而且慢。",
+        "微调：在基础模型上用少量问答数据继续训练，让它变成会按要求回答的助手，便宜而且快。"
+       ]
+      },
+      {
+       "id": "aircAruvnKk",
+       "title": "But what is a neural network? | Deep learning chapter 1",
+       "channel": "3Blue1Brown",
+       "seconds": 1120,
+       "date": "2017-10-05",
+       "why": "这个系列的第一集，从最底层讲神经网络到底是什么。整个系列都值得按顺序看。",
+       "ask": "一个“神经元”其实就是在算什么？",
+       "points": [
+        "把上一层每个神经元的数值乘上各自的权重，加起来，再加一个偏置。",
+        "把结果送进一个函数，压成一个表示“激活程度”的数。整个网络就是很多这样的计算叠在一起。"
+       ]
+      },
+      {
+       "id": "IHZwWFHWa-w",
+       "title": "Gradient descent, how neural networks learn | Deep Learning Chapter 2",
+       "channel": "3Blue1Brown",
+       "seconds": 1233,
+       "date": "2017-10-16",
+       "why": "神经网络是怎么“学习”的：定义一个衡量错得多离谱的数，然后一点点调参数让它变小。",
+       "ask": "“梯度下降”里的梯度，告诉了我们什么？",
+       "points": [
+        "先有一个代价函数：网络的输出和正确答案差得越远，这个数越大。",
+        "梯度指向代价上升最快的方向；它的每个分量说明对应的参数对代价的影响有多大。",
+        "所以每次沿梯度的反方向小步调整参数，代价下降得最快。学习就是反复走这一步。"
+       ]
+      },
+      {
+       "id": "Ilg3gGewQ5U",
+       "title": "Backpropagation, intuitively | Deep Learning Chapter 3",
+       "channel": "3Blue1Brown",
+       "seconds": 767,
+       "date": "2017-11-03",
+       "why": "反向传播：怎么算出几万个参数各自该怎么调。这一集不用公式，只讲直觉。",
+       "ask": "为什么叫“反向”传播？",
+       "points": [
+        "先看输出层哪里错了，由此知道最后一层的权重该怎么调，也知道希望上一层的激活值怎么变。",
+        "把这个“希望”一层层往回传，每一层都得到自己的调整方向。",
+        "对很多训练样本的调整取平均，就是一次梯度下降。"
+       ]
+      },
+      {
+       "id": "wjZofJX0v4M",
+       "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5",
+       "channel": "3Blue1Brown",
+       "seconds": 1634,
+       "date": "2024-04-01",
+       "why": "GPT 内部的整体结构，从输入一段文字到输出下一个词。",
+       "ask": "模型每一步输出的到底是什么？",
+       "points": [
+        "输出的不是一个词，是词表里每个词作为“下一个词”的概率。",
+        "从这个概率分布里抽一个词，接到后面，再重复，一段话就是这样一个词一个词出来的。"
+       ]
+      },
+      {
+       "id": "eMlx5fFNoYc",
+       "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
+       "channel": "3Blue1Brown",
+       "seconds": 1569,
+       "date": "2024-04-07",
+       "why": "用动画一步步讲注意力机制：每个词怎么“看”上下文里的其他词。论文名字里的“注意力”就是它。",
+       "ask": "query、key、value 三样东西各自负责什么？",
+       "points": [
+        "query：这个词在“找什么”。",
+        "key：每个词“能提供什么”，用来和 query 配对，配得上的注意力权重就高。",
+        "value：配上之后真正传过去、用来更新这个词含义的信息。"
+       ]
+      },
+      {
+       "id": "9-Jl0dxWQs8",
+       "title": "How might LLMs store facts | Deep Learning Chapter 7",
+       "channel": "3Blue1Brown",
+       "seconds": 1362,
+       "date": "2024-08-31",
+       "why": "接着第 6 集：模型“记住”的事实可能存在哪里、以什么形式存。",
+       "ask": "注意力层和 MLP 层，分工有什么不同？",
+       "points": [
+        "注意力层：让词与词之间交换信息，把上下文带进每个词的向量里。",
+        "MLP 层：每个词的向量单独处理，不看别的词；模型记住的很多事实可能就存在这里的参数里。"
+       ]
+      },
+      {
+       "id": "7xTGNNLPyMI",
+       "title": "Deep Dive into LLMs like ChatGPT",
+       "channel": "Andrej Karpathy",
+       "seconds": 12683,
+       "date": "2025-02-05",
+       "why": "3 个半小时，把数据、分词、预训练、后训练、强化学习完整走一遍。可以分 3–4 次看，每次看完写一条小记。",
+       "ask": "模型为什么会“一本正经地胡说”？他给的解释是什么？",
+       "points": [
+        "模型本质上在续写“统计上最像样”的文字，训练里自信回答的例子很多。",
+        "它没有一个内置的“我不知道”开关，遇到没见过的东西也会照样续写出像真的内容。",
+        "缓解办法：训练它在不知道时说不知道，或者让它用搜索等工具查。"
+       ]
+      }
+     ]
     },
     {
-      "key": "map",
-      "name": "AI 全景",
-      "intro": "先有全貌，再看细节。Karpathy（OpenAI 创始成员、前特斯拉 AI 负责人）和 3Blue1Brown 是公认讲得最清楚的两位。",
-      "videos": [
-        {"id": "zjkBMFhNj_g", "title": "[1hr Talk] Intro to Large Language Models", "channel": "Andrej Karpathy", "seconds": 3588, "date": "2023-11-22",
-         "why": "面向普通观众，一小时讲完大模型是什么、怎么训练出来、有哪些安全问题。最好的入门。",
-         "ask": "预训练和微调分别在做什么？"},
-        {"id": "aircAruvnKk", "title": "But what is a neural network? | Deep learning chapter 1", "channel": "3Blue1Brown", "seconds": 1120, "date": "2017-10-05",
-         "why": "这个系列的第一集，从最底层讲神经网络到底是什么。整个系列都值得按顺序看。",
-         "ask": "一个“神经元”其实就是在算什么？"},
-        {"id": "wjZofJX0v4M", "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5", "channel": "3Blue1Brown", "seconds": 1634, "date": "2024-04-01",
-         "why": "GPT 内部的整体结构，从输入一段文字到输出下一个词。",
-         "ask": "模型每一步输出的到底是什么？"},
-        {"id": "9-Jl0dxWQs8", "title": "How might LLMs store facts | Deep Learning Chapter 7", "channel": "3Blue1Brown", "seconds": 1362, "date": "2024-08-31",
-         "why": "接着第 6 集：模型“记住”的事实可能存在哪里、以什么形式存。",
-         "ask": "注意力层和 MLP 层，分工有什么不同？"},
-        {"id": "7xTGNNLPyMI", "title": "Deep Dive into LLMs like ChatGPT", "channel": "Andrej Karpathy", "seconds": 12683, "date": "2025-02-05",
-         "why": "3 个半小时，把数据、分词、预训练、后训练、强化学习完整走一遍。可以分 3–4 次看，每次看完写一条小记。",
-         "ask": "模型为什么会“一本正经地胡说”？他给的解释是什么？"},
-        {"id": "EWvNQjAaOHw", "title": "How I use LLMs", "channel": "Andrej Karpathy", "seconds": 7872, "date": "2025-02-27",
-         "why": "实用篇：他自己平时怎么用各种 AI 工具。可以拿来对照你自己平时用 AI 的方式。",
-         "ask": "他的哪个用法你还没用过？"},
-        {"id": "kCc8FmEb1nY", "title": "Let's build GPT: from scratch, in code, spelled out.", "channel": "Andrej Karpathy", "seconds": 6980, "date": "2023-01-17",
-         "why": "进阶：从零写代码实现一个小 GPT。要跟着敲代码，不算消遣，留到有整块时间再看。",
-         "ask": "自己写一遍之后，哪一步和你原来想的不一样？"}
-      ]
+     "key": "math",
+     "name": "数学直觉",
+     "ordered": true,
+     "intro": "读懂 AI 原理要用到的三样数学：线性代数、微积分、概率。这里只建立直觉，不做题。",
+     "videos": [
+      {
+       "id": "fNk_zzaMoSs",
+       "title": "Vectors | Chapter 1, Essence of linear algebra",
+       "channel": "3Blue1Brown",
+       "seconds": 591,
+       "date": "2016-08-05",
+       "why": "向量到底是什么：一个箭头，也是一列数，两种看法是同一回事。",
+       "ask": "向量的加法和数乘，在几何上分别是什么？",
+       "points": [
+        "加法：把第二个箭头的起点接到第一个箭头的终点，从头走到尾。",
+        "数乘：把箭头拉长、缩短或者反向。"
+       ]
+      },
+      {
+       "id": "kYB8IZa5AuE",
+       "title": "Linear transformations and matrices | Chapter 3, Essence of linear algebra",
+       "channel": "3Blue1Brown",
+       "seconds": 658,
+       "date": "2016-08-07",
+       "why": "矩阵不是一堆数，而是一种“对空间的变换”。神经网络每一层做的主要就是这件事。",
+       "ask": "矩阵的每一列，表示什么？",
+       "points": [
+        "每一列是一个基向量在变换之后落到的位置。",
+        "知道基向量去了哪里，就知道任何向量会去哪里，所以一个矩阵能完整描述一次线性变换。"
+       ]
+      },
+      {
+       "id": "WUvTyaaNkzM",
+       "title": "The essence of calculus",
+       "channel": "3Blue1Brown",
+       "seconds": 1024,
+       "date": "2017-04-28",
+       "why": "从“圆的面积为什么是 πr²”出发，让你觉得微积分是自己也能发明出来的东西。",
+       "ask": "导数和积分为什么互为逆运算？",
+       "points": [
+        "积分是把很多很薄的小块加起来得到总量。",
+        "导数是总量在某一点变化得多快，也就是再加一小块时增加的那一点。",
+        "所以对“累加出来的量”求变化率，得到的正是被加的那个东西。"
+       ]
+      },
+      {
+       "id": "HZGCoVF3YvM",
+       "title": "Bayes theorem, the geometry of changing beliefs",
+       "channel": "3Blue1Brown",
+       "seconds": 911,
+       "date": "2019-12-22",
+       "why": "贝叶斯定理：看到新证据后，该把原来的看法调整多少。",
+       "ask": "为什么不能只看“证据符合假设的概率”，还要看先验？",
+       "points": [
+        "如果假设本来就很少见，即使证据很符合它，符合的那部分人在总体里也可能只占少数。",
+        "正确做法是用证据去更新先验，而不是让证据直接决定结论。"
+       ]
+      },
+      {
+       "id": "8idr1WZ1A7Q",
+       "title": "Binomial distributions | Probabilities of probabilities, part 1",
+       "channel": "3Blue1Brown",
+       "seconds": 754,
+       "date": "2020-03-15",
+       "why": "两个好评率，一个 100%（10 条评价），一个 96%（200 条），该信哪个？",
+       "ask": "为什么评价数量少的时候，不能直接相信好评率？",
+       "points": [
+        "看到的好评率只是一次抽样的结果，真实好评率是未知的。",
+        "样本少的时候，很多不同的真实好评率都可能产生同样的观察结果，所以不确定性大。"
+       ]
+      },
+      {
+       "id": "zeJD6dqJ5lo",
+       "title": "But what is the Central Limit Theorem?",
+       "channel": "3Blue1Brown",
+       "seconds": 1874,
+       "date": "2023-03-14",
+       "why": "中心极限定理：为什么那么多不相干的事情，加起来都呈现钟形曲线。",
+       "ask": "中心极限定理说了什么？",
+       "points": [
+        "把很多个独立、同分布、方差有限的随机量加起来，再做适当的平移和缩放，和的分布会越来越接近正态分布，不管单个随机量原来是什么分布。",
+        "所以样本均值的波动可以用正态分布来近似，这是置信区间和 A/B 实验常用的依据。条件不满足时（比如不独立、方差无限），这个结论不一定成立。"
+       ]
+      }
+     ]
     },
     {
-      "key": "mind",
-      "name": "AI 在想什么",
-      "intro": "AI 和心理学的交叉：研究者像研究人脑一样研究模型内部，也在讨论 AI 的性格和意识。",
-      "videos": [
-        {"id": "Bj9BD2D3DzA", "title": "Tracing the thoughts of a large language model", "channel": "Anthropic", "seconds": 175, "date": "2025-03-27",
-         "why": "3 分钟短片：可解释性研究“看进”模型内部时的几个发现。适合当下面那个长视频的预告。",
-         "ask": "模型写押韵的诗时，会不会提前想好韵脚？"},
-        {"id": "fGKNUvivvnc", "title": "Interpretability: Understanding how AI models think", "channel": "Anthropic", "seconds": 3542, "date": "2025-08-15",
-         "why": "几位可解释性研究员的座谈：怎么研究模型内部，看到了什么，还有哪些不知道。",
-         "ask": "研究 AI 的“大脑”和研究人脑，有哪些相似和不同？"},
-        {"id": "I9aGC6Ui3eE", "title": "Anthropic’s philosopher answers your questions", "channel": "Anthropic", "seconds": 2169, "date": "2025-12-05",
-         "why": "Amanda Askell 是负责塑造 Claude 性格和价值观的哲学家，这期回答观众的提问。",
-         "ask": "给 AI 设计“性格”，和人的性格养成有什么相似之处？"},
-        {"id": "pyXouxa0WnY", "title": "Could AI models be conscious?", "channel": "Anthropic", "seconds": 2623, "date": "2025-04-24",
-         "why": "一个还没有答案的问题：AI 可能有意识吗？如果可能，应该怎么对待它？",
-         "ask": "平时我们是凭什么判断一个东西“有意识”的？"}
-      ]
+     "key": "chen",
+     "name": "读懂一篇论文：注意力残差",
+     "ordered": true,
+     "intro": "陈广宇是 Kimi 论文《Attention Residuals》的并列第一作者。先看完“AI 原理”里讲注意力的那一集，再按顺序看这三个，目标是自己讲清这篇论文改了什么。",
+     "videos": [
+      {
+       "id": "Q1JCrG1bJ-A",
+       "title": "Residual Networks and Skip Connections (DL 15)",
+       "channel": "Professor Bryce",
+       "seconds": 1020,
+       "date": "2022-10-23",
+       "why": "大学课程里的一讲：残差连接（跳跃连接）是什么，为什么它让很深的网络也能训练起来。论文名字里的“残差”就是它。",
+       "ask": "为什么“把输入直接加回输出”能让深层网络更好训练？",
+       "points": [
+        "把输入直接加回输出后，每一层只需要学“在输入基础上改多少”，什么都不改也很容易做到。",
+        "梯度可以沿着这条捷径直接传回前面的层，不容易在很深的网络里消失。"
+       ]
+      },
+      {
+       "id": "iw1VF8HOCrk",
+       "title": "Attention Residuals: Kimi AI's Elegant LLM Architecture Breakthrough",
+       "channel": "bycloud",
+       "seconds": 837,
+       "date": "2026-05-18",
+       "why": "专门讲这篇论文。有了上面两个视频打底，这里能看懂他们改了残差连接的哪一部分、为什么这么改。",
+       "ask": "原来的残差连接有什么问题，这篇论文是怎么解决的？"
+      },
+      {
+       "id": "jYn_1PpRzxI",
+       "title": "How mHC Reinvents Residual Connections",
+       "channel": "Jia-Bin Huang",
+       "seconds": 835,
+       "date": "2026-01-05",
+       "why": "另一种改造残差连接的思路（mHC），作者是一位做讲解视频的大学教授。和上一个对照着看：同一个问题，两种解法。",
+       "ask": "mHC 和注意力残差，改的是同一个地方吗？"
+      }
+     ]
     },
     {
-      "key": "talk",
-      "name": "大佬访谈",
-      "intro": "Dwarkesh Patel 的访谈问得深、准备充分。这几期观点互相冲突，对照着看最有意思。",
-      "videos": [
-        {"id": "lXUZvyajciY", "title": "Andrej Karpathy — “We’re summoning ghosts, not building animals”", "channel": "Dwarkesh Patel", "seconds": 8768, "date": "2025-10-17",
-         "why": "Karpathy 谈 AI 智能体还差在哪、为什么他比很多人更冷静。看完 AI 全景再看，收获更大。",
-         "ask": "“召唤幽灵，而不是造动物”这个比喻是什么意思？"},
-        {"id": "aR20FWCCjAs", "title": "Ilya Sutskever – We're moving from the age of scaling to the age of research", "channel": "Dwarkesh Patel", "seconds": 5763, "date": "2025-11-25",
-         "why": "OpenAI 前首席科学家：只靠堆规模的时代过去了，接下来要回到做研究。",
-         "ask": "他认为只靠堆规模，缺的是什么？"},
-        {"id": "21EYKqUsPfg", "title": "Richard Sutton – Father of RL thinks LLMs are a dead end", "channel": "Dwarkesh Patel", "seconds": 4029, "date": "2025-09-26",
-         "why": "强化学习之父认为大语言模型是死路。和 Karpathy、Ilya 那两期对照着看。",
-         "ask": "他和主持人在哪一点上始终没谈拢？你站哪边？"},
-        {"id": "ugvHCXCOmm4", "title": "Dario Amodei: Anthropic CEO on Claude, AGI & the Future of AI & Humanity | Lex Fridman Podcast #452", "channel": "Lex Fridman", "seconds": 18900, "date": "2024-11-11",
-         "why": "5 个多小时，Anthropic CEO、Amanda Askell、Chris Olah（可解释性）三人。有章节，挑感兴趣的段落看就行。",
-         "ask": "三个人里，谁的哪个观点最让你意外？"}
-      ]
+     "key": "build",
+     "name": "动手做 AI 应用",
+     "ordered": true,
+     "intro": "懂原理之后，看别人怎么把大模型搭成能用的东西。重点是理解每一步为什么这样设计。",
+     "videos": [
+      {
+       "id": "EWvNQjAaOHw",
+       "title": "How I use LLMs",
+       "channel": "Andrej Karpathy",
+       "seconds": 7872,
+       "date": "2025-02-27",
+       "why": "实用篇：他自己平时怎么用各种 AI 工具。可以拿来对照你自己平时用 AI 的方式。",
+       "ask": "他的哪个用法你还没用过？"
+      },
+      {
+       "id": "T-D1OfcDW1M",
+       "title": "What is Retrieval-Augmented Generation (RAG)?",
+       "channel": "IBM Technology",
+       "seconds": 395,
+       "date": "2023-08-23",
+       "why": "RAG（检索增强生成）是什么：先查资料，再让模型根据查到的内容回答。6 分钟讲清概念。",
+       "ask": "RAG 解决了大模型的哪两个问题？",
+       "points": [
+        "知识过时：模型只知道训练时的内容，检索能给它最新的资料。",
+        "没有出处：让模型根据检索到的内容回答，可以给出来源，也减少凭空编造。"
+       ]
+      },
+      {
+       "id": "D7_ipDqhtwk",
+       "title": "How We Build Effective Agents: Barry Zhang, Anthropic",
+       "channel": "AI Engineer",
+       "seconds": 909,
+       "date": "2025-04-04",
+       "why": "Anthropic 工程师讲他们怎么做智能体：什么时候该用、什么时候不该用，以及保持简单。",
+       "ask": "他认为什么样的任务才值得用智能体？"
+      },
+      {
+       "id": "iv-5mZ_9CPY",
+       "title": "But how do AI images and videos actually work? | Guest video by Welch Labs",
+       "channel": "3Blue1Brown",
+       "seconds": 2240,
+       "date": "2025-07-25",
+       "why": "图片和视频生成模型的原理：扩散模型怎么从一团噪声一步步变成画面。",
+       "ask": "扩散模型在训练时学的是什么？",
+       "points": [
+        "训练时给图片逐步加噪声，让模型学会从加了噪声的图片里估计出噪声，也就是学会往“更像真实图片”的方向走一步。",
+        "生成时从纯噪声开始，反复走这一步；文字提示用来引导往哪个方向走。"
+       ]
+      },
+      {
+       "id": "kCc8FmEb1nY",
+       "title": "Let's build GPT: from scratch, in code, spelled out.",
+       "channel": "Andrej Karpathy",
+       "seconds": 6980,
+       "date": "2023-01-17",
+       "why": "进阶：从零写代码实现一个小 GPT。要跟着敲代码，不算消遣，留到有整块时间再看。",
+       "ask": "自己写一遍之后，哪一步和你原来想的不一样？"
+      }
+     ]
     },
     {
-      "key": "psy",
-      "name": "心理学",
-      "intro": "从大学公开课到经典演讲。最后一个讲多巴胺，和“为什么刷短视频停不下来”直接相关。",
-      "videos": [
-        {"id": "NNnIGh9g6fA", "title": "1. Introduction to Human Behavioral Biology", "channel": "Stanford", "seconds": 3434, "date": "2011-02-01",
-         "why": "Sapolsky 的斯坦福名课第一讲，讲得非常有感染力。整门课都在 YouTube 上，喜欢可以一直看下去。",
-         "ask": "他为什么提醒不要只用一个学科去解释人的行为？"},
-        {"id": "P3FKHH2RzjI", "title": "1. Introduction", "channel": "YaleCourses", "seconds": 1777, "date": "2008-09-30",
-         "why": "Paul Bloom 的耶鲁心理学导论第一讲，带你看心理学的整张地图。",
-         "ask": "心理学到底在研究哪些问题？哪一块你最想深入？"},
-        {"id": "XgRlrBl-7Yg", "title": "The riddle of experience vs. memory | Daniel Kahneman", "channel": "TED", "seconds": 1237, "date": "2010-03-01",
-         "why": "诺奖得主卡尼曼：“体验的自我”和“记忆的自我”常常不是一回事。",
-         "ask": "你回忆一次旅行时，是哪个“自我”在打分？"},
-        {"id": "UBVV8pch1dM", "title": "The Science of Thinking", "channel": "Veritasium", "seconds": 730, "date": "2017-03-02",
-         "why": "用实验讲快思考（系统 1）和慢思考（系统 2），以及为什么学新东西会累。",
-         "ask": "有哪些事情，你已经从系统 2 变成系统 1 了？"},
-        {"id": "n2u8Z1HeKD8", "title": "Dopamine Nation: Finding Balance in the Age of Indulgence with Anna Lembke", "channel": "Stanford Alumni", "seconds": 807, "date": "2023-03-30",
-         "why": "斯坦福成瘾医学专家讲多巴胺，以及快乐和痛苦怎么互相平衡。为什么短视频停不下来，这里有答案。",
-         "ask": "她说的“快乐—痛苦天平”是什么？放到刷短视频上怎么理解？"}
-      ]
+     "key": "cs",
+     "name": "计算机基础",
+     "ordered": true,
+     "intro": "计算机到底怎么工作。从历史和直觉开始，再看哈佛 CS50 的第一讲。",
+     "videos": [
+      {
+       "id": "O5nskjZ_GoI",
+       "title": "Early Computing: Crash Course Computer Science #1",
+       "channel": "CrashCourse",
+       "seconds": 713,
+       "date": "2017-02-22",
+       "why": "Crash Course 计算机科学第 1 集，整个系列 40 集，从算盘一路讲到互联网，每集 10 分钟左右。",
+       "ask": "人们最初为什么需要计算机器？"
+      },
+      {
+       "id": "QXjU9qTsYCc",
+       "title": "How do computers read code?",
+       "channel": "Frame of Essence",
+       "seconds": 721,
+       "date": "2017-11-16",
+       "why": "你写的代码，是怎么变成 CPU 能执行的东西的。",
+       "ask": "从源代码到 CPU 执行，中间经过了哪几层翻译？",
+       "points": [
+        "高级语言先被编译器或解释器翻译成更低级的指令，最后变成机器码，也就是一串二进制数字。",
+        "CPU 按“取指令、解码、执行”的循环，一条条执行这些数字表示的简单操作。"
+       ]
+      },
+      {
+       "id": "UuIEbpQms8o",
+       "title": "CS50x - Lecture 0 - Scratch",
+       "channel": "CS50",
+       "seconds": 7253,
+       "date": "2025-12-31",
+       "why": "哈佛 CS50 第 0 讲：二进制、算法、怎样像程序员一样思考。两小时，可以分两次看。",
+       "ask": "为什么在电话簿里找人，“每次翻一半”比“一页页翻”快得多？",
+       "points": [
+        "一页页翻，页数翻倍，步数也翻倍。",
+        "每次扔掉一半，页数翻倍只多一步，步数是以 2 为底的对数。数据越大，差距越悬殊。"
+       ]
+      }
+     ]
     },
     {
-      "key": "learn",
-      "name": "学会学习",
-      "intro": "心理学 × 学习方法。《认知天性》里很多结论来自 Bjork 夫妇的研究。",
-      "videos": [
-        {"id": "0NIXM74NwXs", "title": "How to study to maximize performance | Elizabeth Bjork & Robert Bjork | TEDxManhattanBeach", "channel": "TEDx Talks", "seconds": 910, "date": "2019-03-07",
-         "why": "“合意困难”：学的时候越费劲，往往记得越牢。",
-         "ask": "为什么重读让人觉得懂了，效果却差？"},
-        {"id": "O96fE1E-rf8", "title": "Learning how to learn | Barbara Oakley | TEDxOaklandUniversity", "channel": "TEDx Talks", "seconds": 1070, "date": "2014-08-05",
-         "why": "专注模式和发散模式：为什么卡住的时候，先放一放反而能想通。",
-         "ask": "你上一次“放一放就想通了”是什么时候？"}
-      ]
+     "key": "data",
+     "name": "数据库与数据工程",
+     "ordered": true,
+     "intro": "数据库和大数据工具的底层原理：数据怎么存、为什么查得快、分布式怎么算。最后两个是 SQL 和 Python 的好课。",
+     "videos": [
+      {
+       "id": "K1a2Bk8NrYQ",
+       "title": "Understanding B-Trees: The Data Structure Behind Modern Databases",
+       "channel": "Spanning Tree",
+       "seconds": 759,
+       "date": "2024-04-29",
+       "why": "B 树：大多数数据库索引背后的数据结构，动画讲得很清楚。",
+       "ask": "数据库为什么用 B 树，而不用普通的二叉树？",
+       "points": [
+        "数据在磁盘上，每读一个节点就是一次很慢的磁盘访问。",
+        "B 树每个节点放很多个键、分很多个叉，树很矮，查一条数据只要读很少几个节点。"
+       ]
+      },
+      {
+       "id": "I6jB0nM9SKU",
+       "title": "The Secret Sauce Behind NoSQL: LSM Tree",
+       "channel": "ByteByteGo",
+       "seconds": 454,
+       "date": "2022-08-30",
+       "why": "LSM 树：另一种存储思路，写入特别快。很多分析型和 NoSQL 数据库用的是它或它的变体。",
+       "ask": "LSM 树为什么写得快？代价是什么？",
+       "points": [
+        "写入先进内存，再整批顺序写到磁盘，不用到处找位置改，所以快。",
+        "代价是数据分散在很多文件里，读的时候可能要查多个文件，还要在后台不断合并整理。"
+       ]
+      },
+      {
+       "id": "Vw1fCeD06YI",
+       "title": "Column vs Row Oriented Databases Explained",
+       "channel": "Hussein Nasser",
+       "seconds": 2055,
+       "date": "2020-10-30",
+       "why": "行存和列存：为什么做分析的数据库都按列存数据。",
+       "ask": "“统计某一列的总和”这种查询，为什么列存快得多？",
+       "points": [
+        "列存只需要读用到的那几列，行存要把整行都读进来。",
+        "同一列的数据类型相同、取值相近，压缩率高，读的数据量更小。"
+       ]
+      },
+      {
+       "id": "nKRwjXRs4mY",
+       "title": "What is Spark? (Visual Explanation)",
+       "channel": "Data with Baraa",
+       "seconds": 718,
+       "date": "2026-03-26",
+       "why": "用图讲 Spark：一份很大的数据，怎么分给很多台机器一起算。",
+       "ask": "Spark 里的 shuffle 是什么，为什么它慢？",
+       "points": [
+        "分组、连接这类操作需要把相同键的数据放到一起，就得在机器之间重新分发数据，这就是 shuffle。",
+        "它要走网络和磁盘，所以慢；如果某个键的数据特别多，就会出现数据倾斜，个别任务特别慢。"
+       ]
+      },
+      {
+       "id": "fU9hR3kiOK0",
+       "title": "\"Turning the database inside out with Apache Samza\" by Martin Kleppmann",
+       "channel": "Strange Loop Conference",
+       "seconds": 2862,
+       "date": "2014-09-21",
+       "why": "《数据密集型应用系统设计》作者的经典演讲：把数据库看成一条不断追加的变更日志。",
+       "ask": "“把数据库由内向外翻”是什么意思？",
+       "points": [
+        "数据库内部本来就有一条变更日志，用来做复制；表只是这条日志算出来的当前结果。",
+        "把这条日志拿到外面当作核心，缓存、索引、报表都变成订阅日志后算出来的视图。增量同步（CDC）就是这个思路。"
+       ]
+      },
+      {
+       "id": "vHYeChEf2lA",
+       "title": "CS50 SQL - Lecture 0 - Querying",
+       "channel": "CS50",
+       "seconds": 4753,
+       "date": "2023-10-01",
+       "why": "哈佛 CS50 SQL 课第 0 讲：从零讲查询。讲得慢而清楚，适合打基础。",
+       "ask": "WHERE、ORDER BY、LIMIT 写在一起时，各自起什么作用？",
+       "points": [
+        "WHERE 先筛出符合条件的行。",
+        "ORDER BY 把筛出来的行排序。",
+        "LIMIT 最后只留前几行。"
+       ]
+      },
+      {
+       "id": "OSGv2VnC0go",
+       "title": "Transforming Code into Beautiful, Idiomatic Python",
+       "channel": "Next Day Video",
+       "seconds": 2931,
+       "date": "2013-03-20",
+       "why": "Python 核心开发者讲怎么把笨拙的代码改写成地道的 Python。看的是思路，不用记。",
+       "ask": "他反复强调的“更好的写法”，好在哪里？"
+      }
+     ]
     }
-  ]
+   ]
+  },
+  {
+   "key": "relax",
+   "name": "轻松看",
+   "intro": "访谈、心理学、思维模型。不分先后，想看哪个看哪个。",
+   "topics": [
+    {
+     "key": "mind",
+     "name": "AI 在想什么",
+     "intro": "AI 和心理学的交叉：研究者像研究人脑一样研究模型内部，也在讨论 AI 的性格和意识。",
+     "videos": [
+      {
+       "id": "Bj9BD2D3DzA",
+       "title": "Tracing the thoughts of a large language model",
+       "channel": "Anthropic",
+       "seconds": 175,
+       "date": "2025-03-27",
+       "why": "3 分钟短片：可解释性研究“看进”模型内部时的几个发现。适合当下面那个长视频的预告。",
+       "ask": "模型写押韵的诗时，会不会提前想好韵脚？"
+      },
+      {
+       "id": "fGKNUvivvnc",
+       "title": "Interpretability: Understanding how AI models think",
+       "channel": "Anthropic",
+       "seconds": 3542,
+       "date": "2025-08-15",
+       "why": "几位可解释性研究员的座谈：怎么研究模型内部，看到了什么，还有哪些不知道。",
+       "ask": "研究 AI 的“大脑”和研究人脑，有哪些相似和不同？"
+      },
+      {
+       "id": "I9aGC6Ui3eE",
+       "title": "Anthropic’s philosopher answers your questions",
+       "channel": "Anthropic",
+       "seconds": 2169,
+       "date": "2025-12-05",
+       "why": "Amanda Askell 是负责塑造 Claude 性格和价值观的哲学家，这期回答观众的提问。",
+       "ask": "给 AI 设计“性格”，和人的性格养成有什么相似之处？"
+      },
+      {
+       "id": "pyXouxa0WnY",
+       "title": "Could AI models be conscious?",
+       "channel": "Anthropic",
+       "seconds": 2623,
+       "date": "2025-04-24",
+       "why": "一个还没有答案的问题：AI 可能有意识吗？如果可能，应该怎么对待它？",
+       "ask": "平时我们是凭什么判断一个东西“有意识”的？"
+      }
+     ],
+     "ordered": false
+    },
+    {
+     "key": "talk",
+     "name": "大佬访谈",
+     "intro": "Dwarkesh Patel 的访谈问得深、准备充分。这几期观点互相冲突，对照着看最有意思。",
+     "videos": [
+      {
+       "id": "lXUZvyajciY",
+       "title": "Andrej Karpathy — “We’re summoning ghosts, not building animals”",
+       "channel": "Dwarkesh Patel",
+       "seconds": 8768,
+       "date": "2025-10-17",
+       "why": "Karpathy 谈 AI 智能体还差在哪、为什么他比很多人更冷静。看完 AI 全景再看，收获更大。",
+       "ask": "“召唤幽灵，而不是造动物”这个比喻是什么意思？"
+      },
+      {
+       "id": "aR20FWCCjAs",
+       "title": "Ilya Sutskever – We're moving from the age of scaling to the age of research",
+       "channel": "Dwarkesh Patel",
+       "seconds": 5763,
+       "date": "2025-11-25",
+       "why": "OpenAI 前首席科学家：只靠堆规模的时代过去了，接下来要回到做研究。",
+       "ask": "他认为只靠堆规模，缺的是什么？"
+      },
+      {
+       "id": "21EYKqUsPfg",
+       "title": "Richard Sutton – Father of RL thinks LLMs are a dead end",
+       "channel": "Dwarkesh Patel",
+       "seconds": 4029,
+       "date": "2025-09-26",
+       "why": "强化学习之父认为大语言模型是死路。和 Karpathy、Ilya 那两期对照着看。",
+       "ask": "他和主持人在哪一点上始终没谈拢？你站哪边？"
+      },
+      {
+       "id": "ugvHCXCOmm4",
+       "title": "Dario Amodei: Anthropic CEO on Claude, AGI & the Future of AI & Humanity | Lex Fridman Podcast #452",
+       "channel": "Lex Fridman",
+       "seconds": 18900,
+       "date": "2024-11-11",
+       "why": "5 个多小时，Anthropic CEO、Amanda Askell、Chris Olah（可解释性）三人。有章节，挑感兴趣的段落看就行。",
+       "ask": "三个人里，谁的哪个观点最让你意外？"
+      }
+     ],
+     "ordered": false
+    },
+    {
+     "key": "psy",
+     "name": "心理学",
+     "intro": "从大学公开课到经典演讲。最后一个讲多巴胺，和“为什么刷短视频停不下来”直接相关。",
+     "videos": [
+      {
+       "id": "n2u8Z1HeKD8",
+       "title": "Dopamine Nation: Finding Balance in the Age of Indulgence with Anna Lembke",
+       "channel": "Stanford Alumni",
+       "seconds": 807,
+       "date": "2023-03-30",
+       "why": "斯坦福成瘾医学专家讲多巴胺，以及快乐和痛苦怎么互相平衡。为什么短视频停不下来，这里有答案。",
+       "ask": "她说的“快乐—痛苦天平”是什么？放到刷短视频上怎么理解？"
+      },
+      {
+       "id": "UBVV8pch1dM",
+       "title": "The Science of Thinking",
+       "channel": "Veritasium",
+       "seconds": 730,
+       "date": "2017-03-02",
+       "why": "用实验讲快思考（系统 1）和慢思考（系统 2），以及为什么学新东西会累。",
+       "ask": "有哪些事情，你已经从系统 2 变成系统 1 了？"
+      },
+      {
+       "id": "XgRlrBl-7Yg",
+       "title": "The riddle of experience vs. memory | Daniel Kahneman",
+       "channel": "TED",
+       "seconds": 1237,
+       "date": "2010-03-01",
+       "why": "诺奖得主卡尼曼：“体验的自我”和“记忆的自我”常常不是一回事。",
+       "ask": "你回忆一次旅行时，是哪个“自我”在打分？"
+      },
+      {
+       "id": "NNnIGh9g6fA",
+       "title": "1. Introduction to Human Behavioral Biology",
+       "channel": "Stanford",
+       "seconds": 3434,
+       "date": "2011-02-01",
+       "why": "Sapolsky 的斯坦福名课第一讲，讲得非常有感染力。整门课都在 YouTube 上，喜欢可以一直看下去。",
+       "ask": "他为什么提醒不要只用一个学科去解释人的行为？"
+      },
+      {
+       "id": "P3FKHH2RzjI",
+       "title": "1. Introduction",
+       "channel": "YaleCourses",
+       "seconds": 1777,
+       "date": "2008-09-30",
+       "why": "Paul Bloom 的耶鲁心理学导论第一讲，带你看心理学的整张地图。",
+       "ask": "心理学到底在研究哪些问题？哪一块你最想深入？"
+      }
+     ],
+     "ordered": false
+    },
+    {
+     "key": "model",
+     "name": "思维模型与投资",
+     "intro": "芒格说要用多个学科的模型去看问题。这几个是值得反复看的经典。",
+     "videos": [
+      {
+       "id": "5U0TE4oqj24",
+       "title": "Charlie Munger Commencement Address - USC",
+       "channel": "Value Investor's Club",
+       "seconds": 2225,
+       "date": "2017-03-02",
+       "why": "芒格 2007 年在南加大法学院的毕业演讲，《穷查理宝典》收录了全文。讲怎样过好一生、怎样持续学习。",
+       "ask": "他说的“反过来想”，可以用在你现在的哪件事上？"
+      },
+      {
+       "id": "pqzcCfUglws",
+       "title": "The Psychology of Human Misjudgement - Charlie Munger Full Speech",
+       "channel": "BuffettMungerWisdom",
+       "seconds": 4582,
+       "date": "2013-01-13",
+       "why": "芒格最著名的演讲《人类误判心理学》，只有录音。列举了二十多种让人做错判断的心理倾向。",
+       "ask": "哪一种误判倾向，你最近在自己身上见到过？"
+      },
+      {
+       "id": "PHe0bXAIuk0",
+       "title": "How The Economic Machine Works by Ray Dalio",
+       "channel": "Principles by Ray Dalio",
+       "seconds": 1860,
+       "date": "2013-09-22",
+       "why": "桥水创始人达利欧用 30 分钟动画讲经济怎么运转：交易、信贷、短期和长期债务周期。",
+       "ask": "为什么他说信贷是经济里最重要、也最不被理解的部分？"
+      },
+      {
+       "id": "6WroiiaVhGo",
+       "title": "The Most Important Thing - Origins and Inspirations | Howard Marks | Talks at Google",
+       "channel": "Talks at Google",
+       "seconds": 4143,
+       "date": "2015-03-29",
+       "why": "橡树资本创始人霍华德·马克斯在 Google 的演讲，讲风险、周期和“第二层次思维”。",
+       "ask": "“第二层次思维”和第一层次的区别是什么？"
+      }
+     ],
+     "ordered": false
+    },
+    {
+     "key": "learnhow",
+     "name": "学会学习",
+     "intro": "心理学 × 学习方法。",
+     "videos": [
+      {
+       "id": "0NIXM74NwXs",
+       "title": "How to study to maximize performance | Elizabeth Bjork & Robert Bjork | TEDxManhattanBeach",
+       "channel": "TEDx Talks",
+       "seconds": 910,
+       "date": "2019-03-07",
+       "why": "“合意困难”：学的时候越费劲，往往记得越牢。",
+       "ask": "为什么重读让人觉得懂了，效果却差？"
+      },
+      {
+       "id": "O96fE1E-rf8",
+       "title": "Learning how to learn | Barbara Oakley | TEDxOaklandUniversity",
+       "channel": "TEDx Talks",
+       "seconds": 1070,
+       "date": "2014-08-05",
+       "why": "专注模式和发散模式：为什么卡住的时候，先放一放反而能想通。",
+       "ask": "你上一次“放一放就想通了”是什么时候？"
+      }
+     ],
+     "ordered": false
+    }
+   ]
+  }
+ ]
 }
