@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>长视频精选台</title>
+<style>
+:root {
+  --bg: #f6f5f1; --surface: #ffffff; --text: #1d1f21; --muted: #6b6f73;
+  --border: #e3e1da; --accent: #176b75; --accent-soft: #e2f0f1; --ask-bg: #faf6ea;
+  --ph-a: #d9e6e7; --ph-b: #ece7da; --dur-bg: rgba(0,0,0,.78);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141618; --surface: #1d2023; --text: #e8e6e1; --muted: #9a9ea3;
+    --border: #2e3236; --accent: #5fb7c1; --accent-soft: #1f3336; --ask-bg: #26241d;
+    --ph-a: #23393c; --ph-b: #2f2b22;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141618; --surface: #1d2023; --text: #e8e6e1; --muted: #9a9ea3;
+  --border: #2e3236; --accent: #5fb7c1; --accent-soft: #1f3336; --ask-bg: #26241d;
+  --ph-a: #23393c; --ph-b: #2f2b22;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px 64px; }
+header { padding: 40px 0 20px; }
+h1 { margin: 0; font-size: 30px; letter-spacing: .02em; }
+.sub { margin: 6px 0 0; color: var(--muted); }
+.stats { margin-top: 10px; font-size: 14px; color: var(--muted); }
+.stats b { color: var(--accent); }
+.js-only, .js-inline { display: none; }
+.js .js-only { display: flex; }
+.js .js-inline { display: inline; }
+.bar {
+  position: sticky; top: 0; z-index: 5; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+  padding: 10px 0; background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer;
+}
+.chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.toggle { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 4px; cursor: pointer; }
+h2 { font-size: 20px; margin: 36px 0 2px; }
+h2 .count { font-size: 13px; color: var(--muted); font-weight: normal; margin-left: 4px; }
+.intro { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+.starters h2 { margin-top: 24px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.card.hidden, .topic.hidden { display: none; }
+.thumb {
+  position: relative; display: block; aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--ph-a), var(--ph-b));
+}
+.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ph {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-weight: 600; padding: 12px; text-align: center;
+}
+.dur, .seen-badge {
+  position: absolute; bottom: 8px; font-size: 12px; color: #fff; padding: 1px 6px; border-radius: 4px;
+}
+.dur { right: 8px; background: var(--dur-bg); font-variant-numeric: tabular-nums; }
+.seen-badge { left: 8px; background: var(--accent); display: none; }
+.card.seen .seen-badge { display: block; }
+.card.seen .thumb img { opacity: .55; }
+.body { padding: 12px 14px 14px; display: flex; flex-direction: column; flex: 1; }
+h3 { margin: 0; font-size: 15px; line-height: 1.4; }
+h3 a { color: inherit; text-decoration: none; }
+h3 a:hover { color: var(--accent); }
+.meta { margin: 4px 0 8px; color: var(--muted); font-size: 13px; }
+.why { margin: 0 0 10px; font-size: 14px; }
+.ask { margin: 0 0 12px; font-size: 13px; background: var(--ask-bg); border-radius: 8px; padding: 8px 10px; }
+.ask b { display: block; font-size: 12px; color: var(--accent); }
+.actions { gap: 8px; margin-top: auto; }
+.actions button {
+  flex: 1; font: inherit; font-size: 13px; padding: 6px 8px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--bg); color: var(--text);
+}
+.card.seen .btn-seen { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+footer p { margin: 4px 0; }
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--bg);
+  padding: 8px 16px; border-radius: 999px; font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none;
+}
+.toast.show { opacity: 1; }
+@media (max-width: 520px) { h1 { font-size: 24px; } header { padding-top: 24px; } .bar { position: static; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>长视频精选台</h1>
+  <p class="sub">AI × 心理学 · 由 Opus 筛选 · 2026-11-10 更新</p>
+  <p class="stats">共 26 个视频，链接已逐个核对能播放<span class="js-inline"> · 已看 <b id="seen-count">0</b></span></p>
+</header>
+
+<div class="bar js-only">
+  <div class="chips" id="topic-chips">
+    <button type="button" class="chip on" data-topic="all">全部</button>
+<button type="button" class="chip" data-topic="chen">从陈广宇出发</button>
+<button type="button" class="chip" data-topic="map">AI 全景</button>
+<button type="button" class="chip" data-topic="mind">AI 在想什么</button>
+<button type="button" class="chip" data-topic="talk">大佬访谈</button>
+<button type="button" class="chip" data-topic="psy">心理学</button>
+<button type="button" class="chip" data-topic="learn">学会学习</button>
+  </div>
+  <div class="chips" id="len-chips">
+    <button type="button" class="chip on" data-len="all">任意时长</button>
+    <button type="button" class="chip" data-len="short">20 分钟内</button>
+    <button type="button" class="chip" data-len="mid">20–60 分钟</button>
+    <button type="button" class="chip" data-len="long">1 小时以上</button>
+  </div>
+  <label class="toggle"><input type="checkbox" id="hide-seen"> 隐藏已看</label>
+</div>
+
+<section class="topic starters" data-topic="starter">
+  <h2>今天先看这三个</h2>
+  <p class="intro">一个讲为什么刷短视频停不下来，一个是读懂陈广宇那篇论文的第一步，一个是大模型全景入门。</p>
+  <div class="grid">
+<article class="card" data-id="n2u8Z1HeKD8" data-topic="psy" data-len="short" data-title="Dopamine Nation: Finding Balance in the Age of Indulgence with Anna Lembke" data-channel="Stanford Alumni" data-ask="她说的“快乐—痛苦天平”是什么？放到刷短视频上怎么理解？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=n2u8Z1HeKD8" target="_blank" rel="noopener">
+    <span class="ph">Stanford Alumni</span>
+    <img src="https://i.ytimg.com/vi/n2u8Z1HeKD8/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">13:27</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=n2u8Z1HeKD8" target="_blank" rel="noopener">Dopamine Nation: Finding Balance in the Age of Indulgence with Anna Lembke</a></h3>
+    <p class="meta">Stanford Alumni · 2023-03</p>
+    <p class="why">斯坦福成瘾医学专家讲多巴胺，以及快乐和痛苦怎么互相平衡。为什么短视频停不下来，这里有答案。</p>
+    <p class="ask"><b>带着问题看</b>她说的“快乐—痛苦天平”是什么？放到刷短视频上怎么理解？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="eMlx5fFNoYc" data-topic="chen" data-len="mid" data-title="Attention in transformers, step-by-step | Deep Learning Chapter 6" data-channel="3Blue1Brown" data-ask="query、key、value 三样东西各自负责什么？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=eMlx5fFNoYc" target="_blank" rel="noopener">
+    <span class="ph">3Blue1Brown</span>
+    <img src="https://i.ytimg.com/vi/eMlx5fFNoYc/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">26:09</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=eMlx5fFNoYc" target="_blank" rel="noopener">Attention in transformers, step-by-step | Deep Learning Chapter 6</a></h3>
+    <p class="meta">3Blue1Brown · 2024-04</p>
+    <p class="why">用动画一步步讲注意力机制：每个词怎么“看”上下文里的其他词。论文名字里的“注意力”就是它。</p>
+    <p class="ask"><b>带着问题看</b>query、key、value 三样东西各自负责什么？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="zjkBMFhNj_g" data-topic="map" data-len="mid" data-title="[1hr Talk] Intro to Large Language Models" data-channel="Andrej Karpathy" data-ask="预训练和微调分别在做什么？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">
+    <span class="ph">Andrej Karpathy</span>
+    <img src="https://i.ytimg.com/vi/zjkBMFhNj_g/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">59:48</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">[1hr Talk] Intro to Large Language Models</a></h3>
+    <p class="meta">Andrej Karpathy · 2023-11</p>
+    <p class="why">面向普通观众，一小时讲完大模型是什么、怎么训练出来、有哪些安全问题。最好的入门。</p>
+    <p class="ask"><b>带着问题看</b>预训练和微调分别在做什么？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+
+<section class="topic" data-topic="chen" id="chen">
+  <h2>从陈广宇出发 <span class="count">4</span></h2>
+  <p class="intro">陈广宇是 Kimi 论文《Attention Residuals》（注意力残差）的并列第一作者。按顺序看下来，你应该能自己讲清楚这个名字里的两个词。</p>
+  <div class="grid">
+<article class="card" data-id="eMlx5fFNoYc" data-topic="chen" data-len="mid" data-title="Attention in transformers, step-by-step | Deep Learning Chapter 6" data-channel="3Blue1Brown" data-ask="query、key、value 三样东西各自负责什么？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=eMlx5fFNoYc" target="_blank" rel="noopener">
+    <span class="ph">3Blue1Brown</span>
+    <img src="https://i.ytimg.com/vi/eMlx5fFNoYc/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">26:09</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=eMlx5fFNoYc" target="_blank" rel="noopener">Attention in transformers, step-by-step | Deep Learning Chapter 6</a></h3>
+    <p class="meta">3Blue1Brown · 2024-04</p>
+    <p class="why">用动画一步步讲注意力机制：每个词怎么“看”上下文里的其他词。论文名字里的“注意力”就是它。</p>
+    <p class="ask"><b>带着问题看</b>query、key、value 三样东西各自负责什么？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="Q1JCrG1bJ-A" data-topic="chen" data-len="short" data-title="Residual Networks and Skip Connections (DL 15)" data-channel="Professor Bryce" data-ask="为什么“把输入直接加回输出”能让深层网络更好训练？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=Q1JCrG1bJ-A" target="_blank" rel="noopener">
+    <span class="ph">Professor Bryce</span>
+    <img src="https://i.ytimg.com/vi/Q1JCrG1bJ-A/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">17:00</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=Q1JCrG1bJ-A" target="_blank" rel="noopener">Residual Networks and Skip Connections (DL 15)</a></h3>
+    <p class="meta">Professor Bryce · 2022-10</p>
+    <p class="why">大学课程里的一讲：残差连接（跳跃连接）是什么，为什么它让很深的网络也能训练起来。论文名字里的“残差”就是它。</p>
+    <p class="ask"><b>带着问题看</b>为什么“把输入直接加回输出”能让深层网络更好训练？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="iw1VF8HOCrk" data-topic="chen" data-len="short" data-title="Attention Residuals: Kimi AI&#x27;s Elegant LLM Architecture Breakthrough" data-channel="bycloud" data-ask="原来的残差连接有什么问题，这篇论文是怎么解决的？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=iw1VF8HOCrk" target="_blank" rel="noopener">
+    <span class="ph">bycloud</span>
+    <img src="https://i.ytimg.com/vi/iw1VF8HOCrk/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">13:57</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=iw1VF8HOCrk" target="_blank" rel="noopener">Attention Residuals: Kimi AI&#x27;s Elegant LLM Architecture Breakthrough</a></h3>
+    <p class="meta">bycloud · 2026-05</p>
+    <p class="why">专门讲这篇论文。有了上面两个视频打底，这里能看懂他们改了残差连接的哪一部分、为什么这么改。</p>
+    <p class="ask"><b>带着问题看</b>原来的残差连接有什么问题，这篇论文是怎么解决的？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="jYn_1PpRzxI" data-topic="chen" data-len="short" data-title="How mHC Reinvents Residual Connections" data-channel="Jia-Bin Huang" data-ask="mHC 和注意力残差，改的是同一个地方吗？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=jYn_1PpRzxI" target="_blank" rel="noopener">
+    <span class="ph">Jia-Bin Huang</span>
+    <img src="https://i.ytimg.com/vi/jYn_1PpRzxI/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">13:55</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=jYn_1PpRzxI" target="_blank" rel="noopener">How mHC Reinvents Residual Connections</a></h3>
+    <p class="meta">Jia-Bin Huang · 2026-01</p>
+    <p class="why">另一种改造残差连接的思路（mHC），作者是一位做讲解视频的大学教授。和上一个对照着看：同一个问题，两种解法。</p>
+    <p class="ask"><b>带着问题看</b>mHC 和注意力残差，改的是同一个地方吗？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="topic" data-topic="map" id="map">
+  <h2>AI 全景 <span class="count">7</span></h2>
+  <p class="intro">先有全貌，再看细节。Karpathy（OpenAI 创始成员、前特斯拉 AI 负责人）和 3Blue1Brown 是公认讲得最清楚的两位。</p>
+  <div class="grid">
+<article class="card" data-id="zjkBMFhNj_g" data-topic="map" data-len="mid" data-title="[1hr Talk] Intro to Large Language Models" data-channel="Andrej Karpathy" data-ask="预训练和微调分别在做什么？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">
+    <span class="ph">Andrej Karpathy</span>
+    <img src="https://i.ytimg.com/vi/zjkBMFhNj_g/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">59:48</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">[1hr Talk] Intro to Large Language Models</a></h3>
+    <p class="meta">Andrej Karpathy · 2023-11</p>
+    <p class="why">面向普通观众，一小时讲完大模型是什么、怎么训练出来、有哪些安全问题。最好的入门。</p>
+    <p class="ask"><b>带着问题看</b>预训练和微调分别在做什么？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="aircAruvnKk" data-topic="map" data-len="short" data-title="But what is a neural network? | Deep learning chapter 1" data-channel="3Blue1Brown" data-ask="一个“神经元”其实就是在算什么？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" rel="noopener">
+    <span class="ph">3Blue1Brown</span>
+    <img src="https://i.ytimg.com/vi/aircAruvnKk/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">18:40</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" rel="noopener">But what is a neural network? | Deep learning chapter 1</a></h3>
+    <p class="meta">3Blue1Brown · 2017-10</p>
+    <p class="why">这个系列的第一集，从最底层讲神经网络到底是什么。整个系列都值得按顺序看。</p>
+    <p class="ask"><b>带着问题看</b>一个“神经元”其实就是在算什么？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="wjZofJX0v4M" data-topic="map" data-len="mid" data-title="Transformers, the tech behind LLMs | Deep Learning Chapter 5" data-channel="3Blue1Brown" data-ask="模型每一步输出的到底是什么？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" rel="noopener">
+    <span class="ph">3Blue1Brown</span>
+    <img src="https://i.ytimg.com/vi/wjZofJX0v4M/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">27:14</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" rel="noopener">Transformers, the tech behind LLMs | Deep Learning Chapter 5</a></h3>
+    <p class="meta">3Blue1Brown · 2024-04</p>
+    <p class="why">GPT 内部的整体结构，从输入一段文字到输出下一个词。</p>
+    <p class="ask"><b>带着问题看</b>模型每一步输出的到底是什么？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="9-Jl0dxWQs8" data-topic="map" data-len="mid" data-title="How might LLMs store facts | Deep Learning Chapter 7" data-channel="3Blue1Brown" data-ask="注意力层和 MLP 层，分工有什么不同？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=9-Jl0dxWQs8" target="_blank" rel="noopener">
+    <span class="ph">3Blue1Brown</span>
+    <img src="https://i.ytimg.com/vi/9-Jl0dxWQs8/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">22:42</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=9-Jl0dxWQs8" target="_blank" rel="noopener">How might LLMs store facts | Deep Learning Chapter 7</a></h3>
+    <p class="meta">3Blue1Brown · 2024-08</p>
+    <p class="why">接着第 6 集：模型“记住”的事实可能存在哪里、以什么形式存。</p>
+    <p class="ask"><b>带着问题看</b>注意力层和 MLP 层，分工有什么不同？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="7xTGNNLPyMI" data-topic="map" data-len="long" data-title="Deep Dive into LLMs like ChatGPT" data-channel="Andrej Karpathy" data-ask="模型为什么会“一本正经地胡说”？他给的解释是什么？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=7xTGNNLPyMI" target="_blank" rel="noopener">
+    <span class="ph">Andrej Karpathy</span>
+    <img src="https://i.ytimg.com/vi/7xTGNNLPyMI/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">3:31:23</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=7xTGNNLPyMI" target="_blank" rel="noopener">Deep Dive into LLMs like ChatGPT</a></h3>
+    <p class="meta">Andrej Karpathy · 2025-02</p>
+    <p class="why">3 个半小时，把数据、分词、预训练、后训练、强化学习完整走一遍。可以分 3–4 次看，每次看完写一条小记。</p>
+    <p class="ask"><b>带着问题看</b>模型为什么会“一本正经地胡说”？他给的解释是什么？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="EWvNQjAaOHw" data-topic="map" data-len="long" data-title="How I use LLMs" data-channel="Andrej Karpathy" data-ask="他的哪个用法你还没用过？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=EWvNQjAaOHw" target="_blank" rel="noopener">
+    <span class="ph">Andrej Karpathy</span>
+    <img src="https://i.ytimg.com/vi/EWvNQjAaOHw/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">2:11:12</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=EWvNQjAaOHw" target="_blank" rel="noopener">How I use LLMs</a></h3>
+    <p class="meta">Andrej Karpathy · 2025-02</p>
+    <p class="why">实用篇：他自己平时怎么用各种 AI 工具。可以拿来对照你自己平时用 AI 的方式。</p>
+    <p class="ask"><b>带着问题看</b>他的哪个用法你还没用过？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="kCc8FmEb1nY" data-topic="map" data-len="long" data-title="Let&#x27;s build GPT: from scratch, in code, spelled out." data-channel="Andrej Karpathy" data-ask="自己写一遍之后，哪一步和你原来想的不一样？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener">
+    <span class="ph">Andrej Karpathy</span>
+    <img src="https://i.ytimg.com/vi/kCc8FmEb1nY/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">1:56:20</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener">Let&#x27;s build GPT: from scratch, in code, spelled out.</a></h3>
+    <p class="meta">Andrej Karpathy · 2023-01</p>
+    <p class="why">进阶：从零写代码实现一个小 GPT。要跟着敲代码，不算消遣，留到有整块时间再看。</p>
+    <p class="ask"><b>带着问题看</b>自己写一遍之后，哪一步和你原来想的不一样？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="topic" data-topic="mind" id="mind">
+  <h2>AI 在想什么 <span class="count">4</span></h2>
+  <p class="intro">AI 和心理学的交叉：研究者像研究人脑一样研究模型内部，也在讨论 AI 的性格和意识。</p>
+  <div class="grid">
+<article class="card" data-id="Bj9BD2D3DzA" data-topic="mind" data-len="short" data-title="Tracing the thoughts of a large language model" data-channel="Anthropic" data-ask="模型写押韵的诗时，会不会提前想好韵脚？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=Bj9BD2D3DzA" target="_blank" rel="noopener">
+    <span class="ph">Anthropic</span>
+    <img src="https://i.ytimg.com/vi/Bj9BD2D3DzA/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">2:55</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=Bj9BD2D3DzA" target="_blank" rel="noopener">Tracing the thoughts of a large language model</a></h3>
+    <p class="meta">Anthropic · 2025-03</p>
+    <p class="why">3 分钟短片：可解释性研究“看进”模型内部时的几个发现。适合当下面那个长视频的预告。</p>
+    <p class="ask"><b>带着问题看</b>模型写押韵的诗时，会不会提前想好韵脚？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="fGKNUvivvnc" data-topic="mind" data-len="mid" data-title="Interpretability: Understanding how AI models think" data-channel="Anthropic" data-ask="研究 AI 的“大脑”和研究人脑，有哪些相似和不同？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=fGKNUvivvnc" target="_blank" rel="noopener">
+    <span class="ph">Anthropic</span>
+    <img src="https://i.ytimg.com/vi/fGKNUvivvnc/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">59:02</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=fGKNUvivvnc" target="_blank" rel="noopener">Interpretability: Understanding how AI models think</a></h3>
+    <p class="meta">Anthropic · 2025-08</p>
+    <p class="why">几位可解释性研究员的座谈：怎么研究模型内部，看到了什么，还有哪些不知道。</p>
+    <p class="ask"><b>带着问题看</b>研究 AI 的“大脑”和研究人脑，有哪些相似和不同？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="I9aGC6Ui3eE" data-topic="mind" data-len="mid" data-title="Anthropic’s philosopher answers your questions" data-channel="Anthropic" data-ask="给 AI 设计“性格”，和人的性格养成有什么相似之处？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=I9aGC6Ui3eE" target="_blank" rel="noopener">
+    <span class="ph">Anthropic</span>
+    <img src="https://i.ytimg.com/vi/I9aGC6Ui3eE/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">36:09</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=I9aGC6Ui3eE" target="_blank" rel="noopener">Anthropic’s philosopher answers your questions</a></h3>
+    <p class="meta">Anthropic · 2025-12</p>
+    <p class="why">Amanda Askell 是负责塑造 Claude 性格和价值观的哲学家，这期回答观众的提问。</p>
+    <p class="ask"><b>带着问题看</b>给 AI 设计“性格”，和人的性格养成有什么相似之处？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="pyXouxa0WnY" data-topic="mind" data-len="mid" data-title="Could AI models be conscious?" data-channel="Anthropic" data-ask="平时我们是凭什么判断一个东西“有意识”的？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=pyXouxa0WnY" target="_blank" rel="noopener">
+    <span class="ph">Anthropic</span>
+    <img src="https://i.ytimg.com/vi/pyXouxa0WnY/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">43:43</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=pyXouxa0WnY" target="_blank" rel="noopener">Could AI models be conscious?</a></h3>
+    <p class="meta">Anthropic · 2025-04</p>
+    <p class="why">一个还没有答案的问题：AI 可能有意识吗？如果可能，应该怎么对待它？</p>
+    <p class="ask"><b>带着问题看</b>平时我们是凭什么判断一个东西“有意识”的？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="topic" data-topic="talk" id="talk">
+  <h2>大佬访谈 <span class="count">4</span></h2>
+  <p class="intro">Dwarkesh Patel 的访谈问得深、准备充分。这几期观点互相冲突，对照着看最有意思。</p>
+  <div class="grid">
+<article class="card" data-id="lXUZvyajciY" data-topic="talk" data-len="long" data-title="Andrej Karpathy — “We’re summoning ghosts, not building animals”" data-channel="Dwarkesh Patel" data-ask="“召唤幽灵，而不是造动物”这个比喻是什么意思？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=lXUZvyajciY" target="_blank" rel="noopener">
+    <span class="ph">Dwarkesh Patel</span>
+    <img src="https://i.ytimg.com/vi/lXUZvyajciY/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">2:26:08</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=lXUZvyajciY" target="_blank" rel="noopener">Andrej Karpathy — “We’re summoning ghosts, not building animals”</a></h3>
+    <p class="meta">Dwarkesh Patel · 2025-10</p>
+    <p class="why">Karpathy 谈 AI 智能体还差在哪、为什么他比很多人更冷静。看完 AI 全景再看，收获更大。</p>
+    <p class="ask"><b>带着问题看</b>“召唤幽灵，而不是造动物”这个比喻是什么意思？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="aR20FWCCjAs" data-topic="talk" data-len="long" data-title="Ilya Sutskever – We&#x27;re moving from the age of scaling to the age of research" data-channel="Dwarkesh Patel" data-ask="他认为只靠堆规模，缺的是什么？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=aR20FWCCjAs" target="_blank" rel="noopener">
+    <span class="ph">Dwarkesh Patel</span>
+    <img src="https://i.ytimg.com/vi/aR20FWCCjAs/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">1:36:03</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=aR20FWCCjAs" target="_blank" rel="noopener">Ilya Sutskever – We&#x27;re moving from the age of scaling to the age of research</a></h3>
+    <p class="meta">Dwarkesh Patel · 2025-11</p>
+    <p class="why">OpenAI 前首席科学家：只靠堆规模的时代过去了，接下来要回到做研究。</p>
+    <p class="ask"><b>带着问题看</b>他认为只靠堆规模，缺的是什么？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="21EYKqUsPfg" data-topic="talk" data-len="long" data-title="Richard Sutton – Father of RL thinks LLMs are a dead end" data-channel="Dwarkesh Patel" data-ask="他和主持人在哪一点上始终没谈拢？你站哪边？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=21EYKqUsPfg" target="_blank" rel="noopener">
+    <span class="ph">Dwarkesh Patel</span>
+    <img src="https://i.ytimg.com/vi/21EYKqUsPfg/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">1:07:09</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=21EYKqUsPfg" target="_blank" rel="noopener">Richard Sutton – Father of RL thinks LLMs are a dead end</a></h3>
+    <p class="meta">Dwarkesh Patel · 2025-09</p>
+    <p class="why">强化学习之父认为大语言模型是死路。和 Karpathy、Ilya 那两期对照着看。</p>
+    <p class="ask"><b>带着问题看</b>他和主持人在哪一点上始终没谈拢？你站哪边？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="ugvHCXCOmm4" data-topic="talk" data-len="long" data-title="Dario Amodei: Anthropic CEO on Claude, AGI &amp; the Future of AI &amp; Humanity | Lex Fridman Podcast #452" data-channel="Lex Fridman" data-ask="三个人里，谁的哪个观点最让你意外？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=ugvHCXCOmm4" target="_blank" rel="noopener">
+    <span class="ph">Lex Fridman</span>
+    <img src="https://i.ytimg.com/vi/ugvHCXCOmm4/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">5:15:00</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=ugvHCXCOmm4" target="_blank" rel="noopener">Dario Amodei: Anthropic CEO on Claude, AGI &amp; the Future of AI &amp; Humanity | Lex Fridman Podcast #452</a></h3>
+    <p class="meta">Lex Fridman · 2024-11</p>
+    <p class="why">5 个多小时，Anthropic CEO、Amanda Askell、Chris Olah（可解释性）三人。有章节，挑感兴趣的段落看就行。</p>
+    <p class="ask"><b>带着问题看</b>三个人里，谁的哪个观点最让你意外？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="topic" data-topic="psy" id="psy">
+  <h2>心理学 <span class="count">5</span></h2>
+  <p class="intro">从大学公开课到经典演讲。最后一个讲多巴胺，和“为什么刷短视频停不下来”直接相关。</p>
+  <div class="grid">
+<article class="card" data-id="NNnIGh9g6fA" data-topic="psy" data-len="mid" data-title="1. Introduction to Human Behavioral Biology" data-channel="Stanford" data-ask="他为什么提醒不要只用一个学科去解释人的行为？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=NNnIGh9g6fA" target="_blank" rel="noopener">
+    <span class="ph">Stanford</span>
+    <img src="https://i.ytimg.com/vi/NNnIGh9g6fA/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">57:14</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=NNnIGh9g6fA" target="_blank" rel="noopener">1. Introduction to Human Behavioral Biology</a></h3>
+    <p class="meta">Stanford · 2011-02</p>
+    <p class="why">Sapolsky 的斯坦福名课第一讲，讲得非常有感染力。整门课都在 YouTube 上，喜欢可以一直看下去。</p>
+    <p class="ask"><b>带着问题看</b>他为什么提醒不要只用一个学科去解释人的行为？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="P3FKHH2RzjI" data-topic="psy" data-len="mid" data-title="1. Introduction" data-channel="YaleCourses" data-ask="心理学到底在研究哪些问题？哪一块你最想深入？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=P3FKHH2RzjI" target="_blank" rel="noopener">
+    <span class="ph">YaleCourses</span>
+    <img src="https://i.ytimg.com/vi/P3FKHH2RzjI/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">29:37</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=P3FKHH2RzjI" target="_blank" rel="noopener">1. Introduction</a></h3>
+    <p class="meta">YaleCourses · 2008-09</p>
+    <p class="why">Paul Bloom 的耶鲁心理学导论第一讲，带你看心理学的整张地图。</p>
+    <p class="ask"><b>带着问题看</b>心理学到底在研究哪些问题？哪一块你最想深入？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="XgRlrBl-7Yg" data-topic="psy" data-len="mid" data-title="The riddle of experience vs. memory | Daniel Kahneman" data-channel="TED" data-ask="你回忆一次旅行时，是哪个“自我”在打分？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=XgRlrBl-7Yg" target="_blank" rel="noopener">
+    <span class="ph">TED</span>
+    <img src="https://i.ytimg.com/vi/XgRlrBl-7Yg/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">20:37</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=XgRlrBl-7Yg" target="_blank" rel="noopener">The riddle of experience vs. memory | Daniel Kahneman</a></h3>
+    <p class="meta">TED · 2010-03</p>
+    <p class="why">诺奖得主卡尼曼：“体验的自我”和“记忆的自我”常常不是一回事。</p>
+    <p class="ask"><b>带着问题看</b>你回忆一次旅行时，是哪个“自我”在打分？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="UBVV8pch1dM" data-topic="psy" data-len="short" data-title="The Science of Thinking" data-channel="Veritasium" data-ask="有哪些事情，你已经从系统 2 变成系统 1 了？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=UBVV8pch1dM" target="_blank" rel="noopener">
+    <span class="ph">Veritasium</span>
+    <img src="https://i.ytimg.com/vi/UBVV8pch1dM/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">12:10</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=UBVV8pch1dM" target="_blank" rel="noopener">The Science of Thinking</a></h3>
+    <p class="meta">Veritasium · 2017-03</p>
+    <p class="why">用实验讲快思考（系统 1）和慢思考（系统 2），以及为什么学新东西会累。</p>
+    <p class="ask"><b>带着问题看</b>有哪些事情，你已经从系统 2 变成系统 1 了？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="n2u8Z1HeKD8" data-topic="psy" data-len="short" data-title="Dopamine Nation: Finding Balance in the Age of Indulgence with Anna Lembke" data-channel="Stanford Alumni" data-ask="她说的“快乐—痛苦天平”是什么？放到刷短视频上怎么理解？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=n2u8Z1HeKD8" target="_blank" rel="noopener">
+    <span class="ph">Stanford Alumni</span>
+    <img src="https://i.ytimg.com/vi/n2u8Z1HeKD8/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">13:27</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=n2u8Z1HeKD8" target="_blank" rel="noopener">Dopamine Nation: Finding Balance in the Age of Indulgence with Anna Lembke</a></h3>
+    <p class="meta">Stanford Alumni · 2023-03</p>
+    <p class="why">斯坦福成瘾医学专家讲多巴胺，以及快乐和痛苦怎么互相平衡。为什么短视频停不下来，这里有答案。</p>
+    <p class="ask"><b>带着问题看</b>她说的“快乐—痛苦天平”是什么？放到刷短视频上怎么理解？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="topic" data-topic="learn" id="learn">
+  <h2>学会学习 <span class="count">2</span></h2>
+  <p class="intro">心理学 × 学习方法。《认知天性》里很多结论来自 Bjork 夫妇的研究。</p>
+  <div class="grid">
+<article class="card" data-id="0NIXM74NwXs" data-topic="learn" data-len="short" data-title="How to study to maximize performance | Elizabeth Bjork &amp; Robert Bjork | TEDxManhattanBeach" data-channel="TEDx Talks" data-ask="为什么重读让人觉得懂了，效果却差？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=0NIXM74NwXs" target="_blank" rel="noopener">
+    <span class="ph">TEDx Talks</span>
+    <img src="https://i.ytimg.com/vi/0NIXM74NwXs/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">15:10</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=0NIXM74NwXs" target="_blank" rel="noopener">How to study to maximize performance | Elizabeth Bjork &amp; Robert Bjork | TEDxManhattanBeach</a></h3>
+    <p class="meta">TEDx Talks · 2019-03</p>
+    <p class="why">“合意困难”：学的时候越费劲，往往记得越牢。</p>
+    <p class="ask"><b>带着问题看</b>为什么重读让人觉得懂了，效果却差？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+<article class="card" data-id="O96fE1E-rf8" data-topic="learn" data-len="short" data-title="Learning how to learn | Barbara Oakley | TEDxOaklandUniversity" data-channel="TEDx Talks" data-ask="你上一次“放一放就想通了”是什么时候？">
+  <a class="thumb" href="https://www.youtube.com/watch?v=O96fE1E-rf8" target="_blank" rel="noopener">
+    <span class="ph">TEDx Talks</span>
+    <img src="https://i.ytimg.com/vi/O96fE1E-rf8/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="dur">17:50</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h3><a href="https://www.youtube.com/watch?v=O96fE1E-rf8" target="_blank" rel="noopener">Learning how to learn | Barbara Oakley | TEDxOaklandUniversity</a></h3>
+    <p class="meta">TEDx Talks · 2014-08</p>
+    <p class="why">专注模式和发散模式：为什么卡住的时候，先放一放反而能想通。</p>
+    <p class="ask"><b>带着问题看</b>你上一次“放一放就想通了”是什么时候？</p>
+    <div class="actions js-only">
+      <button type="button" class="btn-seen">标记已看</button>
+      <button type="button" class="btn-copy">复制小记模板</button>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+
+<footer>
+  <p>选片说明：Opus 没法亲自看视频，是按作者口碑、课程或机构来源、标题和时长挑的；每个链接都在 2026-11-10 核对过能播放。</p>
+  <p>“已看”只记在这台设备的这个浏览器里。小记模板复制后，粘贴到你的笔记里就行。</p>
+  <p>更新方法：改 videos.json，再运行 python3 build.py 重新生成本页。</p>
+</footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+document.documentElement.classList.add("js");
+(function () {
+  var KEY = "ytc-seen";
+  var seen = {};
+  try { seen = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { seen = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(seen)); } catch (e) {} }
+
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var state = { topic: "all", len: "all", hideSeen: false };
+
+  function paintSeen() {
+    var n = 0, counted = {};
+    cards.forEach(function (c) {
+      var on = !!seen[c.dataset.id];
+      c.classList.toggle("seen", on);
+      c.querySelector(".btn-seen").textContent = on ? "已看 ✓" : "标记已看";
+      if (on && !counted[c.dataset.id]) { counted[c.dataset.id] = 1; n++; }
+    });
+    document.getElementById("seen-count").textContent = n;
+  }
+
+  function applyFilters() {
+    cards.forEach(function (c) {
+      var hide = (state.len !== "all" && c.dataset.len !== state.len) || (state.hideSeen && seen[c.dataset.id]);
+      c.classList.toggle("hidden", !!hide);
+    });
+    document.querySelectorAll(".topic").forEach(function (s) {
+      var t = s.dataset.topic;
+      var topicOk = state.topic === "all" ? true : t === state.topic;
+      var anyVisible = s.querySelector(".card:not(.hidden)");
+      s.classList.toggle("hidden", !topicOk || !anyVisible);
+    });
+  }
+
+  function chipGroup(id, field) {
+    var group = document.getElementById(id);
+    group.addEventListener("click", function (e) {
+      var b = e.target.closest(".chip");
+      if (!b) return;
+      group.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("on", x === b); });
+      state[field] = b.dataset[field];
+      applyFilters();
+    });
+  }
+  chipGroup("topic-chips", "topic");
+  chipGroup("len-chips", "len");
+  document.getElementById("hide-seen").addEventListener("change", function (e) {
+    state.hideSeen = e.target.checked; applyFilters();
+  });
+
+  var toastTimer;
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove("show"); }, 1600);
+  }
+
+  function copyText(text) {
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      toast(ok ? "已复制，粘贴到笔记里" : "复制失败，请手动选择文字");
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { toast("已复制，粘贴到笔记里"); }, fallback);
+    } else { fallback(); }
+  }
+
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+
+  document.addEventListener("click", function (e) {
+    var card = e.target.closest(".card");
+    if (!card) return;
+    if (e.target.closest(".btn-seen")) {
+      var id = card.dataset.id;
+      if (seen[id]) delete seen[id]; else seen[id] = today();
+      save(); paintSeen(); applyFilters();
+    } else if (e.target.closest(".btn-copy")) {
+      var d = card.dataset;
+      copyText(
+        "## " + d.title + "\n" +
+        "- 频道：" + d.channel + "\n" +
+        "- 链接：https://www.youtube.com/watch?v=" + d.id + "\n" +
+        "- 看完日期：" + today() + "\n" +
+        "- 一句话：\n" +
+        "- 最触动我的一点：\n" +
+        "- 带着的问题：" + d.ask + "\n" +
+        "  - 我的回答：\n" +
+        "- （可选）想试的一件事：\n"
+      );
+    }
+  });
+
+  paintSeen();
+  applyFilters();
+})();
+</script>
+</body>
+</html>
