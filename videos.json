@@ -607,60 +607,6 @@
      ]
     },
     {
-     "key": "talk",
-     "kind": "relax",
-     "ordered": false,
-     "name": "访谈与分享",
-     "intro": "Dwarkesh Patel 的访谈问得深、准备充分。这几期观点互相冲突，对照着看最有意思。",
-     "videos": [
-      {
-       "id": "lXUZvyajciY",
-       "title": "Andrej Karpathy — “We’re summoning ghosts, not building animals”",
-       "channel": "Dwarkesh Patel",
-       "seconds": 8768,
-       "date": "2025-10-17",
-       "why": "Karpathy 谈 AI 智能体还差在哪、为什么他比很多人更冷静。看完 AI 全景再看，收获更大。",
-       "ask": "“召唤幽灵，而不是造动物”这个比喻是什么意思？"
-      },
-      {
-       "id": "aR20FWCCjAs",
-       "title": "Ilya Sutskever – We're moving from the age of scaling to the age of research",
-       "channel": "Dwarkesh Patel",
-       "seconds": 5763,
-       "date": "2025-11-25",
-       "why": "OpenAI 前首席科学家：只靠堆规模的时代过去了，接下来要回到做研究。",
-       "ask": "他认为只靠堆规模，缺的是什么？"
-      },
-      {
-       "id": "21EYKqUsPfg",
-       "title": "Richard Sutton – Father of RL thinks LLMs are a dead end",
-       "channel": "Dwarkesh Patel",
-       "seconds": 4029,
-       "date": "2025-09-26",
-       "why": "强化学习之父认为大语言模型是死路。和 Karpathy、Ilya 那两期对照着看。",
-       "ask": "他和主持人在哪一点上始终没谈拢？你站哪边？"
-      },
-      {
-       "id": "ugvHCXCOmm4",
-       "title": "Dario Amodei: Anthropic CEO on Claude, AGI & the Future of AI & Humanity | Lex Fridman Podcast #452",
-       "channel": "Lex Fridman",
-       "seconds": 18900,
-       "date": "2024-11-11",
-       "why": "5 个多小时，Anthropic CEO、Amanda Askell、Chris Olah（可解释性）三人。有章节，挑感兴趣的段落看就行。",
-       "ask": "三个人里，谁的哪个观点最让你意外？"
-      },
-      {
-       "id": "EWvNQjAaOHw",
-       "title": "How I use LLMs",
-       "channel": "Andrej Karpathy",
-       "seconds": 7872,
-       "date": "2025-02-27",
-       "why": "实用篇：他自己平时怎么用各种 AI 工具。可以拿来对照你自己平时用 AI 的方式。",
-       "ask": "他的哪个用法你还没用过？"
-      }
-     ]
-    },
-    {
      "key": "psy",
      "kind": "relax",
      "ordered": false,
