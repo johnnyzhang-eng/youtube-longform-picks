@@ -29,6 +29,8 @@
 | `template.html` | 页面样式和交互 |
 | `build.py` | 把 `videos.json` 填进 `template.html`，生成 `index.html` |
 | `index.html` | 生成的页面 |
+| `pool/round-NN.json` | 每一期候选池的数据：打分规则（`config`）、每个候选的信号、判断、得分和落选原因 |
+| `tools/score.py` | 按规则给一期候选打分，并把入选的写进 `videos.json` |
 | `docs/` | 选片标准和决定记录 |
 
 ## 更新

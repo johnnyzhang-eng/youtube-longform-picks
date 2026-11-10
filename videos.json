@@ -4,7 +4,7 @@
   {
    "key": "pool",
    "name": "候选池",
-   "intro": "第 1 期，2026-11-10 筛的：白名单频道近 90 天的新视频，加上 Hacker News 上的高分视频。没有逐个看过，介绍来自标题和简介。想看哪个直接看。筛选逻辑见页面底部的“我们怎么选片”。池子定期换新；看完觉得值得留的，会移进轻松看或认真学。",
+   "intro": "第 1 期，2026-11-10 按下面“我们怎么选片”的算法算出来的，每个视频都标了得分。没有逐个看过，介绍来自标题和简介。想看哪个直接看，池子定期换新。",
    "topics": [
     {
      "key": "p-ai",
@@ -14,67 +14,21 @@
      "intro": "",
      "videos": [
       {
-       "id": "QgH9sr7G13Q",
-       "title": "The most cited paper of the century is a brilliant hack",
-       "channel": "Welch Labs",
-       "seconds": 2118,
-       "date": "2026-08-31",
-       "why": "讲“本世纪被引用最多的论文”背后的故事。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "l8gWQlrVOKQ",
-       "title": "How LLMs Get Faster Without Changing Their Outputs | Speculative Decoding",
-       "channel": "Jia-Bin Huang",
-       "seconds": 1474,
-       "date": "2026-08-28",
-       "why": "推测解码：用小模型先猜、大模型并行验证，在不改变输出的前提下提速。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "qkngB1Q46CY",
-       "title": "DeepSeek Splits the Transformer in Two. Here’s Why.",
-       "channel": "Jia-Bin Huang",
-       "seconds": 1011,
-       "date": "2026-09-30",
-       "why": "讲 DeepSeek 为什么把 Transformer 拆成两部分。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "r8sZgPx4jYA",
-       "title": "LLMs Can Now Read and Write Neural Network Weights",
-       "channel": "Jia-Bin Huang",
-       "seconds": 1564,
-       "date": "2026-11-03",
-       "why": "讲让大模型读写神经网络权重的新研究。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "iuHddnIzKRA",
-       "title": "The AI Language We Can't Read: Neuralese ft. Rob Miles - Computerphile",
-       "channel": "Computerphile",
-       "seconds": 1636,
-       "date": "2026-09-10",
-       "why": "如果模型不再用人类看得懂的语言推理，会怎样。嘉宾是 Rob Miles。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "kVXp6UNVPTo",
-       "title": "How Watermarks Track AI Generated Content - Computerphile",
-       "channel": "Computerphile",
-       "seconds": 1916,
-       "date": "2026-09-03",
-       "why": "AI 生成内容的水印是怎么做的。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "xP1kjDOisVw",
-       "title": "The Strange Economics of LLM Inference-as-a-Service",
-       "channel": "bycloud",
-       "seconds": 1381,
-       "date": "2026-09-29",
-       "why": "大模型推理服务的经济账。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "id": "DGI4vucR71w",
+       "title": "What Are AI Agents? Agentic Systems Explained | Stanford CS329Z Lecture 1 with Diyi Yang",
+       "channel": "Stanford Online",
+       "seconds": 4176,
+       "date": "2026-11-09",
+       "why": "斯坦福 CS329Z 的一讲：什么是 AI 智能体。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ],
+       "noembed": true
       },
       {
        "id": "25KIyaeI_Fg",
@@ -82,19 +36,128 @@
        "channel": "Stanford Online",
        "seconds": 6421,
        "date": "2026-11-05",
-       "why": "斯坦福 2026 秋季“Transformers 与大模型”课的第 5 讲，整门课都在这个频道上。可以分段看。（来源：白名单频道）",
+       "why": "斯坦福 2026 秋季“Transformers 与大模型”课的第 5 讲，整门课都在这个频道上。可以分段看。",
        "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ],
        "noembed": true
       },
       {
-       "id": "DGI4vucR71w",
-       "title": "What Are AI Agents? Agentic Systems Explained | Stanford CS329Z Lecture 1 with Diyi Yang",
-       "channel": "Stanford Online",
-       "seconds": 4176,
-       "date": "2026-11-09",
-       "why": "斯坦福 CS329Z 的一讲：什么是 AI 智能体。（来源：白名单频道）",
+       "id": "r8sZgPx4jYA",
+       "title": "LLMs Can Now Read and Write Neural Network Weights",
+       "channel": "Jia-Bin Huang",
+       "seconds": 1564,
+       "date": "2026-11-03",
+       "why": "讲让大模型读写神经网络权重的新研究。",
        "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
-       "noembed": true
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "qkngB1Q46CY",
+       "title": "DeepSeek Splits the Transformer in Two. Here’s Why.",
+       "channel": "Jia-Bin Huang",
+       "seconds": 1011,
+       "date": "2026-09-30",
+       "why": "讲 DeepSeek 为什么把 Transformer 拆成两部分。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "QgH9sr7G13Q",
+       "title": "The most cited paper of the century is a brilliant hack",
+       "channel": "Welch Labs",
+       "seconds": 2118,
+       "date": "2026-08-31",
+       "why": "讲“本世纪被引用最多的论文”背后的故事。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "xP1kjDOisVw",
+       "title": "The Strange Economics of LLM Inference-as-a-Service",
+       "channel": "bycloud",
+       "seconds": 1381,
+       "date": "2026-09-29",
+       "why": "大模型推理服务的经济账。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "mTd3tBpfYmw",
+       "title": "NVIDIA Made 4-Bit AI Work. It’s a Nightmare.",
+       "channel": "bycloud",
+       "seconds": 1191,
+       "date": "2026-09-21",
+       "why": "讲 NVIDIA 怎么让 4 比特精度的 AI 计算跑起来。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "iuHddnIzKRA",
+       "title": "The AI Language We Can't Read: Neuralese ft. Rob Miles - Computerphile",
+       "channel": "Computerphile",
+       "seconds": 1636,
+       "date": "2026-09-10",
+       "why": "如果模型不再用人类看得懂的语言推理，会怎样。嘉宾是 Rob Miles。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "kVXp6UNVPTo",
+       "title": "How Watermarks Track AI Generated Content - Computerphile",
+       "channel": "Computerphile",
+       "seconds": 1916,
+       "date": "2026-09-03",
+       "why": "AI 生成内容的水印是怎么做的。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
       }
      ]
     },
@@ -111,26 +174,15 @@
        "channel": "Numberphile",
        "seconds": 1185,
        "date": "2026-10-15",
-       "why": "陶哲轩谈大量 AI 证明涌现给数学界带来的问题。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "NnV_cWeoo5Q",
-       "title": "Kernel Recipes 2026 -  Security in the LLM age",
-       "channel": "Kernel Recipes",
-       "seconds": 3411,
-       "date": "2026-09-29",
-       "why": "Linux 内核维护者 Greg Kroah-Hartman 讲大模型时代的安全。（来源：HN 346 分）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "Q78dJ0vkWe8",
-       "title": "How To Build The Future: Paul Graham & Amjad Masad",
-       "channel": "Y Combinator",
-       "seconds": 2655,
-       "date": "2026-11-07",
-       "why": "Paul Graham 和 Amjad Masad 的对谈。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "陶哲轩谈大量 AI 证明涌现给数学界带来的问题。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ]
       },
       {
        "id": "cNm4zyUtWj0",
@@ -138,8 +190,31 @@
        "channel": "Recurse Center",
        "seconds": 2814,
        "date": "2026-10-17",
-       "why": "把开源版 RuneScape 改成测试 AI 智能体的环境。（来源：HN 250 分）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "把开源版 RuneScape 改成测试 AI 智能体的环境。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 58,
+       "parts": [
+        0,
+        28,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "NnV_cWeoo5Q",
+       "title": "Kernel Recipes 2026 -  Security in the LLM age",
+       "channel": "Kernel Recipes",
+       "seconds": 3411,
+       "date": "2026-09-29",
+       "why": "Linux 内核维护者 Greg Kroah-Hartman 讲大模型时代的安全。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 53,
+       "parts": [
+        0,
+        28,
+        20,
+        5
+       ]
       },
       {
        "id": "nKjPBAw_N_0",
@@ -147,17 +222,47 @@
        "channel": "AI Engineer",
        "seconds": 1321,
        "date": "2026-11-09",
-       "why": "Zach Lloyd 的演讲：怎样搭一个能自我改进的软件生产流程。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "Zach Lloyd 的演讲：怎样搭一个能自我改进的软件生产流程。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
       },
       {
-       "id": "MRQTlwcW-aQ",
-       "title": "How Anthropic ships the #1 LLM in the World — with Katelyn Lesse and Angela Jiang",
-       "channel": "Latent Space",
-       "seconds": 6400,
-       "date": "2026-10-27",
-       "why": "Latent Space 播客：Anthropic 的人讲他们怎么把模型做出来并发布。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "id": "BTtyguoPvBU",
+       "title": "How One Founder Manages 20 AI Coding Agents at Once - Ryan Carson, Untangle",
+       "channel": "AI Engineer",
+       "seconds": 928,
+       "date": "2026-11-09",
+       "why": "Ryan Carson 的演讲：一个创始人怎么同时管理 20 个 AI 编程智能体。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "Q78dJ0vkWe8",
+       "title": "How To Build The Future: Paul Graham & Amjad Masad",
+       "channel": "Y Combinator",
+       "seconds": 2655,
+       "date": "2026-11-07",
+       "why": "Paul Graham 和 Amjad Masad 的对谈。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
       },
       {
        "id": "yW_ngvMFlYs",
@@ -165,8 +270,47 @@
        "channel": "Machine Learning Street Talk",
        "seconds": 5828,
        "date": "2026-11-01",
-       "why": "Joscha Bach 谈意识为什么可能并不难解释。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "Joscha Bach 谈意识为什么可能并不难解释。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "vl7HiMdGfjo",
+       "title": "What Happens When Everyone Can Build Software",
+       "channel": "Y Combinator",
+       "seconds": 2925,
+       "date": "2026-10-30",
+       "why": "YC 的 Lightcone 播客对 Supabase 创始人 Paul Copplestone 的访谈。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "MRQTlwcW-aQ",
+       "title": "How Anthropic ships the #1 LLM in the World — with Katelyn Lesse and Angela Jiang",
+       "channel": "Latent Space",
+       "seconds": 6400,
+       "date": "2026-10-27",
+       "why": "Latent Space 播客：Anthropic 的人讲他们怎么把模型做出来并发布。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
       },
       {
        "id": "IRJDwtAreB4",
@@ -174,8 +318,31 @@
        "channel": "Machine Learning Street Talk",
        "seconds": 5613,
        "date": "2026-10-26",
-       "why": "Kevin Hartnett 谈 AI 给数学带来的变化。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "Kevin Hartnett 谈 AI 给数学带来的变化。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "vhPCo-8K78U",
+       "title": "What 90,000 Rollouts Reveal About AI Agents Doing Science - Ian Quigley, Leash Bio",
+       "channel": "Latent Space",
+       "seconds": 994,
+       "date": "2026-10-26",
+       "why": "9 万次运行揭示的 AI 智能体做科研的情况。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
       }
      ]
     },
@@ -192,17 +359,15 @@
        "channel": "3Blue1Brown",
        "seconds": 2444,
        "date": "2026-10-16",
-       "why": "3Blue1Brown 谈数学的未来。（来源：白名单频道 + HN 557 分）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "Nbwv5wHQoj0",
-       "title": "The last IMO problem AI could not solve",
-       "channel": "3Blue1Brown",
-       "seconds": 3115,
-       "date": "2026-09-18",
-       "why": "一道 AI 没能解出的国际数学奥林匹克题，以及解它需要的直觉。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "3Blue1Brown 谈数学的未来。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 100,
+       "parts": [
+        35,
+        35,
+        20,
+        10
+       ]
       },
       {
        "id": "OOMx2BHHWtE",
@@ -210,26 +375,47 @@
        "channel": "Big Think",
        "seconds": 5076,
        "date": "2026-08-28",
-       "why": "陶哲轩讲 6 个基本的数学概念。（来源：HN 638 分）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "陶哲轩讲 6 个基本的数学概念。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        0,
+        35,
+        20,
+        10
+       ]
       },
       {
-       "id": "JsBZOcqZerk",
-       "title": "The Insane Real Engineering of the Nazi Enigma Machine",
-       "channel": "Veritasium",
-       "seconds": 2861,
-       "date": "2026-09-21",
-       "why": "恩尼格玛密码机的工程原理。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "id": "Mzbtj5nkMXI",
+       "title": "The Buckmaster Interview (Navier-Stokes) - Numberphile",
+       "channel": "Numberphile",
+       "seconds": 2765,
+       "date": "2026-09-29",
+       "why": "Numberphile 的访谈：Buckmaster 谈纳维–斯托克斯方程。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ]
       },
       {
-       "id": "NiCgcUTL9_Q",
-       "title": "Fiber Optics are so much cooler than I thought",
-       "channel": "Veritasium",
-       "seconds": 2072,
-       "date": "2026-10-12",
-       "why": "光纤是怎么工作的。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "id": "Nbwv5wHQoj0",
+       "title": "The last IMO problem AI could not solve",
+       "channel": "3Blue1Brown",
+       "seconds": 3115,
+       "date": "2026-09-18",
+       "why": "一道 AI 没能解出的国际数学奥林匹克题，以及解它需要的直觉。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ]
       },
       {
        "id": "KfODG5REyss",
@@ -237,8 +423,63 @@
        "channel": "Veritasium",
        "seconds": 3955,
        "date": "2026-11-04",
-       "why": "把量子力学现象做成亲眼能看到的实验。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "把量子力学现象做成亲眼能看到的实验。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 55,
+       "parts": [
+        35,
+        0,
+        10,
+        10
+       ]
+      },
+      {
+       "id": "BLkafEBiack",
+       "title": "Why is quantum measurement so puzzling? | Puzzling Science with Maria Violaris",
+       "channel": "The Royal Institution",
+       "seconds": 1230,
+       "date": "2026-11-02",
+       "why": "量子测量为什么让人困惑。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 55,
+       "parts": [
+        35,
+        0,
+        10,
+        10
+       ]
+      },
+      {
+       "id": "huMZI_7iZKA",
+       "title": "What comes after lithium-ion batteries? | with Saiful Islam",
+       "channel": "The Royal Institution",
+       "seconds": 3631,
+       "date": "2026-10-30",
+       "why": "锂离子电池之后是什么。Saiful Islam 在英国皇家研究所的讲座。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 55,
+       "parts": [
+        35,
+        0,
+        10,
+        10
+       ]
+      },
+      {
+       "id": "eyZEqSPeMwg",
+       "title": "No device could prove Einstein wrong... until now",
+       "channel": "Veritasium",
+       "seconds": 2067,
+       "date": "2026-10-23",
+       "why": "讲一个检验爱因斯坦理论的实验。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 55,
+       "parts": [
+        35,
+        0,
+        10,
+        10
+       ]
       }
      ]
     },
@@ -255,8 +496,15 @@
        "channel": "CMU Database Group",
        "seconds": 3515,
        "date": "2026-11-03",
-       "why": "CMU 数据库组的讲座：把 Postgres 和 ClickHouse 原生地接在一起。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "CMU 数据库组的讲座：把 Postgres 和 ClickHouse 原生地接在一起。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ]
       },
       {
        "id": "xg8qksWY2eY",
@@ -264,8 +512,15 @@
        "channel": "CMU Database Group",
        "seconds": 3160,
        "date": "2026-10-29",
-       "why": "CMU 数据库组的讲座：把事务处理和分析放到一套系统里。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "CMU 数据库组的讲座：把事务处理和分析放到一套系统里。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 65,
+       "parts": [
+        35,
+        0,
+        20,
+        10
+       ]
       },
       {
        "id": "Po-6sHFJBl4",
@@ -273,17 +528,15 @@
        "channel": "Databricks",
        "seconds": 2108,
        "date": "2026-11-05",
-       "why": "Spark SQL 和 Delta Lake 的作者 Michael Armbrust 的访谈。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "1eVkT-ZnKC8",
-       "title": "Everything Has Bugs. Here’s How Antithesis Catches Them. (Marco Primi)",
-       "channel": "CMU Database Group",
-       "seconds": 3662,
-       "date": "2026-09-29",
-       "why": "CMU 数据库组的讲座：Antithesis 是怎么找出软件里的 bug 的。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "Spark SQL 和 Delta Lake 的作者 Michael Armbrust 的访谈。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 50,
+       "parts": [
+        20,
+        0,
+        20,
+        10
+       ]
       }
      ]
     },
@@ -295,67 +548,47 @@
      "intro": "",
      "videos": [
       {
-       "id": "f0J_EeW42Lo",
-       "title": "What Robert Caro learned about power after studying it for 50 years",
-       "channel": "Dwarkesh Patel",
-       "seconds": 3670,
-       "date": "2026-10-30",
-       "why": "传记作家 Robert Caro 谈他研究权力 50 年学到的东西。（来源：白名单频道）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
-       "id": "656058JxTM0",
-       "title": "DefCon 34 - Stalking the Wily Hacker: 40 years later - Cliff Stoll",
-       "channel": "DEFCONConference",
-       "seconds": 3426,
-       "date": "2026-08-21",
-       "why": "Cliff Stoll 回顾 40 年前追踪黑客的经历。（来源：HN 310 分）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
-      },
-      {
        "id": "n8m7lFQ3njk",
        "title": "Analogy as the Core of Cognition",
        "channel": "Stanford",
        "seconds": 4117,
        "date": "2009-09-10",
-       "why": "侯世达 2009 年的讲座：类比是认知的核心。（来源：HN 213 分）",
-       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+       "why": "侯世达 2009 年的讲座：类比是认知的核心。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 58,
+       "parts": [
+        0,
+        28,
+        20,
+        10
+       ]
+      },
+      {
+       "id": "f0J_EeW42Lo",
+       "title": "What Robert Caro learned about power after studying it for 50 years",
+       "channel": "Dwarkesh Patel",
+       "seconds": 3670,
+       "date": "2026-10-30",
+       "why": "传记作家 Robert Caro 谈他研究权力 50 年学到的东西。",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "score": 55,
+       "parts": [
+        35,
+        0,
+        10,
+        10
+       ]
       }
      ]
     }
    ],
    "round": {
+    "file": "round-01.json",
     "n": 1,
     "date": "2026-11-10",
     "raw": 109,
     "long": 70,
-    "picked": 30,
-    "whitelist": [
-     "3Blue1Brown",
-     "Andrej Karpathy",
-     "Dwarkesh Patel",
-     "Anthropic",
-     "Veritasium",
-     "AI Engineer",
-     "bycloud",
-     "Jia-Bin Huang",
-     "CMU Database Group",
-     "Lex Fridman",
-     "Welch Labs",
-     "Machine Learning Street Talk",
-     "Yannic Kilcher",
-     "Numberphile",
-     "Quanta Magazine",
-     "Computerphile",
-     "Databricks",
-     "Data Council",
-     "Y Combinator",
-     "Stanford Online",
-     "The Royal Institution",
-     "Acquired",
-     "Sean Carroll",
-     "Latent Space"
-    ]
+    "picked": 33
    }
   },
   {
