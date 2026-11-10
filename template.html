@@ -13,7 +13,7 @@
 :root {
   --bg: #f1f3f2; --surface: #ffffff; --sunk: #e3e8e5; --ink: #101816; --muted: #5a6763; --line: #d5dcd8;
   --learn: #0a6a5b; --learn-soft: #d3eae4; --relax: #b04e18; --relax-soft: #f5e1d3;
-  --on-accent: #ffffff; --warn: #b3261e; --shadow: 0 14px 40px rgba(16, 24, 22, .14);
+  --on-accent: #ffffff; --sig3: #5750c9; --sig4: #86928e; --warn: #b3261e; --shadow: 0 14px 40px rgba(16, 24, 22, .14);
   --accent: var(--learn); --accent-soft: var(--learn-soft);
   --display: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "Noto Serif SC", STSong, serif;
   --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "MiSans", "Helvetica Neue", "Microsoft YaHei", sans-serif;
@@ -23,13 +23,13 @@
   :root:not([data-theme="light"]) {
     --bg: #0d1011; --surface: #161a1c; --sunk: #1f2527; --ink: #e8ecea; --muted: #93a09b; --line: #262c2e;
     --learn: #4fd0b4; --learn-soft: #14332d; --relax: #ffad55; --relax-soft: #3a2611;
-    --on-accent: #06120f; --warn: #ff8a80; --shadow: 0 14px 40px rgba(0, 0, 0, .55); color-scheme: dark;
+    --on-accent: #06120f; --sig3: #aaa3ff; --sig4: #7c8a86; --warn: #ff8a80; --shadow: 0 14px 40px rgba(0, 0, 0, .55); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0d1011; --surface: #161a1c; --sunk: #1f2527; --ink: #e8ecea; --muted: #93a09b; --line: #262c2e;
   --learn: #4fd0b4; --learn-soft: #14332d; --relax: #ffad55; --relax-soft: #3a2611;
-  --on-accent: #06120f; --warn: #ff8a80; --shadow: 0 14px 40px rgba(0, 0, 0, .55); color-scheme: dark;
+  --on-accent: #06120f; --sig3: #aaa3ff; --sig4: #7c8a86; --warn: #ff8a80; --shadow: 0 14px 40px rgba(0, 0, 0, .55); color-scheme: dark;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -210,22 +210,55 @@ h4 a:hover { color: var(--accent); }
 .how p, .how > ul { max-width: 44em; }
 .how > ul { padding-left: 1.2em; display: grid; gap: 6px; }
 .how a { color: var(--learn); }
-.gates { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 26px 28px; counter-reset: g; }
-.gates li { counter-increment: g; border-top: 1px solid var(--line); padding-top: 12px; }
-.gates li::before { content: "0" counter(g); font: 600 13px/1 var(--mono); color: var(--learn); }
-.gates b { display: block; margin: 6px 0 4px; font: 700 18px/1.3 var(--display); }
-.gates p { margin: 0; font-size: 14.5px; color: var(--muted); }
 .age { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; max-width: 54em; margin: 14px 0; }
 .age > div { padding: 16px 18px; border-radius: 12px; }
 .age .keep { background: var(--learn-soft); }
 .age .drop { background: var(--relax-soft); }
 .age b { font: 700 16px/1.4 var(--display); }
 .age ul { margin: 8px 0 0; padding-left: 1.2em; font-size: 14.5px; }
-.funnel { display: grid; gap: 12px; max-width: 44em; }
-.funnel div { display: grid; grid-template-columns: 3.4em minmax(0, 1fr); gap: 14px; align-items: start; font-size: 14px; }
-.funnel b { font: 600 22px/1 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
-.funnel i { display: block; height: 10px; border-radius: 3px; background: var(--learn); margin: 6px 0; }
 .wl { font-size: 13.5px; color: var(--muted); }
+.s1 { --c: var(--learn); } .s2 { --c: var(--relax); } .s3 { --c: var(--sig3); } .s4 { --c: var(--sig4); }
+.sbar { display: flex; gap: 3px; max-width: 56em; }
+.sbar em { font-style: normal; }
+.sbar span { background: var(--c); color: var(--on-accent); padding: 11px 10px; font: 600 14px/1.2 var(--sans); white-space: nowrap; overflow: hidden; border-radius: 4px; min-width: 0; }
+.sig { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px 28px; margin-top: 20px; }
+.sig h4 { margin: 0; font: 700 17px/1.3 var(--display); display: flex; align-items: center; gap: 8px; }
+.sig h4 small { margin-left: auto; font: 12px/1 var(--mono); color: var(--muted); }
+.dot { width: 12px; height: 12px; border-radius: 3px; background: var(--c); flex: none; display: inline-block; }
+.sig p { margin: 6px 0 8px; font-size: 14px; color: var(--muted); }
+.sig dl { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; font-size: 14px; }
+.sig dt, .sig dd { margin: 0; padding: 6px 0; border-top: 1px solid var(--line); }
+.sig dd { font: 600 14px/1.6 var(--mono); text-align: right; padding-left: 12px; }
+.fb { margin-top: 22px; padding: 12px 16px; border: 1px dashed var(--muted); border-radius: 10px; font-size: 14px; max-width: 56em !important; }
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 28px; }
+.chips2 { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.chips2 span { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 4px 10px; font-size: 13.5px; }
+.chips2.no span { text-decoration: line-through; color: var(--muted); background: transparent; }
+.flow, .legend { display: flex; flex-wrap: wrap; align-items: baseline; max-width: none !important; }
+.flow { gap: 4px 10px; font-size: 14px; }
+.flow b { font: 600 24px/1 var(--mono); margin-right: 4px; }
+.flow i { font-style: normal; color: var(--muted); }
+.legend { gap: 6px 16px; font-size: 13px; color: var(--muted); align-items: center; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.cutmark { width: 2px; height: 14px; background: var(--ink); display: inline-block; }
+.chart { list-style: none; margin: 10px 0 0; padding: 0; }
+.row { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 2.4em; gap: 14px; align-items: center; padding: 7px 0; border-top: 1px solid var(--line); }
+.rt { min-width: 0; display: grid; }
+.rt a { font-size: 14px; font-weight: 600; text-decoration: none; color: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rt a:hover { color: var(--learn); }
+.rt small { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rt em { font-style: normal; color: var(--relax); }
+.track { position: relative; display: flex; height: 14px; background: var(--sunk); border-radius: 3px; }
+.track i { display: block; height: 100%; background: var(--c); box-shadow: inset -1px 0 0 var(--bg); }
+.track i:first-child { border-radius: 3px 0 0 3px; }
+.track::after { content: ""; position: absolute; left: var(--cut); top: -4px; bottom: -4px; width: 2px; background: var(--ink); }
+.track.none::after { display: none; }
+.tot { font: 600 15px/1 var(--mono); text-align: right; }
+.row.out .track i { opacity: .4; }
+.row.out .rt a, .row.out .tot { color: var(--muted); font-weight: 400; }
+.outs summary { cursor: pointer; margin-top: 16px; color: var(--learn); font-size: 14px; }
+.parts { margin: 0 0 10px; font-size: 12px; color: var(--muted); }
+.parts b { font: 600 13px/1 var(--mono); color: var(--accent); margin-right: 8px; }
 .how-link { margin: 14px 0 0; font-size: 14px; }
 .how-link a, .tb-link { color: var(--learn); }
 .tb-link { font-size: 14px; text-decoration: none; white-space: nowrap; padding: 0 4px; }
@@ -309,6 +342,11 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 @media (max-width: 720px) {
   .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 8px; }
   .tb-link { display: none; }
+  .row { grid-template-columns: minmax(0, 1fr) 2.4em; gap: 6px 12px; }
+  .rt { grid-column: 1 / -1; }
+  .rt a { white-space: normal; }
+  .sbar span { padding: 11px 4px; font-size: 13px; text-align: center; }
+  .sbar em { display: none; }
   .search { order: 3; flex-basis: 100%; }
   .search input { width: 100%; }
   .zone-learn .v { display: flex; flex-direction: column; gap: 10px; padding: 20px 0; }
@@ -402,57 +440,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
   </main>
 </div>
 
-<section class="how" id="how">
-  <h2>我们怎么选片</h2>
-  <p class="how-lede">YouTube 上的好视频并不少，难的是把它们从海量视频里找出来，同时不被“热门”带着走。这里的视频都是按下面的办法筛出来的。</p>
-
-  <h3>为什么不用关键词和点赞数</h3>
-  <p>关键词只能找到“讲这个话题的视频”，分不出讲得好不好。点赞和播放量量的是受欢迎程度和包装，不是讲得对不对。所以这两样都不作为依据。</p>
-
-  <h3>四道关</h3>
-  <ol class="gates">
-    <li><b>谁做的</b><p>先看作者。长期讲得清楚的作者、大学课程和研究机构进白名单，他们出的新视频直接成为候选。</p></li>
-    <li><b>谁推荐的</b><p>白名单之外的视频，要有内行的推荐才成为候选，比如在 Hacker News 上被顶到高分。几个互不相关的地方都提到同一个视频，更可信。</p></li>
-    <li><b>内容对不对</b><p>看简介、章节和文字稿：它回答什么问题，需要什么基础，和已有的重不重复。和主题无关的在这一步去掉。</p></li>
-    <li><b>看的人说了算</b><p>候选池只是“值得考虑”的一批，看哪个由看的人自己挑。看完觉得值的作者以后多选，总被跳过的少选。</p></li>
-  </ol>
-
-  <h3>新视频和老视频</h3>
-  <p>AI 变化很快，所以这里有意不放一些老视频。判断的办法是看内容属于哪一类，不是只看发布日期。</p>
-  <div class="age">
-    <div class="keep"><b>不会过时，老的照样收</b><ul><li>原理：神经网络怎么学习、注意力机制、数据库怎么存数据</li><li>历史和发展过程</li><li>新技术、新方法的讲解</li></ul></div>
-    <div class="drop"><b>会过时，只收近期的</b><ul><li>某个工具怎么用、提示词技巧</li><li>谈“现在 AI 到了哪一步”的访谈</li><li>对行业的预测</li></ul></div>
-  </div>
-  <p>所以你在这里能看到 2017 年讲神经网络的视频，却看不到 2024 年谈 AI 现状的播客。前者今天仍然是很好的入门；后者说的“最新进展”早已不新。</p>
-
-  <h3>时长</h3>
-  <p>候选池只收 15 分钟以上的。单个视频默认不超过 2 小时 30 分，可以分段看；课程和讲座超过 1 小时很正常。主线和资料库里有几个更短的，是因为它们正好把一件事讲清楚。长不等于好，时长只用来排除零碎的片段。</p>
-
-  <h3>这一期是怎么筛出来的</h3>
-  <p>第 {{R_N}} 期候选池，{{R_DATE}}：</p>
-  <div class="funnel">
-    <div><b>{{R_RAW}}</b><span><i style="width:100%"></i>{{R_CHANNELS}} 个白名单频道近 90 天的新视频，加上 Hacker News 上超过 100 分的 YouTube 链接</span></div>
-    <div><b>{{R_LONG}}</b><span><i style="width:{{R_LONG_PCT}}%"></i>去掉 15 分钟以下的和打不开的</span></div>
-    <div><b>{{R_PICKED}}</b><span><i style="width:{{R_PICKED_PCT}}%"></i>过第三道关：去掉和主题无关的、超过时长的、重复的，放进候选池</span></div>
-  </div>
-  <p class="wl">白名单里的 {{R_CHANNELS}} 个频道：{{R_WHITELIST}}。</p>
-
-  <h3>要说清楚的几件事</h3>
-  <ul>
-    <li>选片的是 AI（Opus 和 Fable），另外两个 AI（Codex 和 Kimi）独立审过一轮。它们没有逐个看完视频，介绍来自标题、简介和作者的讲义。</li>
-    <li>主线 {{MAIN_N}} 步的问题和参考要点，逐条对照过作者公开的讲义原文。其余的参考要点标了“未核对”。</li>
-    <li>已知的缺口：心理学类的来源还不够；Hacker News 偏技术，高分里也有和主题无关的内容，要靠第三道关去掉。</li>
-  </ul>
-
-  <h3>接下来：自动更新打算怎么做</h3>
-  <ul>
-    <li>每周自动收集一次前两道关的候选：读白名单频道的更新，查 Hacker News 的高分链接。不用付费接口，不让大模型按标题打分。</li>
-    <li>第三道关仍然由人和 AI 按<a href="https://github.com/johnnyzhang-eng/youtube-longform-picks/blob/main/docs/selection-criteria.md" target="_blank" rel="noopener">成文的选片标准</a>判断。</li>
-    <li>候选池有上限、会过期，不发通知。它是一个可以挑的池子，不是要刷完的信息流。</li>
-    <li>学习主线不自动更新，每次改动都要有理由。</li>
-  </ul>
-  <p>觉得哪一步不对，或者有更好的办法，欢迎到 <a href="https://github.com/johnnyzhang-eng/youtube-longform-picks/issues/7" target="_blank" rel="noopener">GitHub 上的这个讨论</a>里说。</p>
-</section>
+{{HOW}}
 
 <footer>
   <p>选片：由 Opus 和 Fable 按作者口碑、课程或机构来源、标题和时长挑选，没有逐个看过。主线和数学补给的问题、参考要点对照过作者公开的讲义原文；标“未核对”的按通用知识写成，仅供参考。每个链接都在 {{UPDATED}} 核对过能播放。</p>
