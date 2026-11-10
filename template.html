@@ -127,7 +127,7 @@ h1 em { font-style: normal; color: var(--learn); }
 .lib-head h2 { margin: 0; font: 900 clamp(26px, 3.4vw, 34px)/1.2 var(--display); letter-spacing: .02em; }
 .lib-head p { margin: 6px 0 16px; color: var(--muted); max-width: 46em; }
 .zone-learn { --accent: var(--learn); --accent-soft: var(--learn-soft); }
-.zone-relax { --accent: var(--relax); --accent-soft: var(--relax-soft); }
+.zone-relax, .zone-pool { --accent: var(--relax); --accent-soft: var(--relax-soft); }
 .zone, .topic, .v { scroll-margin-top: 72px; }
 .zone-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
 .zone-head h2 { margin: 0; font: 900 24px/1.2 var(--display); letter-spacing: .02em; }
@@ -196,10 +196,11 @@ h4 a:hover { color: var(--accent); }
 .v.seen .step span { display: none; }
 .v.seen .step::after { content: "✓"; }
 /* 轻松看: borderless shelf */
-.zone-relax .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px 20px; }
-.zone-relax .v { display: flex; flex-direction: column; gap: 12px; }
-.zone-relax .body { flex: 1; }
-.zone-relax .actions { margin-top: auto; }
+.zone-relax .list, .zone-pool .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px 20px; }
+.zone-relax .v, .zone-pool .v { display: flex; flex-direction: column; gap: 12px; }
+.zone-pool .ask { display: none; }
+.zone-relax .body, .zone-pool .body { flex: 1; }
+.zone-relax .actions, .zone-pool .actions { margin-top: auto; }
 
 .empty { margin: 56px 0; text-align: center; color: var(--muted); }
 footer { margin-top: 64px; padding: 22px 0 64px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
@@ -343,11 +344,12 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 
 <header class="lib-head">
   <h2>资料库</h2>
-  <p>其余 {{TOTAL}} 个视频里不在主线上的，都收在这里，默认折叠。认真学的分支按需打开；轻松看不计进度。</p>
+  <p>其余 {{TOTAL}} 个视频里不在主线上的，都收在这里，默认折叠。候选池是新筛出来的，自己挑着看，定期换新；认真学的分支按需打开；轻松看不计进度。</p>
 </header>
 <div class="filters js-only">
   <div class="chips" id="f-zone">
     <button type="button" class="chip on" data-zone="all">全部</button>
+    <button type="button" class="chip" data-zone="pool">候选池</button>
     <button type="button" class="chip" data-zone="learn">认真学</button>
     <button type="button" class="chip" data-zone="relax">轻松看</button>
   </div>
@@ -561,7 +563,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
       $("next-title").textContent = v.title; $("next-where").textContent = where(v);
       $("next-thumb").href = url(v.id);
     }
-    var pool = ORDER.filter(function (id) { return V[id].zone === "relax" && !state.seen[id]; });
+    var pool = ORDER.filter(function (id) { return V[id].zone !== "learn" && !state.seen[id]; });
     var box = $("picks-list"), day = Math.floor(Date.now() / DAY); box.textContent = ""; $("picks").hidden = !pool.length;
     if (pool.length) {
       box.appendChild(mini(pool[(day + pickOffset) % pool.length]));
@@ -635,7 +637,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
   function mountPlayer(v) {
     var box = $("p-player"); box.textContent = "";
     if (!v) return;
-    if (location.protocol === "http:" || location.protocol === "https:") {
+    if ((location.protocol === "http:" || location.protocol === "https:") && !v.noembed) {
       var fr = document.createElement("iframe");
       fr.src = "https://www.youtube-nocookie.com/embed/" + v.id + "?rel=0&playsinline=1";
       fr.title = v.title; fr.allowFullscreen = true; fr.referrerPolicy = "strict-origin-when-cross-origin";
@@ -645,7 +647,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
       var a = document.createElement("a"), img = document.createElement("img"), s = document.createElement("span");
       a.className = "fallback"; a.href = url(v.id); a.target = "_blank"; a.rel = "noopener";
       img.src = "https://i.ytimg.com/vi/" + v.id + "/hqdefault.jpg"; img.alt = "";
-      s.textContent = "本地文件不能在页面里播放。点这里在 YouTube 打开，回来写小记。";
+      s.textContent = (v.noembed ? "这个视频的作者不允许在别的页面里播放。" : "本地文件不能在页面里播放。") + "点这里在 YouTube 打开，回来写小记。";
       a.appendChild(img); a.appendChild(s); box.appendChild(a);
     }
   }
