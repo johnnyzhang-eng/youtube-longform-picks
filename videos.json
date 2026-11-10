@@ -4,7 +4,7 @@
   {
    "key": "pool",
    "name": "候选池",
-   "intro": "第 1 期，2026-11-10 筛的：白名单频道近 90 天的新视频，加上 Hacker News 上的高分视频。没有逐个看过，介绍来自标题和简介。想看哪个直接看。池子定期换新；看完觉得值得留的，会移进轻松看或认真学。",
+   "intro": "第 1 期，2026-11-10 筛的：白名单频道近 90 天的新视频，加上 Hacker News 上的高分视频。没有逐个看过，介绍来自标题和简介。想看哪个直接看。筛选逻辑见页面底部的“我们怎么选片”。池子定期换新；看完觉得值得留的，会移进轻松看或认真学。",
    "topics": [
     {
      "key": "p-ai",
@@ -323,7 +323,40 @@
       }
      ]
     }
-   ]
+   ],
+   "round": {
+    "n": 1,
+    "date": "2026-11-10",
+    "raw": 109,
+    "long": 70,
+    "picked": 30,
+    "whitelist": [
+     "3Blue1Brown",
+     "Andrej Karpathy",
+     "Dwarkesh Patel",
+     "Anthropic",
+     "Veritasium",
+     "AI Engineer",
+     "bycloud",
+     "Jia-Bin Huang",
+     "CMU Database Group",
+     "Lex Fridman",
+     "Welch Labs",
+     "Machine Learning Street Talk",
+     "Yannic Kilcher",
+     "Numberphile",
+     "Quanta Magazine",
+     "Computerphile",
+     "Databricks",
+     "Data Council",
+     "Y Combinator",
+     "Stanford Online",
+     "The Royal Institution",
+     "Acquired",
+     "Sean Carroll",
+     "Latent Space"
+    ]
+   }
   },
   {
    "key": "learn",
