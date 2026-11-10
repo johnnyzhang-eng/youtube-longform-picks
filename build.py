@@ -101,7 +101,8 @@ def how_html(rd):
     <div><h4><i class="dot s1"></i>来源<small>最高 {w[0]}</small></h4><p>作者过去的表现，最能预测下一个视频的质量。</p>
       <dl><dt>A 档频道</dt><dd>{src['A']}</dd><dt>B 档频道</dt><dd>{src['B']}</dd><dt>白名单之外</dt><dd>0</dd></dl></div>
     <div><h4><i class="dot s2"></i>推荐<small>最高 {w[1]}</small></h4><p>陌生的来源，靠内行的认可进来。它和来源同分，所以白名单之外的好视频不会被挡住。</p>
-      <dl><dt>Hacker News {en[0][0]} 分以上</dt><dd>{en[0][1]}</dd><dt>{en[1][0]}–{en[0][0] - 1} 分</dt><dd>{en[1][1]}</dd><dt>{en[2][0]}–{en[1][0] - 1} 分</dt><dd>{en[2][1]}</dd><dt>没有</dt><dd>0</dd></dl></div>
+      <dl><dt>Hacker News {en[0][0]} 分以上</dt><dd>{en[0][1]}</dd><dt>{en[1][0]}–{en[0][0] - 1} 分</dt><dd>{en[1][1]}</dd><dt>{en[2][0]}–{en[1][0] - 1} 分</dt><dd>{en[2][1]}</dd><dt>没有</dt><dd>0</dd></dl>
+      <p class="fine"><b>Hacker News 是什么：</b>美国创业孵化器 Y Combinator 办的技术社区（<a href="https://news.ycombinator.com" target="_blank" rel="noopener">news.ycombinator.com</a>）。程序员、研究者和创业者在上面提交链接、互相投票，分数大致就是得票数。一个视频在那里拿到高分，说明很多内行觉得它值得看。</p></div>
     <div><h4><i class="dot s3"></i>主题<small>最高 {w[2]}</small></h4><p>再好的视频，和关心的方向无关，也不占位置。</p>
       <dl><dt>核心方向</dt><dd>{tp['2']}</dd><dt>相邻方向</dt><dd>{tp['1']}</dd><dt>无关</dt><dd>出局</dd></dl>
       <p class="fine">核心：AI 原理与方法、数学、数据工程、认知与学习、思维模型。相邻：其他科学和工程、编程、人物与历史。</p></div>

@@ -226,6 +226,8 @@ h4 a:hover { color: var(--accent); }
 .sig h4 small { margin-left: auto; font: 12px/1 var(--mono); color: var(--muted); }
 .dot { width: 12px; height: 12px; border-radius: 3px; background: var(--c); flex: none; display: inline-block; }
 .sig p { margin: 6px 0 8px; font-size: 14px; color: var(--muted); }
+.sig .fine { margin: 10px 0 0; font-size: 12.5px; }
+.sig .fine b { color: var(--ink); }
 .sig dl { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; font-size: 14px; }
 .sig dt, .sig dd { margin: 0; padding: 6px 0; border-top: 1px solid var(--line); }
 .sig dd { font: 600 14px/1.6 var(--mono); text-align: right; padding-left: 12px; }
@@ -2456,7 +2458,8 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
     <div><h4><i class="dot s1"></i>来源<small>最高 35</small></h4><p>作者过去的表现，最能预测下一个视频的质量。</p>
       <dl><dt>A 档频道</dt><dd>35</dd><dt>B 档频道</dt><dd>20</dd><dt>白名单之外</dt><dd>0</dd></dl></div>
     <div><h4><i class="dot s2"></i>推荐<small>最高 35</small></h4><p>陌生的来源，靠内行的认可进来。它和来源同分，所以白名单之外的好视频不会被挡住。</p>
-      <dl><dt>Hacker News 400 分以上</dt><dd>35</dd><dt>200–399 分</dt><dd>28</dd><dt>100–199 分</dt><dd>20</dd><dt>没有</dt><dd>0</dd></dl></div>
+      <dl><dt>Hacker News 400 分以上</dt><dd>35</dd><dt>200–399 分</dt><dd>28</dd><dt>100–199 分</dt><dd>20</dd><dt>没有</dt><dd>0</dd></dl>
+      <p class="fine"><b>Hacker News 是什么：</b>美国创业孵化器 Y Combinator 办的技术社区（<a href="https://news.ycombinator.com" target="_blank" rel="noopener">news.ycombinator.com</a>）。程序员、研究者和创业者在上面提交链接、互相投票，分数大致就是得票数。一个视频在那里拿到高分，说明很多内行觉得它值得看。</p></div>
     <div><h4><i class="dot s3"></i>主题<small>最高 20</small></h4><p>再好的视频，和关心的方向无关，也不占位置。</p>
       <dl><dt>核心方向</dt><dd>20</dd><dt>相邻方向</dt><dd>10</dd><dt>无关</dt><dd>出局</dd></dl>
       <p class="fine">核心：AI 原理与方法、数学、数据工程、认知与学习、思维模型。相邻：其他科学和工程、编程、人物与历史。</p></div>
