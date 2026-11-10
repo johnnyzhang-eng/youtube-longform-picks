@@ -2,6 +2,330 @@
  "updated": "2026-11-10",
  "zones": [
   {
+   "key": "pool",
+   "name": "候选池",
+   "intro": "第 1 期，2026-11-10 筛的：白名单频道近 90 天的新视频，加上 Hacker News 上的高分视频。没有逐个看过，介绍来自标题和简介。想看哪个直接看。池子定期换新；看完觉得值得留的，会移进轻松看或认真学。",
+   "topics": [
+    {
+     "key": "p-ai",
+     "kind": "pool",
+     "ordered": false,
+     "name": "AI：新方法和原理",
+     "intro": "",
+     "videos": [
+      {
+       "id": "QgH9sr7G13Q",
+       "title": "The most cited paper of the century is a brilliant hack",
+       "channel": "Welch Labs",
+       "seconds": 2118,
+       "date": "2026-08-31",
+       "why": "讲“本世纪被引用最多的论文”背后的故事。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "l8gWQlrVOKQ",
+       "title": "How LLMs Get Faster Without Changing Their Outputs | Speculative Decoding",
+       "channel": "Jia-Bin Huang",
+       "seconds": 1474,
+       "date": "2026-08-28",
+       "why": "推测解码：用小模型先猜、大模型并行验证，在不改变输出的前提下提速。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "qkngB1Q46CY",
+       "title": "DeepSeek Splits the Transformer in Two. Here’s Why.",
+       "channel": "Jia-Bin Huang",
+       "seconds": 1011,
+       "date": "2026-09-30",
+       "why": "讲 DeepSeek 为什么把 Transformer 拆成两部分。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "r8sZgPx4jYA",
+       "title": "LLMs Can Now Read and Write Neural Network Weights",
+       "channel": "Jia-Bin Huang",
+       "seconds": 1564,
+       "date": "2026-11-03",
+       "why": "讲让大模型读写神经网络权重的新研究。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "iuHddnIzKRA",
+       "title": "The AI Language We Can't Read: Neuralese ft. Rob Miles - Computerphile",
+       "channel": "Computerphile",
+       "seconds": 1636,
+       "date": "2026-09-10",
+       "why": "如果模型不再用人类看得懂的语言推理，会怎样。嘉宾是 Rob Miles。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "kVXp6UNVPTo",
+       "title": "How Watermarks Track AI Generated Content - Computerphile",
+       "channel": "Computerphile",
+       "seconds": 1916,
+       "date": "2026-09-03",
+       "why": "AI 生成内容的水印是怎么做的。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "xP1kjDOisVw",
+       "title": "The Strange Economics of LLM Inference-as-a-Service",
+       "channel": "bycloud",
+       "seconds": 1381,
+       "date": "2026-09-29",
+       "why": "大模型推理服务的经济账。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "25KIyaeI_Fg",
+       "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 5 -  LLM Systems",
+       "channel": "Stanford Online",
+       "seconds": 6421,
+       "date": "2026-11-05",
+       "why": "斯坦福 2026 秋季“Transformers 与大模型”课的第 5 讲，整门课都在这个频道上。可以分段看。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "noembed": true
+      },
+      {
+       "id": "DGI4vucR71w",
+       "title": "What Are AI Agents? Agentic Systems Explained | Stanford CS329Z Lecture 1 with Diyi Yang",
+       "channel": "Stanford Online",
+       "seconds": 4176,
+       "date": "2026-11-09",
+       "why": "斯坦福 CS329Z 的一讲：什么是 AI 智能体。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？",
+       "noembed": true
+      }
+     ]
+    },
+    {
+     "key": "p-now",
+     "kind": "pool",
+     "ordered": false,
+     "name": "AI：现在的人在想什么",
+     "intro": "",
+     "videos": [
+      {
+       "id": "bAnwMdfcMVw",
+       "title": "No More Heroes - Terence Tao Talks to Numberphile About AI",
+       "channel": "Numberphile",
+       "seconds": 1185,
+       "date": "2026-10-15",
+       "why": "陶哲轩谈大量 AI 证明涌现给数学界带来的问题。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "NnV_cWeoo5Q",
+       "title": "Kernel Recipes 2026 -  Security in the LLM age",
+       "channel": "Kernel Recipes",
+       "seconds": 3411,
+       "date": "2026-09-29",
+       "why": "Linux 内核维护者 Greg Kroah-Hartman 讲大模型时代的安全。（来源：HN 346 分）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "Q78dJ0vkWe8",
+       "title": "How To Build The Future: Paul Graham & Amjad Masad",
+       "channel": "Y Combinator",
+       "seconds": 2655,
+       "date": "2026-11-07",
+       "why": "Paul Graham 和 Amjad Masad 的对谈。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "cNm4zyUtWj0",
+       "title": "RuneScape Bench: MMOs for Agents | Max Bittker",
+       "channel": "Recurse Center",
+       "seconds": 2814,
+       "date": "2026-10-17",
+       "why": "把开源版 RuneScape 改成测试 AI 智能体的环境。（来源：HN 250 分）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "nKjPBAw_N_0",
+       "title": "How to Build a Software Factory That Improves Itself - Zach Lloyd, Warp",
+       "channel": "AI Engineer",
+       "seconds": 1321,
+       "date": "2026-11-09",
+       "why": "Zach Lloyd 的演讲：怎样搭一个能自我改进的软件生产流程。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "MRQTlwcW-aQ",
+       "title": "How Anthropic ships the #1 LLM in the World — with Katelyn Lesse and Angela Jiang",
+       "channel": "Latent Space",
+       "seconds": 6400,
+       "date": "2026-10-27",
+       "why": "Latent Space 播客：Anthropic 的人讲他们怎么把模型做出来并发布。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "yW_ngvMFlYs",
+       "title": "Why Consciousness Might Not Be Hard At All (Joscha Bach)",
+       "channel": "Machine Learning Street Talk",
+       "seconds": 5828,
+       "date": "2026-11-01",
+       "why": "Joscha Bach 谈意识为什么可能并不难解释。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "IRJDwtAreB4",
+       "title": "Mathematics Just Changed Forever — Kevin Hartnett",
+       "channel": "Machine Learning Street Talk",
+       "seconds": 5613,
+       "date": "2026-10-26",
+       "why": "Kevin Hartnett 谈 AI 给数学带来的变化。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      }
+     ]
+    },
+    {
+     "key": "p-math",
+     "kind": "pool",
+     "ordered": false,
+     "name": "数学与科普",
+     "intro": "",
+     "videos": [
+      {
+       "id": "LKrwhjOI8Nc",
+       "title": "There's never been a better time to go into math",
+       "channel": "3Blue1Brown",
+       "seconds": 2444,
+       "date": "2026-10-16",
+       "why": "3Blue1Brown 谈数学的未来。（来源：白名单频道 + HN 557 分）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "Nbwv5wHQoj0",
+       "title": "The last IMO problem AI could not solve",
+       "channel": "3Blue1Brown",
+       "seconds": 3115,
+       "date": "2026-09-18",
+       "why": "一道 AI 没能解出的国际数学奥林匹克题，以及解它需要的直觉。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "OOMx2BHHWtE",
+       "title": "One of the world's greatest mathematicians explains 6 essential concepts of math | Terence Tao",
+       "channel": "Big Think",
+       "seconds": 5076,
+       "date": "2026-08-28",
+       "why": "陶哲轩讲 6 个基本的数学概念。（来源：HN 638 分）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "JsBZOcqZerk",
+       "title": "The Insane Real Engineering of the Nazi Enigma Machine",
+       "channel": "Veritasium",
+       "seconds": 2861,
+       "date": "2026-09-21",
+       "why": "恩尼格玛密码机的工程原理。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "NiCgcUTL9_Q",
+       "title": "Fiber Optics are so much cooler than I thought",
+       "channel": "Veritasium",
+       "seconds": 2072,
+       "date": "2026-10-12",
+       "why": "光纤是怎么工作的。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "KfODG5REyss",
+       "title": "I finally saw quantum mechanics with my own eyes... (It's spookier than I expected)",
+       "channel": "Veritasium",
+       "seconds": 3955,
+       "date": "2026-11-04",
+       "why": "把量子力学现象做成亲眼能看到的实验。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      }
+     ]
+    },
+    {
+     "key": "p-data",
+     "kind": "pool",
+     "ordered": false,
+     "name": "数据工程",
+     "intro": "",
+     "videos": [
+      {
+       "id": "l2ed26H07Ck",
+       "title": "Unifying Postgres and ClickHouse Natively: WalShadow and pg_clickhouse (Sai Srirampur)",
+       "channel": "CMU Database Group",
+       "seconds": 3515,
+       "date": "2026-11-03",
+       "why": "CMU 数据库组的讲座：把 Postgres 和 ClickHouse 原生地接在一起。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "xg8qksWY2eY",
+       "title": "Lakebases, Lakehouses, and LTAP: Unifying Transactions and Analytics on Open Storage (Ippo Pandis)",
+       "channel": "CMU Database Group",
+       "seconds": 3160,
+       "date": "2026-10-29",
+       "why": "CMU 数据库组的讲座：把事务处理和分析放到一套系统里。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "Po-6sHFJBl4",
+       "title": "Why the Creator of Delta Lake Says: Stop Writing ETL",
+       "channel": "Databricks",
+       "seconds": 2108,
+       "date": "2026-11-05",
+       "why": "Spark SQL 和 Delta Lake 的作者 Michael Armbrust 的访谈。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "1eVkT-ZnKC8",
+       "title": "Everything Has Bugs. Here’s How Antithesis Catches Them. (Marco Primi)",
+       "channel": "CMU Database Group",
+       "seconds": 3662,
+       "date": "2026-09-29",
+       "why": "CMU 数据库组的讲座：Antithesis 是怎么找出软件里的 bug 的。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      }
+     ]
+    },
+    {
+     "key": "p-people",
+     "kind": "pool",
+     "ordered": false,
+     "name": "人物、历史与认知",
+     "intro": "",
+     "videos": [
+      {
+       "id": "f0J_EeW42Lo",
+       "title": "What Robert Caro learned about power after studying it for 50 years",
+       "channel": "Dwarkesh Patel",
+       "seconds": 3670,
+       "date": "2026-10-30",
+       "why": "传记作家 Robert Caro 谈他研究权力 50 年学到的东西。（来源：白名单频道）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "656058JxTM0",
+       "title": "DefCon 34 - Stalking the Wily Hacker: 40 years later - Cliff Stoll",
+       "channel": "DEFCONConference",
+       "seconds": 3426,
+       "date": "2026-08-21",
+       "why": "Cliff Stoll 回顾 40 年前追踪黑客的经历。（来源：HN 310 分）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      },
+      {
+       "id": "n8m7lFQ3njk",
+       "title": "Analogy as the Core of Cognition",
+       "channel": "Stanford",
+       "seconds": 4117,
+       "date": "2009-09-10",
+       "why": "侯世达 2009 年的讲座：类比是认知的核心。（来源：HN 213 分）",
+       "ask": "看完用自己的话说：它最核心的一个观点或结论是什么？"
+      }
+     ]
+    }
+   ]
+  },
+  {
    "key": "learn",
    "name": "认真学",
    "intro": "主线之外的分支。卡住了、想深入，或者工作里碰到了，再打开对应的一组。",

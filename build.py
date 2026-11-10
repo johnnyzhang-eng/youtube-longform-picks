@@ -69,7 +69,7 @@ for z in data["zones"]:
             cards.append(card(v, step))
             js_data.append({
                 **{k: v[k] for k in ("id", "title", "channel", "seconds", "date", "why", "ask")},
-                "points": v.get("points", []), "checked": v.get("checked", ""), "src": v.get("src", ""),
+                "points": v.get("points", []), "checked": v.get("checked", ""), "src": v.get("src", ""), "noembed": bool(v.get("noembed")),
                 "len": len_bucket(v["seconds"]), "step": step, "kind": kind,
                 "zone": z["key"], "zoneName": z["name"], "topic": t["key"], "topicName": t["name"],
             })
@@ -86,18 +86,19 @@ for z in data["zones"]:
             f'<a class="toc-topic" href="#t-{t["key"]}" data-topic="{t["key"]}">'
             f'<span>{escape(t["name"])}</span><span class="n">{n}</span></a>'
         )
-        bar = '<span class="bar js-only"><i></i></span>' if kind != "relax" else ""
+        bar = '<span class="bar js-only"><i></i></span>' if kind in ("main", "branch") else ""
         head = f'<h3>{escape(t["name"])}</h3><span class="prog">{bar}<span class="num">{n} 个</span></span>'
         link = ""
         if t.get("link"):
             link = f'<p class="intro"><a class="ext" href="{t["link"]["url"]}" target="_blank" rel="noopener">{escape(t["link"]["text"])} ↗</a></p>'
-        inner = f'<p class="intro">{escape(t["intro"])}</p>{link}\n  <div class="list">\n{chr(10).join(cards)}\n  </div>'
+        intro = f'<p class="intro">{escape(t["intro"])}</p>' if t["intro"] else ""
+        inner = f'{intro}{link}\n  <div class="list">\n{chr(10).join(cards)}\n  </div>'
         attrs = f'id="t-{t["key"]}" data-topic="{t["key"]}" data-kind="{kind}"'
         if kind == "main":
             main_html = f'<section class="topic" {attrs}>\n  <header class="topic-head">{head}</header>\n  {inner}\n</section>'
-        elif kind in ("branch", "relax"):
+        elif kind in ("branch", "relax", "pool"):
             topics_html.append(f'<details class="topic branch" {attrs}>\n  <summary class="topic-head">{head}</summary>\n  {inner}\n</details>')
-    tag = "按需打开 · 看完自测" if z["key"] == "learn" else "不分先后 · 不计进度"
+    tag = {"learn": "按需打开 · 看完自测", "pool": "自己挑 · 定期换新"}.get(z["key"], "不分先后 · 不计进度")
     zones_html.append(f"""<section class="zone zone-{z['key']}" id="z-{z['key']}" data-zone="{z['key']}">
   <header class="zone-head">
     <h2>{escape(z['name'])}</h2><span class="tag">{tag}</span>

@@ -127,7 +127,7 @@ h1 em { font-style: normal; color: var(--learn); }
 .lib-head h2 { margin: 0; font: 900 clamp(26px, 3.4vw, 34px)/1.2 var(--display); letter-spacing: .02em; }
 .lib-head p { margin: 6px 0 16px; color: var(--muted); max-width: 46em; }
 .zone-learn { --accent: var(--learn); --accent-soft: var(--learn-soft); }
-.zone-relax { --accent: var(--relax); --accent-soft: var(--relax-soft); }
+.zone-relax, .zone-pool { --accent: var(--relax); --accent-soft: var(--relax-soft); }
 .zone, .topic, .v { scroll-margin-top: 72px; }
 .zone-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
 .zone-head h2 { margin: 0; font: 900 24px/1.2 var(--display); letter-spacing: .02em; }
@@ -196,10 +196,11 @@ h4 a:hover { color: var(--accent); }
 .v.seen .step span { display: none; }
 .v.seen .step::after { content: "✓"; }
 /* 轻松看: borderless shelf */
-.zone-relax .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px 20px; }
-.zone-relax .v { display: flex; flex-direction: column; gap: 12px; }
-.zone-relax .body { flex: 1; }
-.zone-relax .actions { margin-top: auto; }
+.zone-relax .list, .zone-pool .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px 20px; }
+.zone-relax .v, .zone-pool .v { display: flex; flex-direction: column; gap: 12px; }
+.zone-pool .ask { display: none; }
+.zone-relax .body, .zone-pool .body { flex: 1; }
+.zone-relax .actions, .zone-pool .actions { margin-top: auto; }
 
 .empty { margin: 56px 0; text-align: center; color: var(--muted); }
 footer { margin-top: 64px; padding: 22px 0 64px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
@@ -304,7 +305,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 <div class="wrap">
 <header class="hero" id="top">
   <div>
-    <p class="eyebrow">精选 48 个长视频 · 2026-11-10 更新</p>
+    <p class="eyebrow">精选 78 个长视频 · 2026-11-10 更新</p>
     <h1>把刷短视频的时间，<br>换成<em>值得看的长视频</em>。</h1>
     <p class="lede">先走一条 6 步的主线，其余按需打开。每个视频都写了为什么看、带着什么问题看；看完用自己的话回答，对照参考要点，过几天再讲一次。</p>
   </div>
@@ -485,11 +486,12 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 
 <header class="lib-head">
   <h2>资料库</h2>
-  <p>其余 48 个视频里不在主线上的，都收在这里，默认折叠。认真学的分支按需打开；轻松看不计进度。</p>
+  <p>其余 78 个视频里不在主线上的，都收在这里，默认折叠。候选池是新筛出来的，自己挑着看，定期换新；认真学的分支按需打开；轻松看不计进度。</p>
 </header>
 <div class="filters js-only">
   <div class="chips" id="f-zone">
     <button type="button" class="chip on" data-zone="all">全部</button>
+    <button type="button" class="chip" data-zone="pool">候选池</button>
     <button type="button" class="chip" data-zone="learn">认真学</button>
     <button type="button" class="chip" data-zone="relax">轻松看</button>
   </div>
@@ -504,6 +506,12 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 
 <div class="layout">
   <nav class="toc" aria-label="目录">
+<a class="toc-zone" href="#z-pool">候选池</a>
+<a class="toc-topic" href="#t-p-ai" data-topic="p-ai"><span>AI：新方法和原理</span><span class="n">9</span></a>
+<a class="toc-topic" href="#t-p-now" data-topic="p-now"><span>AI：现在的人在想什么</span><span class="n">8</span></a>
+<a class="toc-topic" href="#t-p-math" data-topic="p-math"><span>数学与科普</span><span class="n">6</span></a>
+<a class="toc-topic" href="#t-p-data" data-topic="p-data"><span>数据工程</span><span class="n">4</span></a>
+<a class="toc-topic" href="#t-p-people" data-topic="p-people"><span>人物、历史与认知</span><span class="n">3</span></a>
 <a class="toc-zone" href="#z-learn">认真学</a>
 <a class="toc-topic" href="#t-main" data-topic="main"><span>主线：讲清大模型怎么工作</span><span class="n">6</span></a>
 <span class="toc-sub">分支，按需打开</span>
@@ -521,6 +529,702 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 <a class="toc-topic" href="#t-learnhow" data-topic="learnhow"><span>学会学习</span><span class="n">2</span></a>
   </nav>
   <main>
+<section class="zone zone-pool" id="z-pool" data-zone="pool">
+  <header class="zone-head">
+    <h2>候选池</h2><span class="tag">自己挑 · 定期换新</span>
+    <p>第 1 期，2026-11-10 筛的：白名单频道近 90 天的新视频，加上 Hacker News 上的高分视频。没有逐个看过，介绍来自标题和简介。想看哪个直接看。池子定期换新；看完觉得值得留的，会移进轻松看或认真学。</p>
+  </header>
+<details class="topic branch" id="t-p-ai" data-topic="p-ai" data-kind="pool">
+  <summary class="topic-head"><h3>AI：新方法和原理</h3><span class="prog"><span class="num">9 个</span></span></summary>
+  
+  <div class="list">
+<article class="v" id="v-QgH9sr7G13Q" data-id="QgH9sr7G13Q">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=QgH9sr7G13Q" target="_blank" rel="noopener" data-open>
+    <span class="ph">Welch Labs</span>
+    <img src="https://i.ytimg.com/vi/QgH9sr7G13Q/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">35:18</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=QgH9sr7G13Q" target="_blank" rel="noopener">The most cited paper of the century is a brilliant hack</a></h4>
+    <p class="meta">Welch Labs · 2026-08<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">讲“本世纪被引用最多的论文”背后的故事。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-l8gWQlrVOKQ" data-id="l8gWQlrVOKQ">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=l8gWQlrVOKQ" target="_blank" rel="noopener" data-open>
+    <span class="ph">Jia-Bin Huang</span>
+    <img src="https://i.ytimg.com/vi/l8gWQlrVOKQ/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">24:34</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=l8gWQlrVOKQ" target="_blank" rel="noopener">How LLMs Get Faster Without Changing Their Outputs | Speculative Decoding</a></h4>
+    <p class="meta">Jia-Bin Huang · 2026-08<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">推测解码：用小模型先猜、大模型并行验证，在不改变输出的前提下提速。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-qkngB1Q46CY" data-id="qkngB1Q46CY">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=qkngB1Q46CY" target="_blank" rel="noopener" data-open>
+    <span class="ph">Jia-Bin Huang</span>
+    <img src="https://i.ytimg.com/vi/qkngB1Q46CY/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">16:51</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=qkngB1Q46CY" target="_blank" rel="noopener">DeepSeek Splits the Transformer in Two. Here’s Why.</a></h4>
+    <p class="meta">Jia-Bin Huang · 2026-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">讲 DeepSeek 为什么把 Transformer 拆成两部分。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-r8sZgPx4jYA" data-id="r8sZgPx4jYA">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=r8sZgPx4jYA" target="_blank" rel="noopener" data-open>
+    <span class="ph">Jia-Bin Huang</span>
+    <img src="https://i.ytimg.com/vi/r8sZgPx4jYA/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">26:04</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=r8sZgPx4jYA" target="_blank" rel="noopener">LLMs Can Now Read and Write Neural Network Weights</a></h4>
+    <p class="meta">Jia-Bin Huang · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">讲让大模型读写神经网络权重的新研究。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-iuHddnIzKRA" data-id="iuHddnIzKRA">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=iuHddnIzKRA" target="_blank" rel="noopener" data-open>
+    <span class="ph">Computerphile</span>
+    <img src="https://i.ytimg.com/vi/iuHddnIzKRA/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">27:16</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=iuHddnIzKRA" target="_blank" rel="noopener">The AI Language We Can&#x27;t Read: Neuralese ft. Rob Miles - Computerphile</a></h4>
+    <p class="meta">Computerphile · 2026-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">如果模型不再用人类看得懂的语言推理，会怎样。嘉宾是 Rob Miles。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-kVXp6UNVPTo" data-id="kVXp6UNVPTo">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=kVXp6UNVPTo" target="_blank" rel="noopener" data-open>
+    <span class="ph">Computerphile</span>
+    <img src="https://i.ytimg.com/vi/kVXp6UNVPTo/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">31:56</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=kVXp6UNVPTo" target="_blank" rel="noopener">How Watermarks Track AI Generated Content - Computerphile</a></h4>
+    <p class="meta">Computerphile · 2026-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">AI 生成内容的水印是怎么做的。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-xP1kjDOisVw" data-id="xP1kjDOisVw">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=xP1kjDOisVw" target="_blank" rel="noopener" data-open>
+    <span class="ph">bycloud</span>
+    <img src="https://i.ytimg.com/vi/xP1kjDOisVw/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">23:01</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=xP1kjDOisVw" target="_blank" rel="noopener">The Strange Economics of LLM Inference-as-a-Service</a></h4>
+    <p class="meta">bycloud · 2026-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">大模型推理服务的经济账。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-25KIyaeI_Fg" data-id="25KIyaeI_Fg">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=25KIyaeI_Fg" target="_blank" rel="noopener" data-open>
+    <span class="ph">Stanford Online</span>
+    <img src="https://i.ytimg.com/vi/25KIyaeI_Fg/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:47:01</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=25KIyaeI_Fg" target="_blank" rel="noopener">Stanford CME295 Transformers &amp; LLMs | Autumn 2026 | Lecture 5 -  LLM Systems</a></h4>
+    <p class="meta">Stanford Online · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">斯坦福 2026 秋季“Transformers 与大模型”课的第 5 讲，整门课都在这个频道上。可以分段看。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-DGI4vucR71w" data-id="DGI4vucR71w">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=DGI4vucR71w" target="_blank" rel="noopener" data-open>
+    <span class="ph">Stanford Online</span>
+    <img src="https://i.ytimg.com/vi/DGI4vucR71w/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:09:36</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=DGI4vucR71w" target="_blank" rel="noopener">What Are AI Agents? Agentic Systems Explained | Stanford CS329Z Lecture 1 with Diyi Yang</a></h4>
+    <p class="meta">Stanford Online · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">斯坦福 CS329Z 的一讲：什么是 AI 智能体。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+  </div>
+</details>
+<details class="topic branch" id="t-p-now" data-topic="p-now" data-kind="pool">
+  <summary class="topic-head"><h3>AI：现在的人在想什么</h3><span class="prog"><span class="num">8 个</span></span></summary>
+  
+  <div class="list">
+<article class="v" id="v-bAnwMdfcMVw" data-id="bAnwMdfcMVw">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=bAnwMdfcMVw" target="_blank" rel="noopener" data-open>
+    <span class="ph">Numberphile</span>
+    <img src="https://i.ytimg.com/vi/bAnwMdfcMVw/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">19:45</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=bAnwMdfcMVw" target="_blank" rel="noopener">No More Heroes - Terence Tao Talks to Numberphile About AI</a></h4>
+    <p class="meta">Numberphile · 2026-10<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">陶哲轩谈大量 AI 证明涌现给数学界带来的问题。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-NnV_cWeoo5Q" data-id="NnV_cWeoo5Q">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=NnV_cWeoo5Q" target="_blank" rel="noopener" data-open>
+    <span class="ph">Kernel Recipes</span>
+    <img src="https://i.ytimg.com/vi/NnV_cWeoo5Q/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">56:51</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=NnV_cWeoo5Q" target="_blank" rel="noopener">Kernel Recipes 2026 -  Security in the LLM age</a></h4>
+    <p class="meta">Kernel Recipes · 2026-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">Linux 内核维护者 Greg Kroah-Hartman 讲大模型时代的安全。（来源：HN 346 分）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-Q78dJ0vkWe8" data-id="Q78dJ0vkWe8">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=Q78dJ0vkWe8" target="_blank" rel="noopener" data-open>
+    <span class="ph">Y Combinator</span>
+    <img src="https://i.ytimg.com/vi/Q78dJ0vkWe8/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">44:15</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=Q78dJ0vkWe8" target="_blank" rel="noopener">How To Build The Future: Paul Graham &amp; Amjad Masad</a></h4>
+    <p class="meta">Y Combinator · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">Paul Graham 和 Amjad Masad 的对谈。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-cNm4zyUtWj0" data-id="cNm4zyUtWj0">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=cNm4zyUtWj0" target="_blank" rel="noopener" data-open>
+    <span class="ph">Recurse Center</span>
+    <img src="https://i.ytimg.com/vi/cNm4zyUtWj0/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">46:54</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=cNm4zyUtWj0" target="_blank" rel="noopener">RuneScape Bench: MMOs for Agents | Max Bittker</a></h4>
+    <p class="meta">Recurse Center · 2026-10<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">把开源版 RuneScape 改成测试 AI 智能体的环境。（来源：HN 250 分）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-nKjPBAw_N_0" data-id="nKjPBAw_N_0">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=nKjPBAw_N_0" target="_blank" rel="noopener" data-open>
+    <span class="ph">AI Engineer</span>
+    <img src="https://i.ytimg.com/vi/nKjPBAw_N_0/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">22:01</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=nKjPBAw_N_0" target="_blank" rel="noopener">How to Build a Software Factory That Improves Itself - Zach Lloyd, Warp</a></h4>
+    <p class="meta">AI Engineer · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">Zach Lloyd 的演讲：怎样搭一个能自我改进的软件生产流程。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-MRQTlwcW-aQ" data-id="MRQTlwcW-aQ">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=MRQTlwcW-aQ" target="_blank" rel="noopener" data-open>
+    <span class="ph">Latent Space</span>
+    <img src="https://i.ytimg.com/vi/MRQTlwcW-aQ/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:46:40</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=MRQTlwcW-aQ" target="_blank" rel="noopener">How Anthropic ships the #1 LLM in the World — with Katelyn Lesse and Angela Jiang</a></h4>
+    <p class="meta">Latent Space · 2026-10<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">Latent Space 播客：Anthropic 的人讲他们怎么把模型做出来并发布。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-yW_ngvMFlYs" data-id="yW_ngvMFlYs">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=yW_ngvMFlYs" target="_blank" rel="noopener" data-open>
+    <span class="ph">Machine Learning Street Talk</span>
+    <img src="https://i.ytimg.com/vi/yW_ngvMFlYs/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:37:08</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=yW_ngvMFlYs" target="_blank" rel="noopener">Why Consciousness Might Not Be Hard At All (Joscha Bach)</a></h4>
+    <p class="meta">Machine Learning Street Talk · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">Joscha Bach 谈意识为什么可能并不难解释。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-IRJDwtAreB4" data-id="IRJDwtAreB4">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=IRJDwtAreB4" target="_blank" rel="noopener" data-open>
+    <span class="ph">Machine Learning Street Talk</span>
+    <img src="https://i.ytimg.com/vi/IRJDwtAreB4/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:33:33</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=IRJDwtAreB4" target="_blank" rel="noopener">Mathematics Just Changed Forever — Kevin Hartnett</a></h4>
+    <p class="meta">Machine Learning Street Talk · 2026-10<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">Kevin Hartnett 谈 AI 给数学带来的变化。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+  </div>
+</details>
+<details class="topic branch" id="t-p-math" data-topic="p-math" data-kind="pool">
+  <summary class="topic-head"><h3>数学与科普</h3><span class="prog"><span class="num">6 个</span></span></summary>
+  
+  <div class="list">
+<article class="v" id="v-LKrwhjOI8Nc" data-id="LKrwhjOI8Nc">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=LKrwhjOI8Nc" target="_blank" rel="noopener" data-open>
+    <span class="ph">3Blue1Brown</span>
+    <img src="https://i.ytimg.com/vi/LKrwhjOI8Nc/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">40:44</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=LKrwhjOI8Nc" target="_blank" rel="noopener">There&#x27;s never been a better time to go into math</a></h4>
+    <p class="meta">3Blue1Brown · 2026-10<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">3Blue1Brown 谈数学的未来。（来源：白名单频道 + HN 557 分）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-Nbwv5wHQoj0" data-id="Nbwv5wHQoj0">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=Nbwv5wHQoj0" target="_blank" rel="noopener" data-open>
+    <span class="ph">3Blue1Brown</span>
+    <img src="https://i.ytimg.com/vi/Nbwv5wHQoj0/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">51:55</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=Nbwv5wHQoj0" target="_blank" rel="noopener">The last IMO problem AI could not solve</a></h4>
+    <p class="meta">3Blue1Brown · 2026-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">一道 AI 没能解出的国际数学奥林匹克题，以及解它需要的直觉。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-OOMx2BHHWtE" data-id="OOMx2BHHWtE">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=OOMx2BHHWtE" target="_blank" rel="noopener" data-open>
+    <span class="ph">Big Think</span>
+    <img src="https://i.ytimg.com/vi/OOMx2BHHWtE/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:24:36</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=OOMx2BHHWtE" target="_blank" rel="noopener">One of the world&#x27;s greatest mathematicians explains 6 essential concepts of math | Terence Tao</a></h4>
+    <p class="meta">Big Think · 2026-08<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">陶哲轩讲 6 个基本的数学概念。（来源：HN 638 分）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-JsBZOcqZerk" data-id="JsBZOcqZerk">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=JsBZOcqZerk" target="_blank" rel="noopener" data-open>
+    <span class="ph">Veritasium</span>
+    <img src="https://i.ytimg.com/vi/JsBZOcqZerk/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">47:41</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=JsBZOcqZerk" target="_blank" rel="noopener">The Insane Real Engineering of the Nazi Enigma Machine</a></h4>
+    <p class="meta">Veritasium · 2026-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">恩尼格玛密码机的工程原理。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-NiCgcUTL9_Q" data-id="NiCgcUTL9_Q">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=NiCgcUTL9_Q" target="_blank" rel="noopener" data-open>
+    <span class="ph">Veritasium</span>
+    <img src="https://i.ytimg.com/vi/NiCgcUTL9_Q/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">34:32</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=NiCgcUTL9_Q" target="_blank" rel="noopener">Fiber Optics are so much cooler than I thought</a></h4>
+    <p class="meta">Veritasium · 2026-10<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">光纤是怎么工作的。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-KfODG5REyss" data-id="KfODG5REyss">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=KfODG5REyss" target="_blank" rel="noopener" data-open>
+    <span class="ph">Veritasium</span>
+    <img src="https://i.ytimg.com/vi/KfODG5REyss/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:05:55</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=KfODG5REyss" target="_blank" rel="noopener">I finally saw quantum mechanics with my own eyes... (It&#x27;s spookier than I expected)</a></h4>
+    <p class="meta">Veritasium · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">把量子力学现象做成亲眼能看到的实验。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+  </div>
+</details>
+<details class="topic branch" id="t-p-data" data-topic="p-data" data-kind="pool">
+  <summary class="topic-head"><h3>数据工程</h3><span class="prog"><span class="num">4 个</span></span></summary>
+  
+  <div class="list">
+<article class="v" id="v-l2ed26H07Ck" data-id="l2ed26H07Ck">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=l2ed26H07Ck" target="_blank" rel="noopener" data-open>
+    <span class="ph">CMU Database Group</span>
+    <img src="https://i.ytimg.com/vi/l2ed26H07Ck/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">58:35</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=l2ed26H07Ck" target="_blank" rel="noopener">Unifying Postgres and ClickHouse Natively: WalShadow and pg_clickhouse (Sai Srirampur)</a></h4>
+    <p class="meta">CMU Database Group · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">CMU 数据库组的讲座：把 Postgres 和 ClickHouse 原生地接在一起。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-xg8qksWY2eY" data-id="xg8qksWY2eY">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=xg8qksWY2eY" target="_blank" rel="noopener" data-open>
+    <span class="ph">CMU Database Group</span>
+    <img src="https://i.ytimg.com/vi/xg8qksWY2eY/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">52:40</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=xg8qksWY2eY" target="_blank" rel="noopener">Lakebases, Lakehouses, and LTAP: Unifying Transactions and Analytics on Open Storage (Ippo Pandis)</a></h4>
+    <p class="meta">CMU Database Group · 2026-10<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">CMU 数据库组的讲座：把事务处理和分析放到一套系统里。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-Po-6sHFJBl4" data-id="Po-6sHFJBl4">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=Po-6sHFJBl4" target="_blank" rel="noopener" data-open>
+    <span class="ph">Databricks</span>
+    <img src="https://i.ytimg.com/vi/Po-6sHFJBl4/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">35:08</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=Po-6sHFJBl4" target="_blank" rel="noopener">Why the Creator of Delta Lake Says: Stop Writing ETL</a></h4>
+    <p class="meta">Databricks · 2026-11<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">Spark SQL 和 Delta Lake 的作者 Michael Armbrust 的访谈。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-1eVkT-ZnKC8" data-id="1eVkT-ZnKC8">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=1eVkT-ZnKC8" target="_blank" rel="noopener" data-open>
+    <span class="ph">CMU Database Group</span>
+    <img src="https://i.ytimg.com/vi/1eVkT-ZnKC8/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:01:02</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=1eVkT-ZnKC8" target="_blank" rel="noopener">Everything Has Bugs. Here’s How Antithesis Catches Them. (Marco Primi)</a></h4>
+    <p class="meta">CMU Database Group · 2026-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">CMU 数据库组的讲座：Antithesis 是怎么找出软件里的 bug 的。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+  </div>
+</details>
+<details class="topic branch" id="t-p-people" data-topic="p-people" data-kind="pool">
+  <summary class="topic-head"><h3>人物、历史与认知</h3><span class="prog"><span class="num">3 个</span></span></summary>
+  
+  <div class="list">
+<article class="v" id="v-f0J_EeW42Lo" data-id="f0J_EeW42Lo">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=f0J_EeW42Lo" target="_blank" rel="noopener" data-open>
+    <span class="ph">Dwarkesh Patel</span>
+    <img src="https://i.ytimg.com/vi/f0J_EeW42Lo/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:01:10</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=f0J_EeW42Lo" target="_blank" rel="noopener">What Robert Caro learned about power after studying it for 50 years</a></h4>
+    <p class="meta">Dwarkesh Patel · 2026-10<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">传记作家 Robert Caro 谈他研究权力 50 年学到的东西。（来源：白名单频道）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-656058JxTM0" data-id="656058JxTM0">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=656058JxTM0" target="_blank" rel="noopener" data-open>
+    <span class="ph">DEFCONConference</span>
+    <img src="https://i.ytimg.com/vi/656058JxTM0/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">57:06</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=656058JxTM0" target="_blank" rel="noopener">DefCon 34 - Stalking the Wily Hacker: 40 years later - Cliff Stoll</a></h4>
+    <p class="meta">DEFCONConference · 2026-08<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">Cliff Stoll 回顾 40 年前追踪黑客的经历。（来源：HN 310 分）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+<article class="v" id="v-n8m7lFQ3njk" data-id="n8m7lFQ3njk">
+  
+  <a class="thumb" href="https://www.youtube.com/watch?v=n8m7lFQ3njk" target="_blank" rel="noopener" data-open>
+    <span class="ph">Stanford</span>
+    <img src="https://i.ytimg.com/vi/n8m7lFQ3njk/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">
+    <span class="play js-only" aria-hidden="true">▶ 看和记</span>
+    <span class="dur">1:08:37</span>
+    <span class="seen-badge">已看</span>
+  </a>
+  <div class="body">
+    <h4><a href="https://www.youtube.com/watch?v=n8m7lFQ3njk" target="_blank" rel="noopener">Analogy as the Core of Cognition</a></h4>
+    <p class="meta">Stanford · 2009-09<span class="note-flag">有小记</span><span class="due-flag">该复述了</span></p>
+    <p class="why">侯世达 2009 年的讲座：类比是认知的核心。（来源：HN 213 分）</p>
+    <p class="ask"><b aria-label="带着问题看" title="带着问题看">问</b><span>看完用自己的话说：它最核心的一个观点或结论是什么？</span></p>
+    
+    
+    <div class="actions js-only">
+      <button type="button" class="btn primary" data-open>看和记</button>
+      <button type="button" class="btn" data-seen aria-pressed="false">标记已看</button>
+    </div>
+  </div>
+</article>
+  </div>
+</details>
+</section>
 <section class="zone zone-learn" id="z-learn" data-zone="learn">
   <header class="zone-head">
     <h2>认真学</h2><span class="tag">按需打开 · 看完自测</span>
@@ -1602,7 +2306,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 </dialog>
 
 <div class="toast" id="toast" role="status"></div>
-<script type="application/json" id="data">[{"id":"LPZh9BOjkQs","title":"Large Language Models explained briefly","channel":"3Blue1Brown","seconds":478,"date":"2024-11-20","why":"8 分钟看完大模型的全貌：它在预测下一个词，靠海量文本训练出来。后面五步都是把这里的某一句话展开。","ask":"聊天机器人给出一段回答，和“预测下一个词”是什么关系？","points":["大模型是一个函数：给它一段文字，它给出下一个词的各种可能和各自的概率。","把对话写成一段文字，让模型预测 AI 助手接下来要说的词，抽一个接上去，再重复。回答就是这样一个词一个词出来的。","抽词时带一点随机，所以同一个问题每次的回答可能不同。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/mini-llm","len":"short","step":1,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"aircAruvnKk","title":"But what is a neural network? | Deep learning chapter 1","channel":"3Blue1Brown","seconds":1120,"date":"2017-10-05","why":"这个系列的第一集，从最底层讲神经网络到底是什么。整个系列都值得按顺序看。","ask":"一个“神经元”其实就是在算什么？","points":["神经元里装的是一个数，叫激活值。","算法：把上一层所有神经元的激活值各乘一个权重，加起来，再加一个偏置。","最后把结果送进一个函数（视频里用 sigmoid），压成 0 到 1 之间的数。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/neural-networks","len":"short","step":2,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"IHZwWFHWa-w","title":"Gradient descent, how neural networks learn | Deep Learning Chapter 2","channel":"3Blue1Brown","seconds":1233,"date":"2017-10-16","why":"神经网络是怎么“学习”的：定义一个衡量错得多离谱的数，然后一点点调参数让它变小。","ask":"“梯度下降”里的梯度，告诉了我们什么？","points":["先有一个代价函数：网络错得越离谱，这个数越大。学习就是让它变小。","梯度指向代价上升最快的方向，所以要沿它的反方向走。","梯度各个分量的相对大小，说明调哪个参数对代价的影响更大。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/gradient-descent","len":"mid","step":3,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"Ilg3gGewQ5U","title":"Backpropagation, intuitively | Deep Learning Chapter 3","channel":"3Blue1Brown","seconds":767,"date":"2017-11-03","why":"反向传播：怎么算出几万个参数各自该怎么调。这一集不用公式，只讲直觉。","ask":"为什么叫“反向”传播？","points":["从输出层希望怎么变出发，推出希望上一层怎么变，再一层层往回推，所以叫反向。","每个训练样本都有自己希望的调整，把它们取平均，就是这一步该怎么调全部的权重和偏置。","实际训练时把数据分成小批，每批算一次近似的调整，这叫随机梯度下降。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/backpropagation","len":"short","step":4,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"wjZofJX0v4M","title":"Transformers, the tech behind LLMs | Deep Learning Chapter 5","channel":"3Blue1Brown","seconds":1634,"date":"2024-04-01","why":"GPT 内部的整体结构，从输入一段文字到输出下一个词。","ask":"模型每一步输出的到底是什么？","points":["输出的不是一个词，而是“接下来可能出现的每一小段文字”的概率分布。","从这个分布里随机抽一个接到后面，再把全部文字重新送进去预测，如此反复。","把一组数变成概率分布的那一步叫 softmax。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/gpt","len":"mid","step":5,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"eMlx5fFNoYc","title":"Attention in transformers, step-by-step | Deep Learning Chapter 6","channel":"3Blue1Brown","seconds":1569,"date":"2024-04-07","why":"用动画一步步讲注意力机制：每个词怎么“看”上下文里的其他词。论文名字里的“注意力”就是它。","ask":"query、key、value 三样东西各自负责什么？","points":["query：每个词发出的提问，比如一个名词在问“我前面有没有形容词”。","key：每个词给出的“可能的回答”。query 和 key 做点积，越大说明越相关，再用 softmax 变成权重。","value：相关的词真正传过去、加到对方身上的内容，用来更新对方的含义。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/attention","len":"mid","step":6,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"fNk_zzaMoSs","title":"Vectors | Chapter 1, Essence of linear algebra","channel":"3Blue1Brown","seconds":591,"date":"2016-08-05","why":"向量到底是什么：一个箭头，也是一列数，两种看法是同一回事。","ask":"向量的加法和数乘，在几何上分别是什么？","points":["加法：把第二个向量的尾巴接到第一个的箭头上，从第一个的尾巴画到第二个的箭头。","数乘：把向量拉长、缩短或反向。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/vectors","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"kYB8IZa5AuE","title":"Linear transformations and matrices | Chapter 3, Essence of linear algebra","channel":"3Blue1Brown","seconds":658,"date":"2016-08-07","why":"矩阵不是一堆数，而是一种“对空间的变换”。神经网络每一层做的主要就是这件事。","ask":"矩阵的每一列，表示什么？","points":["矩阵的每一列，是一个基向量在变换之后落到的位置。","知道基向量落在哪里，就能算出任何向量会落在哪里。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/linear-transformations","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"LyGKycYT2v0","title":"Dot products and duality | Chapter 9, Essence of linear algebra","channel":"3Blue1Brown","seconds":851,"date":"2016-08-24","why":"点积：注意力里用它衡量两个向量有多“对得上”。看主线第 6 步之前或卡住时补。","ask":"两个向量的点积，正负和大小说明了什么？","points":["算法：把对应的坐标两两相乘，再加起来。","几何上：把一个向量投影到另一个向量所在的直线上，用投影的长度乘另一个向量的长度。","方向大致相同为正，方向相反为负。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/dot-products","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"9vKqVkMQHKk","title":"The paradox of the derivative | Chapter 2, Essence of calculus","channel":"3Blue1Brown","seconds":1010,"date":"2017-04-29","why":"导数到底是什么。梯度下降里的“斜率”“下降最快”都建立在它上面。","ask":"为什么说“瞬时变化率”这个说法自相矛盾？导数实际上是什么？","points":["变化要在两个不同的时刻之间才谈得上，一个瞬间没有变化。","导数不是某个具体的 ds/dt，而是 dt 趋近 0 时这个比值趋近的那个值。","在图像上，它是那一点切线的斜率。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/derivatives","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"YG15m2VwSjA","title":"Visualizing the chain rule and product rule | Chapter 4, Essence of calculus","channel":"3Blue1Brown","seconds":956,"date":"2017-05-01","why":"链式法则：反向传播一层层往回推，用的就是它。","ask":"链式法则说的是什么？","points":["把一个函数套进另一个函数里，叫复合。","复合函数的导数 = 外层函数的导数（代入内层的值）× 内层函数的导数。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/chain-rule-and-product-rule","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"9-Jl0dxWQs8","title":"How might LLMs store facts | Deep Learning Chapter 7","channel":"3Blue1Brown","seconds":1362,"date":"2024-08-31","why":"接着第 6 集：模型“记住”的事实可能存在哪里、以什么形式存。","ask":"注意力层和 MLP 层，分工有什么不同？","points":["注意力层：让词与词之间交换信息，把上下文带进每个词的向量里。","MLP 层：每个词的向量单独处理，不看别的词；模型记住的很多事实可能就存在这里的参数里。"],"checked":"","src":"","len":"mid","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"zjkBMFhNj_g","title":"[1hr Talk] Intro to Large Language Models","channel":"Andrej Karpathy","seconds":3588,"date":"2023-11-22","why":"一小时的完整全貌，比主线第 1 步讲得更细：怎么训练、怎么变成助手、有哪些安全问题。","ask":"预训练和微调分别在做什么？","points":["预训练：让模型读海量文本，反复练习“预测下一个词”，得到一个什么都懂一点的基础模型，贵而且慢。","微调：在基础模型上用少量问答数据继续训练，让它变成会按要求回答的助手，便宜而且快。"],"checked":"","src":"","len":"mid","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"7xTGNNLPyMI","title":"Deep Dive into LLMs like ChatGPT","channel":"Andrej Karpathy","seconds":12683,"date":"2025-02-05","why":"3 个半小时。当成参考书按章节查：想弄清分词、后训练、强化学习哪一块，就看哪一块。","ask":"模型为什么会“一本正经地胡说”？他给的解释是什么？","points":["模型本质上在续写“统计上最像样”的文字，训练里自信回答的例子很多。","它没有一个内置的“我不知道”开关，遇到没见过的东西也会照样续写出像真的内容。","缓解办法：训练它在不知道时说不知道，或者让它用搜索等工具查。"],"checked":"","src":"","len":"long","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"iv-5mZ_9CPY","title":"But how do AI images and videos actually work? | Guest video by Welch Labs","channel":"3Blue1Brown","seconds":2240,"date":"2025-07-25","why":"图片和视频生成模型的原理：扩散模型怎么从一团噪声一步步变成画面。","ask":"扩散模型在训练时学的是什么？","points":["训练时给图片逐步加噪声，让模型学会从加了噪声的图片里估计出噪声，也就是学会往“更像真实图片”的方向走一步。","生成时从纯噪声开始，反复走这一步；文字提示用来引导往哪个方向走。"],"checked":"","src":"","len":"mid","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"VMj-3S1tku0","title":"The spelled-out intro to neural networks and backpropagation: building micrograd","channel":"Andrej Karpathy","seconds":8752,"date":"2022-08-16","why":"从零写一个最小的自动求导和神经网络。作者写明需要 Python 基础和高中数学。想动手实现时从这里开始，比直接写 GPT 合适。","ask":"自己实现一遍反向传播后，哪一步和你原来想的不一样？","points":[],"checked":"","src":"","len":"long","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"kCc8FmEb1nY","title":"Let's build GPT: from scratch, in code, spelled out.","channel":"Andrej Karpathy","seconds":6980,"date":"2023-01-17","why":"从零写代码实现一个小 GPT。要跟着敲，最好先做完上面的 micrograd。","ask":"自己写一遍之后，哪一步和你原来想的不一样？","points":[],"checked":"","src":"","len":"long","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"Q1JCrG1bJ-A","title":"Residual Networks and Skip Connections (DL 15)","channel":"Professor Bryce","seconds":1020,"date":"2022-10-23","why":"大学课程里的一讲：残差连接（跳跃连接）是什么，为什么它让很深的网络也能训练起来。论文名字里的“残差”就是它。","ask":"为什么“把输入直接加回输出”能让深层网络更好训练？","points":["把输入直接加回输出后，每一层只需要学“在输入基础上改多少”，什么都不改也很容易做到。","梯度可以沿着这条捷径直接传回前面的层，不容易在很深的网络里消失。"],"checked":"","src":"","len":"short","step":1,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"paper","topicName":"读一篇论文：注意力残差（选修）"},{"id":"iw1VF8HOCrk","title":"Attention Residuals: Kimi AI's Elegant LLM Architecture Breakthrough","channel":"bycloud","seconds":837,"date":"2026-05-18","why":"专门讲这篇论文。有了上面两个视频打底，这里能看懂他们改了残差连接的哪一部分、为什么这么改。","ask":"原来的残差连接有什么问题，这篇论文是怎么解决的？","points":["问题：标准的残差连接把前面每一层的输出用固定的权重 1 加在一起。层数一深，隐藏状态不受控制地变大，每一层的贡献被稀释。","做法：把固定的累加换成对前面各层输出做 softmax 注意力，让每一层按输入内容、用学出来的权重去选择要用哪些前面层的表示。","为了省内存和通信开销，又提出把层分成块、在块一级做注意力的版本。"],"checked":"论文摘要","src":"https://arxiv.org/abs/2603.15031","len":"short","step":2,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"paper","topicName":"读一篇论文：注意力残差（选修）"},{"id":"T-D1OfcDW1M","title":"What is Retrieval-Augmented Generation (RAG)?","channel":"IBM Technology","seconds":395,"date":"2023-08-23","why":"RAG（检索增强生成）是什么：先查资料，再让模型根据查到的内容回答。6 分钟讲清概念。","ask":"RAG 解决了大模型的哪两个问题？","points":["知识过时：模型只知道训练时的内容，检索能给它最新的资料。","没有出处：让模型根据检索到的内容回答，可以给出来源，也减少凭空编造。"],"checked":"","src":"","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"apps","topicName":"AI 应用"},{"id":"D7_ipDqhtwk","title":"How We Build Effective Agents: Barry Zhang, Anthropic","channel":"AI Engineer","seconds":909,"date":"2025-04-04","why":"Anthropic 工程师讲他们怎么做智能体：什么时候该用、什么时候不该用，以及保持简单。","ask":"他认为什么样的任务才值得用智能体？","points":[],"checked":"","src":"","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"apps","topicName":"AI 应用"},{"id":"QXjU9qTsYCc","title":"How do computers read code?","channel":"Frame of Essence","seconds":721,"date":"2017-11-16","why":"你写的代码，是怎么变成 CPU 能执行的东西的。","ask":"从源代码到 CPU 执行，中间经过了哪几层翻译？","points":["高级语言先被编译器或解释器翻译成更低级的指令，最后变成机器码，也就是一串二进制数字。","CPU 按“取指令、解码、执行”的循环，一条条执行这些数字表示的简单操作。"],"checked":"","src":"","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"cs","topicName":"计算机基础"},{"id":"UuIEbpQms8o","title":"CS50x - Lecture 0 - Scratch","channel":"CS50","seconds":7253,"date":"2025-12-31","why":"哈佛 CS50 第 0 讲：二进制、算法、怎样像程序员一样思考。两小时，可以分两次看。","ask":"为什么在电话簿里找人，“每次翻一半”比“一页页翻”快得多？","points":["一页页翻，页数翻倍，步数也翻倍。","每次扔掉一半，页数翻倍只多一步，步数是以 2 为底的对数。数据越大，差距越悬殊。"],"checked":"","src":"","len":"long","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"cs","topicName":"计算机基础"},{"id":"Vw1fCeD06YI","title":"Column vs Row Oriented Databases Explained","channel":"Hussein Nasser","seconds":2055,"date":"2020-10-30","why":"行存和列存：为什么做分析的数据库都按列存数据。","ask":"“统计某一列的总和”这种查询，为什么列存快得多？","points":["列存只需要读用到的那几列，行存要把整行都读进来。","同一列的数据类型相同、取值相近，压缩率高，读的数据量更小。"],"checked":"","src":"","len":"mid","step":1,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"K1a2Bk8NrYQ","title":"Understanding B-Trees: The Data Structure Behind Modern Databases","channel":"Spanning Tree","seconds":759,"date":"2024-04-29","why":"B 树：大多数数据库索引背后的数据结构，动画讲得很清楚。","ask":"数据库为什么用 B 树，而不用普通的二叉树？","points":["数据在磁盘上，每读一个节点就是一次很慢的磁盘访问。","B 树每个节点放很多个键、分很多个叉，树很矮，查一条数据只要读很少几个节点。"],"checked":"","src":"","len":"short","step":2,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"I6jB0nM9SKU","title":"The Secret Sauce Behind NoSQL: LSM Tree","channel":"ByteByteGo","seconds":454,"date":"2022-08-30","why":"LSM 树：另一种存储思路，写入特别快。很多分析型和 NoSQL 数据库用的是它或它的变体。","ask":"LSM 树为什么写得快？代价是什么？","points":["写入先进内存，再整批顺序写到磁盘，不用到处找位置改，所以快。","代价是数据分散在很多文件里，读的时候可能要查多个文件，还要在后台不断合并整理。"],"checked":"","src":"","len":"short","step":3,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"fU9hR3kiOK0","title":"\"Turning the database inside out with Apache Samza\" by Martin Kleppmann","channel":"Strange Loop Conference","seconds":2862,"date":"2014-09-21","why":"《数据密集型应用系统设计》作者的经典演讲：把数据库看成一条不断追加的变更日志。","ask":"“把数据库由内向外翻”是什么意思？","points":["数据库内部本来就有一条变更日志，用来做复制；表只是这条日志算出来的当前结果。","把这条日志拿到外面当作核心，缓存、索引、报表都变成订阅日志后算出来的视图。增量同步（CDC）就是这个思路。"],"checked":"","src":"","len":"mid","step":4,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"nKRwjXRs4mY","title":"What is Spark? (Visual Explanation)","channel":"Data with Baraa","seconds":718,"date":"2026-03-26","why":"用图讲 Spark：一份很大的数据，怎么分给很多台机器一起算。","ask":"Spark 里的 shuffle 是什么，为什么它慢？","points":["分组、连接这类操作需要把相同键的数据放到一起，就得在机器之间重新分发数据，这就是 shuffle。","它要走网络和磁盘，所以慢；如果某个键的数据特别多，就会出现数据倾斜，个别任务特别慢。"],"checked":"","src":"","len":"short","step":5,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"vHYeChEf2lA","title":"CS50 SQL - Lecture 0 - Querying","channel":"CS50","seconds":4753,"date":"2023-10-01","why":"哈佛 CS50 SQL 课第 0 讲：从零讲查询。讲得慢而清楚，适合打基础。","ask":"WHERE、ORDER BY、LIMIT 写在一起时，各自起什么作用？","points":["WHERE 先筛出符合条件的行。","ORDER BY 把筛出来的行排序。","LIMIT 最后只留前几行。"],"checked":"","src":"","len":"long","step":6,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"WUvTyaaNkzM","title":"The essence of calculus","channel":"3Blue1Brown","seconds":1024,"date":"2017-04-28","why":"从“圆的面积为什么是 πr²”出发，让你觉得微积分是自己也能发明出来的东西。","ask":"导数和积分为什么互为逆运算？","points":["积分是把很多很薄的小块加起来得到总量。","导数是总量在某一点变化得多快，也就是再加一小块时增加的那一点。","所以对“累加出来的量”求变化率，得到的正是被加的那个东西。"],"checked":"","src":"","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"stats","topicName":"微积分与概率直觉"},{"id":"HZGCoVF3YvM","title":"Bayes theorem, the geometry of changing beliefs","channel":"3Blue1Brown","seconds":911,"date":"2019-12-22","why":"贝叶斯定理：看到新证据后，该把原来的看法调整多少。","ask":"为什么不能只看“证据符合假设的概率”，还要看先验？","points":["如果假设本来就很少见，即使证据很符合它，符合的那部分人在总体里也可能只占少数。","正确做法是用证据去更新先验，而不是让证据直接决定结论。"],"checked":"","src":"","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"stats","topicName":"微积分与概率直觉"},{"id":"8idr1WZ1A7Q","title":"Binomial distributions | Probabilities of probabilities, part 1","channel":"3Blue1Brown","seconds":754,"date":"2020-03-15","why":"两个好评率，一个 100%（10 条评价），一个 96%（200 条），该信哪个？","ask":"为什么评价数量少的时候，不能直接相信好评率？","points":["看到的好评率只是一次抽样的结果，真实好评率是未知的。","样本少的时候，很多不同的真实好评率都可能产生同样的观察结果，所以不确定性大。"],"checked":"","src":"","len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"stats","topicName":"微积分与概率直觉"},{"id":"zeJD6dqJ5lo","title":"But what is the Central Limit Theorem?","channel":"3Blue1Brown","seconds":1874,"date":"2023-03-14","why":"中心极限定理：为什么那么多不相干的事情，加起来都呈现钟形曲线。","ask":"中心极限定理说了什么？","points":["把很多个独立、同分布、方差有限的随机量加起来，再做适当的平移和缩放，和的分布会越来越接近正态分布，不管单个随机量原来是什么分布。","所以样本均值的波动可以用正态分布来近似，这是置信区间和 A/B 实验常用的依据。条件不满足时（比如不独立、方差无限），这个结论不一定成立。"],"checked":"","src":"","len":"mid","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"stats","topicName":"微积分与概率直觉"},{"id":"Bj9BD2D3DzA","title":"Tracing the thoughts of a large language model","channel":"Anthropic","seconds":175,"date":"2025-03-27","why":"3 分钟短片：可解释性研究“看进”模型内部时的几个发现。适合当下面那个长视频的预告。","ask":"模型写押韵的诗时，会不会提前想好韵脚？","points":[],"checked":"","src":"","len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"mind","topicName":"AI 在想什么"},{"id":"fGKNUvivvnc","title":"Interpretability: Understanding how AI models think","channel":"Anthropic","seconds":3542,"date":"2025-08-15","why":"几位可解释性研究员的座谈：怎么研究模型内部，看到了什么，还有哪些不知道。","ask":"研究 AI 的“大脑”和研究人脑，有哪些相似和不同？","points":[],"checked":"","src":"","len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"mind","topicName":"AI 在想什么"},{"id":"I9aGC6Ui3eE","title":"Anthropic’s philosopher answers your questions","channel":"Anthropic","seconds":2169,"date":"2025-12-05","why":"Amanda Askell 是负责塑造 Claude 性格和价值观的哲学家，这期回答观众的提问。","ask":"给 AI 设计“性格”，和人的性格养成有什么相似之处？","points":[],"checked":"","src":"","len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"mind","topicName":"AI 在想什么"},{"id":"pyXouxa0WnY","title":"Could AI models be conscious?","channel":"Anthropic","seconds":2623,"date":"2025-04-24","why":"一个还没有答案的问题：AI 可能有意识吗？如果可能，应该怎么对待它？","ask":"平时我们是凭什么判断一个东西“有意识”的？","points":[],"checked":"","src":"","len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"mind","topicName":"AI 在想什么"},{"id":"n2u8Z1HeKD8","title":"Dopamine Nation: Finding Balance in the Age of Indulgence with Anna Lembke","channel":"Stanford Alumni","seconds":807,"date":"2023-03-30","why":"斯坦福成瘾医学专家讲多巴胺，以及快乐和痛苦怎么互相平衡。为什么短视频停不下来，这里有答案。","ask":"她说的“快乐—痛苦天平”是什么？放到刷短视频上怎么理解？","points":[],"checked":"","src":"","len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"UBVV8pch1dM","title":"The Science of Thinking","channel":"Veritasium","seconds":730,"date":"2017-03-02","why":"用实验讲快思考（系统 1）和慢思考（系统 2），以及为什么学新东西会累。","ask":"有哪些事情，你已经从系统 2 变成系统 1 了？","points":[],"checked":"","src":"","len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"XgRlrBl-7Yg","title":"The riddle of experience vs. memory | Daniel Kahneman","channel":"TED","seconds":1237,"date":"2010-03-01","why":"诺奖得主卡尼曼：“体验的自我”和“记忆的自我”常常不是一回事。","ask":"你回忆一次旅行时，是哪个“自我”在打分？","points":[],"checked":"","src":"","len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"NNnIGh9g6fA","title":"1. Introduction to Human Behavioral Biology","channel":"Stanford","seconds":3434,"date":"2011-02-01","why":"Sapolsky 的斯坦福名课第一讲，讲得非常有感染力。整门课都在 YouTube 上，喜欢可以一直看下去。","ask":"他为什么提醒不要只用一个学科去解释人的行为？","points":[],"checked":"","src":"","len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"P3FKHH2RzjI","title":"1. Introduction","channel":"YaleCourses","seconds":1777,"date":"2008-09-30","why":"Paul Bloom 的耶鲁心理学导论第一讲，带你看心理学的整张地图。","ask":"心理学到底在研究哪些问题？哪一块你最想深入？","points":[],"checked":"","src":"","len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"5U0TE4oqj24","title":"Charlie Munger Commencement Address - USC","channel":"Value Investor's Club","seconds":2225,"date":"2017-03-02","why":"芒格 2007 年在南加大法学院的毕业演讲，《穷查理宝典》收录了全文。讲怎样过好一生、怎样持续学习。","ask":"他说的“反过来想”，可以用在你现在的哪件事上？","points":[],"checked":"","src":"","len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"model","topicName":"思维模型与投资"},{"id":"pqzcCfUglws","title":"The Psychology of Human Misjudgement - Charlie Munger Full Speech","channel":"BuffettMungerWisdom","seconds":4582,"date":"2013-01-13","why":"芒格最著名的演讲《人类误判心理学》，只有录音。列举了二十多种让人做错判断的心理倾向。","ask":"哪一种误判倾向，你最近在自己身上见到过？","points":[],"checked":"","src":"","len":"long","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"model","topicName":"思维模型与投资"},{"id":"PHe0bXAIuk0","title":"How The Economic Machine Works by Ray Dalio","channel":"Principles by Ray Dalio","seconds":1860,"date":"2013-09-22","why":"桥水创始人达利欧用 30 分钟动画讲经济怎么运转：交易、信贷、短期和长期债务周期。","ask":"为什么他说信贷是经济里最重要、也最不被理解的部分？","points":[],"checked":"","src":"","len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"model","topicName":"思维模型与投资"},{"id":"6WroiiaVhGo","title":"The Most Important Thing - Origins and Inspirations | Howard Marks | Talks at Google","channel":"Talks at Google","seconds":4143,"date":"2015-03-29","why":"橡树资本创始人霍华德·马克斯在 Google 的演讲，讲风险、周期和“第二层次思维”。","ask":"“第二层次思维”和第一层次的区别是什么？","points":[],"checked":"","src":"","len":"long","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"model","topicName":"思维模型与投资"},{"id":"0NIXM74NwXs","title":"How to study to maximize performance | Elizabeth Bjork & Robert Bjork | TEDxManhattanBeach","channel":"TEDx Talks","seconds":910,"date":"2019-03-07","why":"“合意困难”：学的时候越费劲，往往记得越牢。","ask":"为什么重读让人觉得懂了，效果却差？","points":[],"checked":"","src":"","len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"learnhow","topicName":"学会学习"},{"id":"O96fE1E-rf8","title":"Learning how to learn | Barbara Oakley | TEDxOaklandUniversity","channel":"TEDx Talks","seconds":1070,"date":"2014-08-05","why":"专注模式和发散模式：为什么卡住的时候，先放一放反而能想通。","ask":"你上一次“放一放就想通了”是什么时候？","points":[],"checked":"","src":"","len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"learnhow","topicName":"学会学习"}]</script>
+<script type="application/json" id="data">[{"id":"QgH9sr7G13Q","title":"The most cited paper of the century is a brilliant hack","channel":"Welch Labs","seconds":2118,"date":"2026-08-31","why":"讲“本世纪被引用最多的论文”背后的故事。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"l8gWQlrVOKQ","title":"How LLMs Get Faster Without Changing Their Outputs | Speculative Decoding","channel":"Jia-Bin Huang","seconds":1474,"date":"2026-08-28","why":"推测解码：用小模型先猜、大模型并行验证，在不改变输出的前提下提速。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"qkngB1Q46CY","title":"DeepSeek Splits the Transformer in Two. Here’s Why.","channel":"Jia-Bin Huang","seconds":1011,"date":"2026-09-30","why":"讲 DeepSeek 为什么把 Transformer 拆成两部分。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"r8sZgPx4jYA","title":"LLMs Can Now Read and Write Neural Network Weights","channel":"Jia-Bin Huang","seconds":1564,"date":"2026-11-03","why":"讲让大模型读写神经网络权重的新研究。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"iuHddnIzKRA","title":"The AI Language We Can't Read: Neuralese ft. Rob Miles - Computerphile","channel":"Computerphile","seconds":1636,"date":"2026-09-10","why":"如果模型不再用人类看得懂的语言推理，会怎样。嘉宾是 Rob Miles。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"kVXp6UNVPTo","title":"How Watermarks Track AI Generated Content - Computerphile","channel":"Computerphile","seconds":1916,"date":"2026-09-03","why":"AI 生成内容的水印是怎么做的。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"xP1kjDOisVw","title":"The Strange Economics of LLM Inference-as-a-Service","channel":"bycloud","seconds":1381,"date":"2026-09-29","why":"大模型推理服务的经济账。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"25KIyaeI_Fg","title":"Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 5 -  LLM Systems","channel":"Stanford Online","seconds":6421,"date":"2026-11-05","why":"斯坦福 2026 秋季“Transformers 与大模型”课的第 5 讲，整门课都在这个频道上。可以分段看。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":true,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"DGI4vucR71w","title":"What Are AI Agents? Agentic Systems Explained | Stanford CS329Z Lecture 1 with Diyi Yang","channel":"Stanford Online","seconds":4176,"date":"2026-11-09","why":"斯坦福 CS329Z 的一讲：什么是 AI 智能体。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":true,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-ai","topicName":"AI：新方法和原理"},{"id":"bAnwMdfcMVw","title":"No More Heroes - Terence Tao Talks to Numberphile About AI","channel":"Numberphile","seconds":1185,"date":"2026-10-15","why":"陶哲轩谈大量 AI 证明涌现给数学界带来的问题。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-now","topicName":"AI：现在的人在想什么"},{"id":"NnV_cWeoo5Q","title":"Kernel Recipes 2026 -  Security in the LLM age","channel":"Kernel Recipes","seconds":3411,"date":"2026-09-29","why":"Linux 内核维护者 Greg Kroah-Hartman 讲大模型时代的安全。（来源：HN 346 分）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-now","topicName":"AI：现在的人在想什么"},{"id":"Q78dJ0vkWe8","title":"How To Build The Future: Paul Graham & Amjad Masad","channel":"Y Combinator","seconds":2655,"date":"2026-11-07","why":"Paul Graham 和 Amjad Masad 的对谈。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-now","topicName":"AI：现在的人在想什么"},{"id":"cNm4zyUtWj0","title":"RuneScape Bench: MMOs for Agents | Max Bittker","channel":"Recurse Center","seconds":2814,"date":"2026-10-17","why":"把开源版 RuneScape 改成测试 AI 智能体的环境。（来源：HN 250 分）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-now","topicName":"AI：现在的人在想什么"},{"id":"nKjPBAw_N_0","title":"How to Build a Software Factory That Improves Itself - Zach Lloyd, Warp","channel":"AI Engineer","seconds":1321,"date":"2026-11-09","why":"Zach Lloyd 的演讲：怎样搭一个能自我改进的软件生产流程。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-now","topicName":"AI：现在的人在想什么"},{"id":"MRQTlwcW-aQ","title":"How Anthropic ships the #1 LLM in the World — with Katelyn Lesse and Angela Jiang","channel":"Latent Space","seconds":6400,"date":"2026-10-27","why":"Latent Space 播客：Anthropic 的人讲他们怎么把模型做出来并发布。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-now","topicName":"AI：现在的人在想什么"},{"id":"yW_ngvMFlYs","title":"Why Consciousness Might Not Be Hard At All (Joscha Bach)","channel":"Machine Learning Street Talk","seconds":5828,"date":"2026-11-01","why":"Joscha Bach 谈意识为什么可能并不难解释。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-now","topicName":"AI：现在的人在想什么"},{"id":"IRJDwtAreB4","title":"Mathematics Just Changed Forever — Kevin Hartnett","channel":"Machine Learning Street Talk","seconds":5613,"date":"2026-10-26","why":"Kevin Hartnett 谈 AI 给数学带来的变化。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-now","topicName":"AI：现在的人在想什么"},{"id":"LKrwhjOI8Nc","title":"There's never been a better time to go into math","channel":"3Blue1Brown","seconds":2444,"date":"2026-10-16","why":"3Blue1Brown 谈数学的未来。（来源：白名单频道 + HN 557 分）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-math","topicName":"数学与科普"},{"id":"Nbwv5wHQoj0","title":"The last IMO problem AI could not solve","channel":"3Blue1Brown","seconds":3115,"date":"2026-09-18","why":"一道 AI 没能解出的国际数学奥林匹克题，以及解它需要的直觉。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-math","topicName":"数学与科普"},{"id":"OOMx2BHHWtE","title":"One of the world's greatest mathematicians explains 6 essential concepts of math | Terence Tao","channel":"Big Think","seconds":5076,"date":"2026-08-28","why":"陶哲轩讲 6 个基本的数学概念。（来源：HN 638 分）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-math","topicName":"数学与科普"},{"id":"JsBZOcqZerk","title":"The Insane Real Engineering of the Nazi Enigma Machine","channel":"Veritasium","seconds":2861,"date":"2026-09-21","why":"恩尼格玛密码机的工程原理。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-math","topicName":"数学与科普"},{"id":"NiCgcUTL9_Q","title":"Fiber Optics are so much cooler than I thought","channel":"Veritasium","seconds":2072,"date":"2026-10-12","why":"光纤是怎么工作的。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-math","topicName":"数学与科普"},{"id":"KfODG5REyss","title":"I finally saw quantum mechanics with my own eyes... (It's spookier than I expected)","channel":"Veritasium","seconds":3955,"date":"2026-11-04","why":"把量子力学现象做成亲眼能看到的实验。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-math","topicName":"数学与科普"},{"id":"l2ed26H07Ck","title":"Unifying Postgres and ClickHouse Natively: WalShadow and pg_clickhouse (Sai Srirampur)","channel":"CMU Database Group","seconds":3515,"date":"2026-11-03","why":"CMU 数据库组的讲座：把 Postgres 和 ClickHouse 原生地接在一起。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-data","topicName":"数据工程"},{"id":"xg8qksWY2eY","title":"Lakebases, Lakehouses, and LTAP: Unifying Transactions and Analytics on Open Storage (Ippo Pandis)","channel":"CMU Database Group","seconds":3160,"date":"2026-10-29","why":"CMU 数据库组的讲座：把事务处理和分析放到一套系统里。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-data","topicName":"数据工程"},{"id":"Po-6sHFJBl4","title":"Why the Creator of Delta Lake Says: Stop Writing ETL","channel":"Databricks","seconds":2108,"date":"2026-11-05","why":"Spark SQL 和 Delta Lake 的作者 Michael Armbrust 的访谈。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-data","topicName":"数据工程"},{"id":"1eVkT-ZnKC8","title":"Everything Has Bugs. Here’s How Antithesis Catches Them. (Marco Primi)","channel":"CMU Database Group","seconds":3662,"date":"2026-09-29","why":"CMU 数据库组的讲座：Antithesis 是怎么找出软件里的 bug 的。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-data","topicName":"数据工程"},{"id":"f0J_EeW42Lo","title":"What Robert Caro learned about power after studying it for 50 years","channel":"Dwarkesh Patel","seconds":3670,"date":"2026-10-30","why":"传记作家 Robert Caro 谈他研究权力 50 年学到的东西。（来源：白名单频道）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-people","topicName":"人物、历史与认知"},{"id":"656058JxTM0","title":"DefCon 34 - Stalking the Wily Hacker: 40 years later - Cliff Stoll","channel":"DEFCONConference","seconds":3426,"date":"2026-08-21","why":"Cliff Stoll 回顾 40 年前追踪黑客的经历。（来源：HN 310 分）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-people","topicName":"人物、历史与认知"},{"id":"n8m7lFQ3njk","title":"Analogy as the Core of Cognition","channel":"Stanford","seconds":4117,"date":"2009-09-10","why":"侯世达 2009 年的讲座：类比是认知的核心。（来源：HN 213 分）","ask":"看完用自己的话说：它最核心的一个观点或结论是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"pool","zone":"pool","zoneName":"候选池","topic":"p-people","topicName":"人物、历史与认知"},{"id":"LPZh9BOjkQs","title":"Large Language Models explained briefly","channel":"3Blue1Brown","seconds":478,"date":"2024-11-20","why":"8 分钟看完大模型的全貌：它在预测下一个词，靠海量文本训练出来。后面五步都是把这里的某一句话展开。","ask":"聊天机器人给出一段回答，和“预测下一个词”是什么关系？","points":["大模型是一个函数：给它一段文字，它给出下一个词的各种可能和各自的概率。","把对话写成一段文字，让模型预测 AI 助手接下来要说的词，抽一个接上去，再重复。回答就是这样一个词一个词出来的。","抽词时带一点随机，所以同一个问题每次的回答可能不同。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/mini-llm","noembed":false,"len":"short","step":1,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"aircAruvnKk","title":"But what is a neural network? | Deep learning chapter 1","channel":"3Blue1Brown","seconds":1120,"date":"2017-10-05","why":"这个系列的第一集，从最底层讲神经网络到底是什么。整个系列都值得按顺序看。","ask":"一个“神经元”其实就是在算什么？","points":["神经元里装的是一个数，叫激活值。","算法：把上一层所有神经元的激活值各乘一个权重，加起来，再加一个偏置。","最后把结果送进一个函数（视频里用 sigmoid），压成 0 到 1 之间的数。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/neural-networks","noembed":false,"len":"short","step":2,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"IHZwWFHWa-w","title":"Gradient descent, how neural networks learn | Deep Learning Chapter 2","channel":"3Blue1Brown","seconds":1233,"date":"2017-10-16","why":"神经网络是怎么“学习”的：定义一个衡量错得多离谱的数，然后一点点调参数让它变小。","ask":"“梯度下降”里的梯度，告诉了我们什么？","points":["先有一个代价函数：网络错得越离谱，这个数越大。学习就是让它变小。","梯度指向代价上升最快的方向，所以要沿它的反方向走。","梯度各个分量的相对大小，说明调哪个参数对代价的影响更大。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/gradient-descent","noembed":false,"len":"mid","step":3,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"Ilg3gGewQ5U","title":"Backpropagation, intuitively | Deep Learning Chapter 3","channel":"3Blue1Brown","seconds":767,"date":"2017-11-03","why":"反向传播：怎么算出几万个参数各自该怎么调。这一集不用公式，只讲直觉。","ask":"为什么叫“反向”传播？","points":["从输出层希望怎么变出发，推出希望上一层怎么变，再一层层往回推，所以叫反向。","每个训练样本都有自己希望的调整，把它们取平均，就是这一步该怎么调全部的权重和偏置。","实际训练时把数据分成小批，每批算一次近似的调整，这叫随机梯度下降。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/backpropagation","noembed":false,"len":"short","step":4,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"wjZofJX0v4M","title":"Transformers, the tech behind LLMs | Deep Learning Chapter 5","channel":"3Blue1Brown","seconds":1634,"date":"2024-04-01","why":"GPT 内部的整体结构，从输入一段文字到输出下一个词。","ask":"模型每一步输出的到底是什么？","points":["输出的不是一个词，而是“接下来可能出现的每一小段文字”的概率分布。","从这个分布里随机抽一个接到后面，再把全部文字重新送进去预测，如此反复。","把一组数变成概率分布的那一步叫 softmax。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/gpt","noembed":false,"len":"mid","step":5,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"eMlx5fFNoYc","title":"Attention in transformers, step-by-step | Deep Learning Chapter 6","channel":"3Blue1Brown","seconds":1569,"date":"2024-04-07","why":"用动画一步步讲注意力机制：每个词怎么“看”上下文里的其他词。论文名字里的“注意力”就是它。","ask":"query、key、value 三样东西各自负责什么？","points":["query：每个词发出的提问，比如一个名词在问“我前面有没有形容词”。","key：每个词给出的“可能的回答”。query 和 key 做点积，越大说明越相关，再用 softmax 变成权重。","value：相关的词真正传过去、加到对方身上的内容，用来更新对方的含义。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/attention","noembed":false,"len":"mid","step":6,"kind":"main","zone":"learn","zoneName":"认真学","topic":"main","topicName":"主线：讲清大模型怎么工作"},{"id":"fNk_zzaMoSs","title":"Vectors | Chapter 1, Essence of linear algebra","channel":"3Blue1Brown","seconds":591,"date":"2016-08-05","why":"向量到底是什么：一个箭头，也是一列数，两种看法是同一回事。","ask":"向量的加法和数乘，在几何上分别是什么？","points":["加法：把第二个向量的尾巴接到第一个的箭头上，从第一个的尾巴画到第二个的箭头。","数乘：把向量拉长、缩短或反向。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/vectors","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"kYB8IZa5AuE","title":"Linear transformations and matrices | Chapter 3, Essence of linear algebra","channel":"3Blue1Brown","seconds":658,"date":"2016-08-07","why":"矩阵不是一堆数，而是一种“对空间的变换”。神经网络每一层做的主要就是这件事。","ask":"矩阵的每一列，表示什么？","points":["矩阵的每一列，是一个基向量在变换之后落到的位置。","知道基向量落在哪里，就能算出任何向量会落在哪里。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/linear-transformations","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"LyGKycYT2v0","title":"Dot products and duality | Chapter 9, Essence of linear algebra","channel":"3Blue1Brown","seconds":851,"date":"2016-08-24","why":"点积：注意力里用它衡量两个向量有多“对得上”。看主线第 6 步之前或卡住时补。","ask":"两个向量的点积，正负和大小说明了什么？","points":["算法：把对应的坐标两两相乘，再加起来。","几何上：把一个向量投影到另一个向量所在的直线上，用投影的长度乘另一个向量的长度。","方向大致相同为正，方向相反为负。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/dot-products","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"9vKqVkMQHKk","title":"The paradox of the derivative | Chapter 2, Essence of calculus","channel":"3Blue1Brown","seconds":1010,"date":"2017-04-29","why":"导数到底是什么。梯度下降里的“斜率”“下降最快”都建立在它上面。","ask":"为什么说“瞬时变化率”这个说法自相矛盾？导数实际上是什么？","points":["变化要在两个不同的时刻之间才谈得上，一个瞬间没有变化。","导数不是某个具体的 ds/dt，而是 dt 趋近 0 时这个比值趋近的那个值。","在图像上，它是那一点切线的斜率。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/derivatives","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"YG15m2VwSjA","title":"Visualizing the chain rule and product rule | Chapter 4, Essence of calculus","channel":"3Blue1Brown","seconds":956,"date":"2017-05-01","why":"链式法则：反向传播一层层往回推，用的就是它。","ask":"链式法则说的是什么？","points":["把一个函数套进另一个函数里，叫复合。","复合函数的导数 = 外层函数的导数（代入内层的值）× 内层函数的导数。"],"checked":"作者讲义","src":"https://www.3blue1brown.com/lessons/chain-rule-and-product-rule","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"math","topicName":"数学补给"},{"id":"9-Jl0dxWQs8","title":"How might LLMs store facts | Deep Learning Chapter 7","channel":"3Blue1Brown","seconds":1362,"date":"2024-08-31","why":"接着第 6 集：模型“记住”的事实可能存在哪里、以什么形式存。","ask":"注意力层和 MLP 层，分工有什么不同？","points":["注意力层：让词与词之间交换信息，把上下文带进每个词的向量里。","MLP 层：每个词的向量单独处理，不看别的词；模型记住的很多事实可能就存在这里的参数里。"],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"zjkBMFhNj_g","title":"[1hr Talk] Intro to Large Language Models","channel":"Andrej Karpathy","seconds":3588,"date":"2023-11-22","why":"一小时的完整全貌，比主线第 1 步讲得更细：怎么训练、怎么变成助手、有哪些安全问题。","ask":"预训练和微调分别在做什么？","points":["预训练：让模型读海量文本，反复练习“预测下一个词”，得到一个什么都懂一点的基础模型，贵而且慢。","微调：在基础模型上用少量问答数据继续训练，让它变成会按要求回答的助手，便宜而且快。"],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"7xTGNNLPyMI","title":"Deep Dive into LLMs like ChatGPT","channel":"Andrej Karpathy","seconds":12683,"date":"2025-02-05","why":"3 个半小时。当成参考书按章节查：想弄清分词、后训练、强化学习哪一块，就看哪一块。","ask":"模型为什么会“一本正经地胡说”？他给的解释是什么？","points":["模型本质上在续写“统计上最像样”的文字，训练里自信回答的例子很多。","它没有一个内置的“我不知道”开关，遇到没见过的东西也会照样续写出像真的内容。","缓解办法：训练它在不知道时说不知道，或者让它用搜索等工具查。"],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"iv-5mZ_9CPY","title":"But how do AI images and videos actually work? | Guest video by Welch Labs","channel":"3Blue1Brown","seconds":2240,"date":"2025-07-25","why":"图片和视频生成模型的原理：扩散模型怎么从一团噪声一步步变成画面。","ask":"扩散模型在训练时学的是什么？","points":["训练时给图片逐步加噪声，让模型学会从加了噪声的图片里估计出噪声，也就是学会往“更像真实图片”的方向走一步。","生成时从纯噪声开始，反复走这一步；文字提示用来引导往哪个方向走。"],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"VMj-3S1tku0","title":"The spelled-out intro to neural networks and backpropagation: building micrograd","channel":"Andrej Karpathy","seconds":8752,"date":"2022-08-16","why":"从零写一个最小的自动求导和神经网络。作者写明需要 Python 基础和高中数学。想动手实现时从这里开始，比直接写 GPT 合适。","ask":"自己实现一遍反向传播后，哪一步和你原来想的不一样？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"kCc8FmEb1nY","title":"Let's build GPT: from scratch, in code, spelled out.","channel":"Andrej Karpathy","seconds":6980,"date":"2023-01-17","why":"从零写代码实现一个小 GPT。要跟着敲，最好先做完上面的 micrograd。","ask":"自己写一遍之后，哪一步和你原来想的不一样？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"more","topicName":"AI 延伸"},{"id":"Q1JCrG1bJ-A","title":"Residual Networks and Skip Connections (DL 15)","channel":"Professor Bryce","seconds":1020,"date":"2022-10-23","why":"大学课程里的一讲：残差连接（跳跃连接）是什么，为什么它让很深的网络也能训练起来。论文名字里的“残差”就是它。","ask":"为什么“把输入直接加回输出”能让深层网络更好训练？","points":["把输入直接加回输出后，每一层只需要学“在输入基础上改多少”，什么都不改也很容易做到。","梯度可以沿着这条捷径直接传回前面的层，不容易在很深的网络里消失。"],"checked":"","src":"","noembed":false,"len":"short","step":1,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"paper","topicName":"读一篇论文：注意力残差（选修）"},{"id":"iw1VF8HOCrk","title":"Attention Residuals: Kimi AI's Elegant LLM Architecture Breakthrough","channel":"bycloud","seconds":837,"date":"2026-05-18","why":"专门讲这篇论文。有了上面两个视频打底，这里能看懂他们改了残差连接的哪一部分、为什么这么改。","ask":"原来的残差连接有什么问题，这篇论文是怎么解决的？","points":["问题：标准的残差连接把前面每一层的输出用固定的权重 1 加在一起。层数一深，隐藏状态不受控制地变大，每一层的贡献被稀释。","做法：把固定的累加换成对前面各层输出做 softmax 注意力，让每一层按输入内容、用学出来的权重去选择要用哪些前面层的表示。","为了省内存和通信开销，又提出把层分成块、在块一级做注意力的版本。"],"checked":"论文摘要","src":"https://arxiv.org/abs/2603.15031","noembed":false,"len":"short","step":2,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"paper","topicName":"读一篇论文：注意力残差（选修）"},{"id":"T-D1OfcDW1M","title":"What is Retrieval-Augmented Generation (RAG)?","channel":"IBM Technology","seconds":395,"date":"2023-08-23","why":"RAG（检索增强生成）是什么：先查资料，再让模型根据查到的内容回答。6 分钟讲清概念。","ask":"RAG 解决了大模型的哪两个问题？","points":["知识过时：模型只知道训练时的内容，检索能给它最新的资料。","没有出处：让模型根据检索到的内容回答，可以给出来源，也减少凭空编造。"],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"apps","topicName":"AI 应用"},{"id":"D7_ipDqhtwk","title":"How We Build Effective Agents: Barry Zhang, Anthropic","channel":"AI Engineer","seconds":909,"date":"2025-04-04","why":"Anthropic 工程师讲他们怎么做智能体：什么时候该用、什么时候不该用，以及保持简单。","ask":"他认为什么样的任务才值得用智能体？","points":[],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"apps","topicName":"AI 应用"},{"id":"QXjU9qTsYCc","title":"How do computers read code?","channel":"Frame of Essence","seconds":721,"date":"2017-11-16","why":"你写的代码，是怎么变成 CPU 能执行的东西的。","ask":"从源代码到 CPU 执行，中间经过了哪几层翻译？","points":["高级语言先被编译器或解释器翻译成更低级的指令，最后变成机器码，也就是一串二进制数字。","CPU 按“取指令、解码、执行”的循环，一条条执行这些数字表示的简单操作。"],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"cs","topicName":"计算机基础"},{"id":"UuIEbpQms8o","title":"CS50x - Lecture 0 - Scratch","channel":"CS50","seconds":7253,"date":"2025-12-31","why":"哈佛 CS50 第 0 讲：二进制、算法、怎样像程序员一样思考。两小时，可以分两次看。","ask":"为什么在电话簿里找人，“每次翻一半”比“一页页翻”快得多？","points":["一页页翻，页数翻倍，步数也翻倍。","每次扔掉一半，页数翻倍只多一步，步数是以 2 为底的对数。数据越大，差距越悬殊。"],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"cs","topicName":"计算机基础"},{"id":"Vw1fCeD06YI","title":"Column vs Row Oriented Databases Explained","channel":"Hussein Nasser","seconds":2055,"date":"2020-10-30","why":"行存和列存：为什么做分析的数据库都按列存数据。","ask":"“统计某一列的总和”这种查询，为什么列存快得多？","points":["列存只需要读用到的那几列，行存要把整行都读进来。","同一列的数据类型相同、取值相近，压缩率高，读的数据量更小。"],"checked":"","src":"","noembed":false,"len":"mid","step":1,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"K1a2Bk8NrYQ","title":"Understanding B-Trees: The Data Structure Behind Modern Databases","channel":"Spanning Tree","seconds":759,"date":"2024-04-29","why":"B 树：大多数数据库索引背后的数据结构，动画讲得很清楚。","ask":"数据库为什么用 B 树，而不用普通的二叉树？","points":["数据在磁盘上，每读一个节点就是一次很慢的磁盘访问。","B 树每个节点放很多个键、分很多个叉，树很矮，查一条数据只要读很少几个节点。"],"checked":"","src":"","noembed":false,"len":"short","step":2,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"I6jB0nM9SKU","title":"The Secret Sauce Behind NoSQL: LSM Tree","channel":"ByteByteGo","seconds":454,"date":"2022-08-30","why":"LSM 树：另一种存储思路，写入特别快。很多分析型和 NoSQL 数据库用的是它或它的变体。","ask":"LSM 树为什么写得快？代价是什么？","points":["写入先进内存，再整批顺序写到磁盘，不用到处找位置改，所以快。","代价是数据分散在很多文件里，读的时候可能要查多个文件，还要在后台不断合并整理。"],"checked":"","src":"","noembed":false,"len":"short","step":3,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"fU9hR3kiOK0","title":"\"Turning the database inside out with Apache Samza\" by Martin Kleppmann","channel":"Strange Loop Conference","seconds":2862,"date":"2014-09-21","why":"《数据密集型应用系统设计》作者的经典演讲：把数据库看成一条不断追加的变更日志。","ask":"“把数据库由内向外翻”是什么意思？","points":["数据库内部本来就有一条变更日志，用来做复制；表只是这条日志算出来的当前结果。","把这条日志拿到外面当作核心，缓存、索引、报表都变成订阅日志后算出来的视图。增量同步（CDC）就是这个思路。"],"checked":"","src":"","noembed":false,"len":"mid","step":4,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"nKRwjXRs4mY","title":"What is Spark? (Visual Explanation)","channel":"Data with Baraa","seconds":718,"date":"2026-03-26","why":"用图讲 Spark：一份很大的数据，怎么分给很多台机器一起算。","ask":"Spark 里的 shuffle 是什么，为什么它慢？","points":["分组、连接这类操作需要把相同键的数据放到一起，就得在机器之间重新分发数据，这就是 shuffle。","它要走网络和磁盘，所以慢；如果某个键的数据特别多，就会出现数据倾斜，个别任务特别慢。"],"checked":"","src":"","noembed":false,"len":"short","step":5,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"vHYeChEf2lA","title":"CS50 SQL - Lecture 0 - Querying","channel":"CS50","seconds":4753,"date":"2023-10-01","why":"哈佛 CS50 SQL 课第 0 讲：从零讲查询。讲得慢而清楚，适合打基础。","ask":"WHERE、ORDER BY、LIMIT 写在一起时，各自起什么作用？","points":["WHERE 先筛出符合条件的行。","ORDER BY 把筛出来的行排序。","LIMIT 最后只留前几行。"],"checked":"","src":"","noembed":false,"len":"long","step":6,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"data","topicName":"数据库与数据工程"},{"id":"WUvTyaaNkzM","title":"The essence of calculus","channel":"3Blue1Brown","seconds":1024,"date":"2017-04-28","why":"从“圆的面积为什么是 πr²”出发，让你觉得微积分是自己也能发明出来的东西。","ask":"导数和积分为什么互为逆运算？","points":["积分是把很多很薄的小块加起来得到总量。","导数是总量在某一点变化得多快，也就是再加一小块时增加的那一点。","所以对“累加出来的量”求变化率，得到的正是被加的那个东西。"],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"stats","topicName":"微积分与概率直觉"},{"id":"HZGCoVF3YvM","title":"Bayes theorem, the geometry of changing beliefs","channel":"3Blue1Brown","seconds":911,"date":"2019-12-22","why":"贝叶斯定理：看到新证据后，该把原来的看法调整多少。","ask":"为什么不能只看“证据符合假设的概率”，还要看先验？","points":["如果假设本来就很少见，即使证据很符合它，符合的那部分人在总体里也可能只占少数。","正确做法是用证据去更新先验，而不是让证据直接决定结论。"],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"stats","topicName":"微积分与概率直觉"},{"id":"8idr1WZ1A7Q","title":"Binomial distributions | Probabilities of probabilities, part 1","channel":"3Blue1Brown","seconds":754,"date":"2020-03-15","why":"两个好评率，一个 100%（10 条评价），一个 96%（200 条），该信哪个？","ask":"为什么评价数量少的时候，不能直接相信好评率？","points":["看到的好评率只是一次抽样的结果，真实好评率是未知的。","样本少的时候，很多不同的真实好评率都可能产生同样的观察结果，所以不确定性大。"],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"stats","topicName":"微积分与概率直觉"},{"id":"zeJD6dqJ5lo","title":"But what is the Central Limit Theorem?","channel":"3Blue1Brown","seconds":1874,"date":"2023-03-14","why":"中心极限定理：为什么那么多不相干的事情，加起来都呈现钟形曲线。","ask":"中心极限定理说了什么？","points":["把很多个独立、同分布、方差有限的随机量加起来，再做适当的平移和缩放，和的分布会越来越接近正态分布，不管单个随机量原来是什么分布。","所以样本均值的波动可以用正态分布来近似，这是置信区间和 A/B 实验常用的依据。条件不满足时（比如不独立、方差无限），这个结论不一定成立。"],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"branch","zone":"learn","zoneName":"认真学","topic":"stats","topicName":"微积分与概率直觉"},{"id":"Bj9BD2D3DzA","title":"Tracing the thoughts of a large language model","channel":"Anthropic","seconds":175,"date":"2025-03-27","why":"3 分钟短片：可解释性研究“看进”模型内部时的几个发现。适合当下面那个长视频的预告。","ask":"模型写押韵的诗时，会不会提前想好韵脚？","points":[],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"mind","topicName":"AI 在想什么"},{"id":"fGKNUvivvnc","title":"Interpretability: Understanding how AI models think","channel":"Anthropic","seconds":3542,"date":"2025-08-15","why":"几位可解释性研究员的座谈：怎么研究模型内部，看到了什么，还有哪些不知道。","ask":"研究 AI 的“大脑”和研究人脑，有哪些相似和不同？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"mind","topicName":"AI 在想什么"},{"id":"I9aGC6Ui3eE","title":"Anthropic’s philosopher answers your questions","channel":"Anthropic","seconds":2169,"date":"2025-12-05","why":"Amanda Askell 是负责塑造 Claude 性格和价值观的哲学家，这期回答观众的提问。","ask":"给 AI 设计“性格”，和人的性格养成有什么相似之处？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"mind","topicName":"AI 在想什么"},{"id":"pyXouxa0WnY","title":"Could AI models be conscious?","channel":"Anthropic","seconds":2623,"date":"2025-04-24","why":"一个还没有答案的问题：AI 可能有意识吗？如果可能，应该怎么对待它？","ask":"平时我们是凭什么判断一个东西“有意识”的？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"mind","topicName":"AI 在想什么"},{"id":"n2u8Z1HeKD8","title":"Dopamine Nation: Finding Balance in the Age of Indulgence with Anna Lembke","channel":"Stanford Alumni","seconds":807,"date":"2023-03-30","why":"斯坦福成瘾医学专家讲多巴胺，以及快乐和痛苦怎么互相平衡。为什么短视频停不下来，这里有答案。","ask":"她说的“快乐—痛苦天平”是什么？放到刷短视频上怎么理解？","points":[],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"UBVV8pch1dM","title":"The Science of Thinking","channel":"Veritasium","seconds":730,"date":"2017-03-02","why":"用实验讲快思考（系统 1）和慢思考（系统 2），以及为什么学新东西会累。","ask":"有哪些事情，你已经从系统 2 变成系统 1 了？","points":[],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"XgRlrBl-7Yg","title":"The riddle of experience vs. memory | Daniel Kahneman","channel":"TED","seconds":1237,"date":"2010-03-01","why":"诺奖得主卡尼曼：“体验的自我”和“记忆的自我”常常不是一回事。","ask":"你回忆一次旅行时，是哪个“自我”在打分？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"NNnIGh9g6fA","title":"1. Introduction to Human Behavioral Biology","channel":"Stanford","seconds":3434,"date":"2011-02-01","why":"Sapolsky 的斯坦福名课第一讲，讲得非常有感染力。整门课都在 YouTube 上，喜欢可以一直看下去。","ask":"他为什么提醒不要只用一个学科去解释人的行为？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"P3FKHH2RzjI","title":"1. Introduction","channel":"YaleCourses","seconds":1777,"date":"2008-09-30","why":"Paul Bloom 的耶鲁心理学导论第一讲，带你看心理学的整张地图。","ask":"心理学到底在研究哪些问题？哪一块你最想深入？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"psy","topicName":"心理学"},{"id":"5U0TE4oqj24","title":"Charlie Munger Commencement Address - USC","channel":"Value Investor's Club","seconds":2225,"date":"2017-03-02","why":"芒格 2007 年在南加大法学院的毕业演讲，《穷查理宝典》收录了全文。讲怎样过好一生、怎样持续学习。","ask":"他说的“反过来想”，可以用在你现在的哪件事上？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"model","topicName":"思维模型与投资"},{"id":"pqzcCfUglws","title":"The Psychology of Human Misjudgement - Charlie Munger Full Speech","channel":"BuffettMungerWisdom","seconds":4582,"date":"2013-01-13","why":"芒格最著名的演讲《人类误判心理学》，只有录音。列举了二十多种让人做错判断的心理倾向。","ask":"哪一种误判倾向，你最近在自己身上见到过？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"model","topicName":"思维模型与投资"},{"id":"PHe0bXAIuk0","title":"How The Economic Machine Works by Ray Dalio","channel":"Principles by Ray Dalio","seconds":1860,"date":"2013-09-22","why":"桥水创始人达利欧用 30 分钟动画讲经济怎么运转：交易、信贷、短期和长期债务周期。","ask":"为什么他说信贷是经济里最重要、也最不被理解的部分？","points":[],"checked":"","src":"","noembed":false,"len":"mid","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"model","topicName":"思维模型与投资"},{"id":"6WroiiaVhGo","title":"The Most Important Thing - Origins and Inspirations | Howard Marks | Talks at Google","channel":"Talks at Google","seconds":4143,"date":"2015-03-29","why":"橡树资本创始人霍华德·马克斯在 Google 的演讲，讲风险、周期和“第二层次思维”。","ask":"“第二层次思维”和第一层次的区别是什么？","points":[],"checked":"","src":"","noembed":false,"len":"long","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"model","topicName":"思维模型与投资"},{"id":"0NIXM74NwXs","title":"How to study to maximize performance | Elizabeth Bjork & Robert Bjork | TEDxManhattanBeach","channel":"TEDx Talks","seconds":910,"date":"2019-03-07","why":"“合意困难”：学的时候越费劲，往往记得越牢。","ask":"为什么重读让人觉得懂了，效果却差？","points":[],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"learnhow","topicName":"学会学习"},{"id":"O96fE1E-rf8","title":"Learning how to learn | Barbara Oakley | TEDxOaklandUniversity","channel":"TEDx Talks","seconds":1070,"date":"2014-08-05","why":"专注模式和发散模式：为什么卡住的时候，先放一放反而能想通。","ask":"你上一次“放一放就想通了”是什么时候？","points":[],"checked":"","src":"","noembed":false,"len":"short","step":0,"kind":"relax","zone":"relax","zoneName":"轻松看","topic":"learnhow","topicName":"学会学习"}]</script>
 <script>
 (function () {
   var root = document.documentElement;
@@ -1718,7 +2422,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
       $("next-title").textContent = v.title; $("next-where").textContent = where(v);
       $("next-thumb").href = url(v.id);
     }
-    var pool = ORDER.filter(function (id) { return V[id].zone === "relax" && !state.seen[id]; });
+    var pool = ORDER.filter(function (id) { return V[id].zone !== "learn" && !state.seen[id]; });
     var box = $("picks-list"), day = Math.floor(Date.now() / DAY); box.textContent = ""; $("picks").hidden = !pool.length;
     if (pool.length) {
       box.appendChild(mini(pool[(day + pickOffset) % pool.length]));
@@ -1792,7 +2496,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
   function mountPlayer(v) {
     var box = $("p-player"); box.textContent = "";
     if (!v) return;
-    if (location.protocol === "http:" || location.protocol === "https:") {
+    if ((location.protocol === "http:" || location.protocol === "https:") && !v.noembed) {
       var fr = document.createElement("iframe");
       fr.src = "https://www.youtube-nocookie.com/embed/" + v.id + "?rel=0&playsinline=1";
       fr.title = v.title; fr.allowFullscreen = true; fr.referrerPolicy = "strict-origin-when-cross-origin";
@@ -1802,7 +2506,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
       var a = document.createElement("a"), img = document.createElement("img"), s = document.createElement("span");
       a.className = "fallback"; a.href = url(v.id); a.target = "_blank"; a.rel = "noopener";
       img.src = "https://i.ytimg.com/vi/" + v.id + "/hqdefault.jpg"; img.alt = "";
-      s.textContent = "本地文件不能在页面里播放。点这里在 YouTube 打开，回来写小记。";
+      s.textContent = (v.noembed ? "这个视频的作者不允许在别的页面里播放。" : "本地文件不能在页面里播放。") + "点这里在 YouTube 打开，回来写小记。";
       a.appendChild(img); a.appendChild(s); box.appendChild(a);
     }
   }
