@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>长视频精选台</title>
+<style>
+:root {
+  --bg: #f6f5f1; --surface: #ffffff; --text: #1d1f21; --muted: #6b6f73;
+  --border: #e3e1da; --accent: #176b75; --accent-soft: #e2f0f1; --ask-bg: #faf6ea;
+  --ph-a: #d9e6e7; --ph-b: #ece7da; --dur-bg: rgba(0,0,0,.78);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141618; --surface: #1d2023; --text: #e8e6e1; --muted: #9a9ea3;
+    --border: #2e3236; --accent: #5fb7c1; --accent-soft: #1f3336; --ask-bg: #26241d;
+    --ph-a: #23393c; --ph-b: #2f2b22;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141618; --surface: #1d2023; --text: #e8e6e1; --muted: #9a9ea3;
+  --border: #2e3236; --accent: #5fb7c1; --accent-soft: #1f3336; --ask-bg: #26241d;
+  --ph-a: #23393c; --ph-b: #2f2b22;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px 64px; }
+header { padding: 40px 0 20px; }
+h1 { margin: 0; font-size: 30px; letter-spacing: .02em; }
+.sub { margin: 6px 0 0; color: var(--muted); }
+.stats { margin-top: 10px; font-size: 14px; color: var(--muted); }
+.stats b { color: var(--accent); }
+.js-only, .js-inline { display: none; }
+.js .js-only { display: flex; }
+.js .js-inline { display: inline; }
+.bar {
+  position: sticky; top: 0; z-index: 5; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+  padding: 10px 0; background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer;
+}
+.chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.toggle { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 4px; cursor: pointer; }
+h2 { font-size: 20px; margin: 36px 0 2px; }
+h2 .count { font-size: 13px; color: var(--muted); font-weight: normal; margin-left: 4px; }
+.intro { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+.starters h2 { margin-top: 24px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.card.hidden, .topic.hidden { display: none; }
+.thumb {
+  position: relative; display: block; aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--ph-a), var(--ph-b));
+}
+.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ph {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-weight: 600; padding: 12px; text-align: center;
+}
+.dur, .seen-badge {
+  position: absolute; bottom: 8px; font-size: 12px; color: #fff; padding: 1px 6px; border-radius: 4px;
+}
+.dur { right: 8px; background: var(--dur-bg); font-variant-numeric: tabular-nums; }
+.seen-badge { left: 8px; background: var(--accent); display: none; }
+.card.seen .seen-badge { display: block; }
+.card.seen .thumb img { opacity: .55; }
+.body { padding: 12px 14px 14px; display: flex; flex-direction: column; flex: 1; }
+h3 { margin: 0; font-size: 15px; line-height: 1.4; }
+h3 a { color: inherit; text-decoration: none; }
+h3 a:hover { color: var(--accent); }
+.meta { margin: 4px 0 8px; color: var(--muted); font-size: 13px; }
+.why { margin: 0 0 10px; font-size: 14px; }
+.ask { margin: 0 0 12px; font-size: 13px; background: var(--ask-bg); border-radius: 8px; padding: 8px 10px; }
+.ask b { display: block; font-size: 12px; color: var(--accent); }
+.actions { gap: 8px; margin-top: auto; }
+.actions button {
+  flex: 1; font: inherit; font-size: 13px; padding: 6px 8px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--bg); color: var(--text);
+}
+.card.seen .btn-seen { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+footer p { margin: 4px 0; }
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--bg);
+  padding: 8px 16px; border-radius: 999px; font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none;
+}
+.toast.show { opacity: 1; }
+@media (max-width: 520px) { h1 { font-size: 24px; } header { padding-top: 24px; } .bar { position: static; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>长视频精选台</h1>
+  <p class="sub">AI × 心理学 · 由 Opus 筛选 · {{UPDATED}} 更新</p>
+  <p class="stats">共 {{TOTAL}} 个视频，链接已逐个核对能播放<span class="js-inline"> · 已看 <b id="seen-count">0</b></span></p>
+</header>
+
+<div class="bar js-only">
+  <div class="chips" id="topic-chips">
+    <button type="button" class="chip on" data-topic="all">全部</button>
+{{CHIPS}}
+  </div>
+  <div class="chips" id="len-chips">
+    <button type="button" class="chip on" data-len="all">任意时长</button>
+    <button type="button" class="chip" data-len="short">20 分钟内</button>
+    <button type="button" class="chip" data-len="mid">20–60 分钟</button>
+    <button type="button" class="chip" data-len="long">1 小时以上</button>
+  </div>
+  <label class="toggle"><input type="checkbox" id="hide-seen"> 隐藏已看</label>
+</div>
+
+<section class="topic starters" data-topic="starter">
+  <h2>今天先看这三个</h2>
+  <p class="intro">一个讲为什么刷短视频停不下来，一个是读懂陈广宇那篇论文的第一步，一个是大模型全景入门。</p>
+  <div class="grid">
+{{STARTERS}}
+  </div>
+</section>
+
+{{SECTIONS}}
+
+<footer>
+  <p>选片说明：Opus 没法亲自看视频，是按作者口碑、课程或机构来源、标题和时长挑的；每个链接都在 {{UPDATED}} 核对过能播放。</p>
+  <p>“已看”只记在这台设备的这个浏览器里。小记模板复制后，粘贴到你的笔记里就行。</p>
+  <p>更新方法：改 videos.json，再运行 python3 build.py 重新生成本页。</p>
+</footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+document.documentElement.classList.add("js");
+(function () {
+  var KEY = "ytc-seen";
+  var seen = {};
+  try { seen = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { seen = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(seen)); } catch (e) {} }
+
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var state = { topic: "all", len: "all", hideSeen: false };
+
+  function paintSeen() {
+    var n = 0, counted = {};
+    cards.forEach(function (c) {
+      var on = !!seen[c.dataset.id];
+      c.classList.toggle("seen", on);
+      c.querySelector(".btn-seen").textContent = on ? "已看 ✓" : "标记已看";
+      if (on && !counted[c.dataset.id]) { counted[c.dataset.id] = 1; n++; }
+    });
+    document.getElementById("seen-count").textContent = n;
+  }
+
+  function applyFilters() {
+    cards.forEach(function (c) {
+      var hide = (state.len !== "all" && c.dataset.len !== state.len) || (state.hideSeen && seen[c.dataset.id]);
+      c.classList.toggle("hidden", !!hide);
+    });
+    document.querySelectorAll(".topic").forEach(function (s) {
+      var t = s.dataset.topic;
+      var topicOk = state.topic === "all" ? true : t === state.topic;
+      var anyVisible = s.querySelector(".card:not(.hidden)");
+      s.classList.toggle("hidden", !topicOk || !anyVisible);
+    });
+  }
+
+  function chipGroup(id, field) {
+    var group = document.getElementById(id);
+    group.addEventListener("click", function (e) {
+      var b = e.target.closest(".chip");
+      if (!b) return;
+      group.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("on", x === b); });
+      state[field] = b.dataset[field];
+      applyFilters();
+    });
+  }
+  chipGroup("topic-chips", "topic");
+  chipGroup("len-chips", "len");
+  document.getElementById("hide-seen").addEventListener("change", function (e) {
+    state.hideSeen = e.target.checked; applyFilters();
+  });
+
+  var toastTimer;
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove("show"); }, 1600);
+  }
+
+  function copyText(text) {
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      toast(ok ? "已复制，粘贴到笔记里" : "复制失败，请手动选择文字");
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { toast("已复制，粘贴到笔记里"); }, fallback);
+    } else { fallback(); }
+  }
+
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+
+  document.addEventListener("click", function (e) {
+    var card = e.target.closest(".card");
+    if (!card) return;
+    if (e.target.closest(".btn-seen")) {
+      var id = card.dataset.id;
+      if (seen[id]) delete seen[id]; else seen[id] = today();
+      save(); paintSeen(); applyFilters();
+    } else if (e.target.closest(".btn-copy")) {
+      var d = card.dataset;
+      copyText(
+        "## " + d.title + "\n" +
+        "- 频道：" + d.channel + "\n" +
+        "- 链接：https://www.youtube.com/watch?v=" + d.id + "\n" +
+        "- 看完日期：" + today() + "\n" +
+        "- 一句话：\n" +
+        "- 最触动我的一点：\n" +
+        "- 带着的问题：" + d.ask + "\n" +
+        "  - 我的回答：\n" +
+        "- （可选）想试的一件事：\n"
+      );
+    }
+  });
+
+  paintSeen();
+  applyFilters();
+})();
+</script>
+</body>
+</html>
