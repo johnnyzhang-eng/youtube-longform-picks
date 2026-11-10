@@ -107,9 +107,13 @@ for z in data["zones"]:
 {chr(10).join(topics_html)}
 </section>""")
 
+rd = next(z["round"] for z in data["zones"] if z.get("round"))
 page = (HERE / "template.html").read_text(encoding="utf-8")
 for k, x in {
     "{{UPDATED}}": data["updated"], "{{TOTAL}}": str(len(js_data)),
+    "{{R_N}}": str(rd["n"]), "{{R_DATE}}": rd["date"], "{{R_RAW}}": str(rd["raw"]), "{{R_LONG}}": str(rd["long"]), "{{R_PICKED}}": str(rd["picked"]),
+    "{{R_LONG_PCT}}": f'{100 * rd["long"] / rd["raw"]:.0f}', "{{R_PICKED_PCT}}": f'{100 * rd["picked"] / rd["raw"]:.0f}',
+    "{{R_CHANNELS}}": str(len(rd["whitelist"])), "{{R_WHITELIST}}": "、".join(escape(c) for c in rd["whitelist"]),
     "{{MAIN_N}}": str(len(steps_html)), "{{STEPS}}": "\n".join(steps_html),
     "{{TOC}}": "\n".join(toc_html), "{{MAINLINE}}": main_html, "{{ZONES}}": "\n".join(zones_html),
     "{{DATA}}": json.dumps(js_data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"),

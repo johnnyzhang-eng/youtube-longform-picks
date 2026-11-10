@@ -202,6 +202,33 @@ h4 a:hover { color: var(--accent); }
 .zone-relax .body, .zone-pool .body { flex: 1; }
 .zone-relax .actions, .zone-pool .actions { margin-top: auto; }
 
+/* how we pick */
+.how { margin-top: 80px; padding-top: 40px; border-top: 2px solid var(--ink); scroll-margin-top: 72px; }
+.how h2 { margin: 0; font: 900 clamp(28px, 4vw, 40px)/1.2 var(--display); letter-spacing: .02em; }
+.how-lede { margin: 12px 0 0; max-width: 38em; font-size: 16px; color: var(--muted); }
+.how h3 { margin: 48px 0 12px; font: 700 20px/1.3 var(--display); }
+.how p, .how > ul { max-width: 44em; }
+.how > ul { padding-left: 1.2em; display: grid; gap: 6px; }
+.how a { color: var(--learn); }
+.gates { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 26px 28px; counter-reset: g; }
+.gates li { counter-increment: g; border-top: 1px solid var(--line); padding-top: 12px; }
+.gates li::before { content: "0" counter(g); font: 600 13px/1 var(--mono); color: var(--learn); }
+.gates b { display: block; margin: 6px 0 4px; font: 700 18px/1.3 var(--display); }
+.gates p { margin: 0; font-size: 14.5px; color: var(--muted); }
+.age { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; max-width: 54em; margin: 14px 0; }
+.age > div { padding: 16px 18px; border-radius: 12px; }
+.age .keep { background: var(--learn-soft); }
+.age .drop { background: var(--relax-soft); }
+.age b { font: 700 16px/1.4 var(--display); }
+.age ul { margin: 8px 0 0; padding-left: 1.2em; font-size: 14.5px; }
+.funnel { display: grid; gap: 12px; max-width: 44em; }
+.funnel div { display: grid; grid-template-columns: 3.4em minmax(0, 1fr); gap: 14px; align-items: start; font-size: 14px; }
+.funnel b { font: 600 22px/1 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.funnel i { display: block; height: 10px; border-radius: 3px; background: var(--learn); margin: 6px 0; }
+.wl { font-size: 13.5px; color: var(--muted); }
+.how-link { margin: 14px 0 0; font-size: 14px; }
+.how-link a, .tb-link { color: var(--learn); }
+.tb-link { font-size: 14px; text-decoration: none; white-space: nowrap; padding: 0 4px; }
 .empty { margin: 56px 0; text-align: center; color: var(--muted); }
 footer { margin-top: 64px; padding: 22px 0 64px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
 footer p { margin: 5px 0; max-width: 62em; }
@@ -281,6 +308,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 }
 @media (max-width: 720px) {
   .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 8px; }
+  .tb-link { display: none; }
   .search { order: 3; flex-basis: 100%; }
   .search input { width: 100%; }
   .zone-learn .v { display: flex; flex-direction: column; gap: 10px; padding: 20px 0; }
@@ -297,6 +325,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 <body>
 <div class="topbar"><div class="wrap topbar-in">
   <a class="brand" href="#top"><span class="logo" aria-hidden="true"></span>长视频精选台</a>
+  <a class="tb-link" href="#how">怎么选片</a>
   <label class="search js-only"><span class="sr">搜索</span><input id="q" type="search" placeholder="搜标题、频道、问题…" autocomplete="off"></label>
   <button type="button" class="tb-btn js-only" id="btn-notes">我的小记 <b id="notes-n">0</b></button>
   <button type="button" class="tb-btn js-only" id="btn-theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
@@ -308,6 +337,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
     <p class="eyebrow">精选 78 个长视频 · 2026-11-10 更新</p>
     <h1>把刷短视频的时间，<br>换成<em>值得看的长视频</em>。</h1>
     <p class="lede">先走一条 6 步的主线，其余按需打开。每个视频都写了为什么看、带着什么问题看；看完用自己的话回答，对照参考要点，过几天再讲一次。</p>
+    <p class="how-link"><a href="#how">这些视频是怎么选出来的 →</a></p>
   </div>
   <aside class="next js-only" id="next" hidden>
     <a class="thumb" id="next-thumb" href="#" data-next><img id="next-img" alt=""><span class="play" aria-hidden="true">▶ 看和记</span><span class="dur" id="next-dur"></span></a>
@@ -532,7 +562,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
 <section class="zone zone-pool" id="z-pool" data-zone="pool">
   <header class="zone-head">
     <h2>候选池</h2><span class="tag">自己挑 · 定期换新</span>
-    <p>第 1 期，2026-11-10 筛的：白名单频道近 90 天的新视频，加上 Hacker News 上的高分视频。没有逐个看过，介绍来自标题和简介。想看哪个直接看。池子定期换新；看完觉得值得留的，会移进轻松看或认真学。</p>
+    <p>第 1 期，2026-11-10 筛的：白名单频道近 90 天的新视频，加上 Hacker News 上的高分视频。没有逐个看过，介绍来自标题和简介。想看哪个直接看。筛选逻辑见页面底部的“我们怎么选片”。池子定期换新；看完觉得值得留的，会移进轻松看或认真学。</p>
   </header>
 <details class="topic branch" id="t-p-ai" data-topic="p-ai" data-kind="pool">
   <summary class="topic-head"><h3>AI：新方法和原理</h3><span class="prog"><span class="num">9 个</span></span></summary>
@@ -2230,6 +2260,58 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-col
     <p class="empty" id="empty" hidden>没有符合条件的视频。</p>
   </main>
 </div>
+
+<section class="how" id="how">
+  <h2>我们怎么选片</h2>
+  <p class="how-lede">YouTube 上的好视频并不少，难的是把它们从海量视频里找出来，同时不被“热门”带着走。这里的视频都是按下面的办法筛出来的。</p>
+
+  <h3>为什么不用关键词和点赞数</h3>
+  <p>关键词只能找到“讲这个话题的视频”，分不出讲得好不好。点赞和播放量量的是受欢迎程度和包装，不是讲得对不对。所以这两样都不作为依据。</p>
+
+  <h3>四道关</h3>
+  <ol class="gates">
+    <li><b>谁做的</b><p>先看作者。长期讲得清楚的作者、大学课程和研究机构进白名单，他们出的新视频直接成为候选。</p></li>
+    <li><b>谁推荐的</b><p>白名单之外的视频，要有内行的推荐才成为候选，比如在 Hacker News 上被顶到高分。几个互不相关的地方都提到同一个视频，更可信。</p></li>
+    <li><b>内容对不对</b><p>看简介、章节和文字稿：它回答什么问题，需要什么基础，和已有的重不重复。和主题无关的在这一步去掉。</p></li>
+    <li><b>看的人说了算</b><p>候选池只是“值得考虑”的一批，看哪个由看的人自己挑。看完觉得值的作者以后多选，总被跳过的少选。</p></li>
+  </ol>
+
+  <h3>新视频和老视频</h3>
+  <p>AI 变化很快，所以这里有意不放一些老视频。判断的办法是看内容属于哪一类，不是只看发布日期。</p>
+  <div class="age">
+    <div class="keep"><b>不会过时，老的照样收</b><ul><li>原理：神经网络怎么学习、注意力机制、数据库怎么存数据</li><li>历史和发展过程</li><li>新技术、新方法的讲解</li></ul></div>
+    <div class="drop"><b>会过时，只收近期的</b><ul><li>某个工具怎么用、提示词技巧</li><li>谈“现在 AI 到了哪一步”的访谈</li><li>对行业的预测</li></ul></div>
+  </div>
+  <p>所以你在这里能看到 2017 年讲神经网络的视频，却看不到 2024 年谈 AI 现状的播客。前者今天仍然是很好的入门；后者说的“最新进展”早已不新。</p>
+
+  <h3>时长</h3>
+  <p>候选池只收 15 分钟以上的。单个视频默认不超过 2 小时 30 分，可以分段看；课程和讲座超过 1 小时很正常。主线和资料库里有几个更短的，是因为它们正好把一件事讲清楚。长不等于好，时长只用来排除零碎的片段。</p>
+
+  <h3>这一期是怎么筛出来的</h3>
+  <p>第 1 期候选池，2026-11-10：</p>
+  <div class="funnel">
+    <div><b>109</b><span><i style="width:100%"></i>24 个白名单频道近 90 天的新视频，加上 Hacker News 上超过 100 分的 YouTube 链接</span></div>
+    <div><b>70</b><span><i style="width:64%"></i>去掉 15 分钟以下的和打不开的</span></div>
+    <div><b>30</b><span><i style="width:28%"></i>过第三道关：去掉和主题无关的、超过时长的、重复的，放进候选池</span></div>
+  </div>
+  <p class="wl">白名单里的 24 个频道：3Blue1Brown、Andrej Karpathy、Dwarkesh Patel、Anthropic、Veritasium、AI Engineer、bycloud、Jia-Bin Huang、CMU Database Group、Lex Fridman、Welch Labs、Machine Learning Street Talk、Yannic Kilcher、Numberphile、Quanta Magazine、Computerphile、Databricks、Data Council、Y Combinator、Stanford Online、The Royal Institution、Acquired、Sean Carroll、Latent Space。</p>
+
+  <h3>要说清楚的几件事</h3>
+  <ul>
+    <li>选片的是 AI（Opus 和 Fable），另外两个 AI（Codex 和 Kimi）独立审过一轮。它们没有逐个看完视频，介绍来自标题、简介和作者的讲义。</li>
+    <li>主线 6 步的问题和参考要点，逐条对照过作者公开的讲义原文。其余的参考要点标了“未核对”。</li>
+    <li>已知的缺口：心理学类的来源还不够；Hacker News 偏技术，高分里也有和主题无关的内容，要靠第三道关去掉。</li>
+  </ul>
+
+  <h3>接下来：自动更新打算怎么做</h3>
+  <ul>
+    <li>每周自动收集一次前两道关的候选：读白名单频道的更新，查 Hacker News 的高分链接。不用付费接口，不让大模型按标题打分。</li>
+    <li>第三道关仍然由人和 AI 按<a href="https://github.com/johnnyzhang-eng/youtube-longform-picks/blob/main/docs/selection-criteria.md" target="_blank" rel="noopener">成文的选片标准</a>判断。</li>
+    <li>候选池有上限、会过期，不发通知。它是一个可以挑的池子，不是要刷完的信息流。</li>
+    <li>学习主线不自动更新，每次改动都要有理由。</li>
+  </ul>
+  <p>觉得哪一步不对，或者有更好的办法，欢迎到 <a href="https://github.com/johnnyzhang-eng/youtube-longform-picks/issues/7" target="_blank" rel="noopener">GitHub 上的这个讨论</a>里说。</p>
+</section>
 
 <footer>
   <p>选片：由 Opus 和 Fable 按作者口碑、课程或机构来源、标题和时长挑选，没有逐个看过。主线和数学补给的问题、参考要点对照过作者公开的讲义原文；标“未核对”的按通用知识写成，仅供参考。每个链接都在 2026-11-10 核对过能播放。</p>
